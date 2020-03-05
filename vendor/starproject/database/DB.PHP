@@ -7,8 +7,6 @@ use PDOException;
 use starproject\database\DBcon;
 
 class DB extends DBcon{
-    //con fails
-    public $err;
 
     public function con(){
         try{
@@ -20,8 +18,8 @@ class DB extends DBcon{
             $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $db;
             }catch(PDOException $Exception){
-                $this->err = $Exception->getMessage() . (int)$Exception->getCode();
-                return $this->err;
+                $err = $Exception->getMessage() . (int)$Exception->getCode();
+                return dump($err);
             }
     }
 }
