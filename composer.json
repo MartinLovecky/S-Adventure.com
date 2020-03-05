@@ -1,0 +1,26 @@
+{
+    "name": "marthas-lovecky/star-advanture",
+    "description": "PHP BLADE project",
+    "type": "project",
+    "require": {
+        "eftec/bladeone": "^3.36@dev",
+        "felixfbecker/language-server": "dev-master"
+    },
+    "require-dev": {
+        "phpmailer/phpmailer": "dev-master",
+        "symfony/var-dumper": "^5.1@dev"
+    },
+    "authors": [
+        {
+            "name": "Marthas Lovecky",
+            "email": "respect9888@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+
+    "autoload": {
+        "psr-4": {
+            "starproject\\": "vendor/starproject/"
+        }
+    }
+}
