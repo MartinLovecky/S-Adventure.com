@@ -2,7 +2,7 @@
 
 use \starproject\tools\Forms;
 use \eftec\bladeone\BladeOne;
-use \starproject\database\DB;
+use \starproject\database\DB as DataBase;
 use \starproject\http\Router;
 use \starproject\tools\Mailer;
 use \starproject\tools\Messages;
@@ -19,13 +19,13 @@ $views = DIR . '/resources/views';
 $cache = DIR . '/tmp/cache';
 $blade = new BladeOne($views,$cache,BladeOne::MODE_AUTO);
 $blade->setBaseUrl(DIR .'/public/');
-$db = new DB;
+$db = new DataBase;
 $mail = new Mailer;
 $message = new Messages;
 $articles = new Articles;
 $selector = new Selector;
 $router = new Router;
-$HForm = new Forms;
+$hform = new Forms;
 $member = new Member($db,$selector);
 $validation = new Validation($db,$message);
 $requestController = new RequestController;
