@@ -1,8 +1,8 @@
-@if (!$selector->get('logged'))
+@if (!$selector->get('logged',$member))
 	@include('layouts.app')
 		<div class="login-dark"> {{-- target => [folder.file],data] --}}
-		{!! $HForm->options(['target'=>['app.RequestHandler',['request'=>$request]],'method'=>'POST','class'=>'text-center'])->open($blade)!!}
-	<?php require(DIR.'/resources/others/messages.php'); ?>
+		{!! $hform->options(['target'=>['app.RequestHandler',['request'=>$request]],'method'=>'POST','class'=>'text-center'])->open($blade)!!}
+	<?php //require(DIR.'/resources/others/messages.php'); ?>
 		<div class="form-group"><input type="text" name="username" value="@isset($username){{$username}}@endisset" placeholder="Uživatel" class="form-control" required/></div>
 		<div class="form-group"><input type="email" name="email" value="@isset($email){{$email}}@endisset" placeholder="Email" class="form-control" required/></div>
 		<div class="form-group"><input type="password" name="password" placeholder="Heslo" class="form-control" required/></div>
@@ -12,7 +12,7 @@
 		<hr/>
 		<div class="g-recaptcha" id='recaptcha' data-sitekey="6LdKkYEUAAAAAE5Ykg8LY5gOPNXzgTyIG3FVuCqM" data-badge="inline" data-size="invisible" data-callback="onSubmit"></div>
 		<input type="hidden" name="type" value='register'>   
-		{!! $HForm->close() !!}
+		{!! $hform->close() !!}
 		<script>onload();</script>
 	</div>
 	</body>

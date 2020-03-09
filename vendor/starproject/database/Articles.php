@@ -6,7 +6,7 @@ class Articles
  
     private $id;
     private $Articles = [
-            'Allwin'=>[
+            'Allwin'=>['description'=>'',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -25,7 +25,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Samuel'=>[
+                'Samuel'=>['description'=>'',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -44,7 +44,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Isama'=>[
+                'Isama'=>['description'=>'',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -63,7 +63,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Isamanh'=>[
+                'Isamanh'=>['description'=>'',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -82,7 +82,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Isamanw'=>[
+                'Isamanw'=>['description'=>'',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -101,7 +101,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Angel'=>[
+                'Angel'=>['description'=>'',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -120,7 +120,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Mry'=>[
+                'Mry'=>['description'=>'',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -139,7 +139,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Star'=>[
+                'Star'=>['description'=>'',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -158,7 +158,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Hyperion'=>[
+                'Hyperion'=>['description'=>'',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -177,7 +177,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Terror'=>[
+                'Terror'=>['description'=>'',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -196,7 +196,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Demoni'=>[
+                'Demoni'=>['description'=>'',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],

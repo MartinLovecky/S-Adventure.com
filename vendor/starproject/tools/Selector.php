@@ -14,7 +14,7 @@ public function __construct(){
     $this->action = $this->url[1]; // this is set all time
     $this->article = (isset($this->url[2])) ? $this->url[2] : 'empty'; 
     $this->page = (isset($this->url[3])) ? $this->url[3] : 'empty';
-    $this->allowed = ['login','logout','register','','reset','resetPassword','activate','member','404','terms','vop','index','test','show','create','update','delete','allwin','samuel','isama','isamanh','isamanw','angel','mry','star','terror','demoni'];
+    $this->allowed = ['editor','roster','login','logout','register','','reset','resetPassword','activate','member','404','terms','vop','index','test','show','create','update','delete','allwin','samuel','isama','isamanh','isamanw','angel','mry','star','terror','demoni'];
 }
 public function title(){
     if($this->action === ''){
@@ -25,15 +25,31 @@ public function title(){
         return $this->action;
 }
 public function viewName(){
-    if($this->action != ''){
-        if (in_array($this->action,$this->allowed)) {
-            return $this->action; 
+    if(in_array($this->action,$this->allowed)){
+        switch($this->action){
+        case '':
+        return 'index'; 
+            break;
+        case 'show':
+        return 'roster'; 
+            break;
+        case 'create':
+        return 'editor'; 
+            break;
+        case 'delete':
+        return 'editor'; 
+            break;
+        case 'update':
+        return 'editor'; 
+            break;                
+        default:        
+        return $this->action;
+        break;
         }
-    } //if user is on non-allowed page function action take place and in router user gets 404.
-            return 'index';
-        if (\count($this->url) > 3) {
-            return '404';
-        }
+    }
+    if (\count($this->url) > 3) {
+        return '404';
+    }
 }
 public function allowedView(){
     // return true false
