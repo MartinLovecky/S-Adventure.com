@@ -28,8 +28,6 @@ $validation = new Validation($db,$message);
 $requestController = new RequestController;
 $articlesController = new ArticlesController;
 
-
-//$container['ArticleController'] = new ArticleController($container);
 // $blade->setAuth($username, $role, $permissions);
 
 // Insert all necesary variables for ALL views here

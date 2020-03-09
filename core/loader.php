@@ -17,6 +17,7 @@
     // blade @asset ussing any online storage
     $blade->addAssetDict('css.Form-Dark.css','http://staradventure.xf.cz/views/includes/assets/css/Login-Form-Dark.css');
     $blade->addAssetDict('css.styles.css','http://staradventure.xf.cz/views/includes/assets/css/styles.min.css');
+    $blade->addAssetDict('css.project-horizont.css','http://staradventure.xf.cz/views/includes/assets/css/project-horizont.min.css');
     $blade->addAssetDict('img.beruska.jpg','http://staradventure.xf.cz/views/includes/assets/img/avatars/editor.jpg');
     $blade->addAssetDict('img.sensei.jpg','http://staradventure.xf.cz/views/includes/assets/img/avatars/sensei.jpeg');   
     $blade->addAssetDict('img.torag.jpg','http://staradventure.xf.cz/views/includes/assets/img/avatars/torag.jpg');

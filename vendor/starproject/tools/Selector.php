@@ -14,7 +14,7 @@ public function __construct(){
     $this->action = $this->url[1]; // this is set all time
     $this->article = (isset($this->url[2])) ? $this->url[2] : 'empty'; 
     $this->page = (isset($this->url[3])) ? $this->url[3] : 'empty';
-    $this->allowed = ['editor','roster','login','logout','register','','reset','resetPassword','activate','member','404','terms','vop','index','test','show','create','update','delete','allwin','samuel','isama','isamanh','isamanw','angel','mry','star','terror','demoni'];
+    $this->allowed = ['editor','roster','login','logout','register','','reset','resetPassword','activate','member','404','terms','vop','index','test','show','create','update','delete','allwin','samuel','isama','isamanh','isamanw','angel','mry','star','terror','demoni','hyperion'];
 }
 public function title(){
     if($this->action === ''){
@@ -25,7 +25,7 @@ public function title(){
         return $this->action;
 }
 public function viewName(){
-    if(in_array($this->action,$this->allowed)){
+    if(in_array($this->action,$this->allowed) && $this->article == 'empty'){
         switch($this->action){
         case '':
         return 'index'; 
@@ -47,9 +47,13 @@ public function viewName(){
         break;
         }
     }
-    if (\count($this->url) > 3) {
+    if(isset($this->article) && in_array($this->article,$this->allowed)){
+        return 'article';
+    }
+    if (\count($this->url) >= 4) {
         return '404';
     }
+    return '404';
 }
 public function allowedView(){
     // return true false
