@@ -26,7 +26,7 @@ $hform = new Forms;
 $member = new Member($db,$selector);
 $validation = new Validation($db,$message);
 $requestController = new RequestController;
-$articlesController = new ArticlesController;
+$articlesController = new ArticlesController($selector);
 
 // $blade->setAuth($username, $role, $permissions);
 

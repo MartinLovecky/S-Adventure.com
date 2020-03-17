@@ -6,8 +6,7 @@ use starproject\database\costumers\Member;
 
 class Selector{
 
-public $url,$action,$article,$page;    
-private $allowed;
+public $url,$action,$article,$page,$allowed;
 
 public function __construct(){
     $this->url = explode('/',trim(str_replace(['-','_','#','<','(','{','!',','],' ',urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)))));
@@ -15,6 +14,7 @@ public function __construct(){
     $this->article = (isset($this->url[2])) ? $this->url[2] : 'empty'; 
     $this->page = (isset($this->url[3])) ? $this->url[3] : 'empty';
     $this->allowed = ['editor','roster','login','logout','register','','reset','resetPassword','activate','member','404','terms','vop','index','test','show','create','update','delete','allwin','samuel','isama','isamanh','isamanw','angel','mry','star','terror','demoni','hyperion'];
+    $this->allowedPage = [range(1,300)];
 }
 public function title(){
     if($this->action === ''){
@@ -61,20 +61,6 @@ public function allowedView(){
         return true; 
     }
         return false; 
-}
-public function emptyArticle(){
-    if($this->article != 'empty' && \is_string($this->article)){
-        return true;
-    }
-        return false;
-}
-public function emptyPage(){
-    if( \is_int($this->page) || \is_string($this->page)){
-        return true;
-    }
-    if($this->page == 'empty'){
-        return false;
-    }
 }
 public function query(){
     return (isset($_SERVER["QUERY_STRING"])) ?? null;

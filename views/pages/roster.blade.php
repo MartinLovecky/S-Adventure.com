@@ -7,7 +7,7 @@
             @foreach ($articles->names as $ArticleName)
             <div class="col-sm-6 item">
                 <div class="row">
-                    <div class="col-md-12 col-lg-5"><a href="#"><img src="desk.jpg" class="img-fluid" alt="{{$ArticleName}}" /></a></div>
+                    <div class="col-md-12 col-lg-5"><img src="desk.jpg" class="img-fluid" alt="{{$ArticleName}}" /></div>
                     <div class="col">
                         <h3 class="name">{{$ArticleName}}</h3>
                     <p class="text-left description">{{$articles->all[$ArticleName]['description']}}</p>
