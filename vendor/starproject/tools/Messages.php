@@ -37,7 +37,7 @@ class Messages{
                     return $this->message(['success'=>'Záložka uložena']);
                 break;
                 case 'check':
-                    return $this->message(['error'=>'Registrací souhlasíte se smluvníma podmínkama a ochranou soukromí a souhlasem potvrzujete že jste si je přečetl']);
+                    return $this->message(['error'=>'Registrací souhlasíte se smluvníma podmínkama a ochranou soukromí']);
                 break;
                 case 'profilUpdate':
                     return $this->message(['success'=>'Profil aktualizován']);
@@ -63,6 +63,7 @@ class Messages{
                 case 'joined':
                     return $this->message(['error'=>'Registrace úspěšná, pro aktivovaní účtu zkotrolujte email']);
                 break;
+                default: null;
             }
         }
         return null;

@@ -18,8 +18,12 @@ class DB extends DBcon{
             $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         return $db;
             }catch(PDOException $Exception){
+                if($Exception->getCode() == 2002){
+                   return null;
+                }
                 $err = $Exception->getMessage() . (int)$Exception->getCode();
-                return dump($err);
+                throw new PDOException($err); 
+                
             }
     }
 }

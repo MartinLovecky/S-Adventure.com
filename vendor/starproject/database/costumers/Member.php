@@ -9,11 +9,11 @@ use starproject\database\costumers\Password;
 class Member extends Password{
 
     private $_db,$_query;
-    public $username;
+    public $username = 'visitor',$role = 'none',$permit = 'read';
     protected $memberID;
 
     public function __construct(DB $db,Selector $selector){
-        $this->_db = $db->con();
+        $this->_db = $db->con();    
         $this->_query = $selector->query();
         $this->username = (isset($_SESSION['username'])) ?? null; 
     }
@@ -23,6 +23,7 @@ class Member extends Password{
         $stmt->execute([':username'=>$username,'active'=>$activation]);
         $this->memberID = (int)$stmt->fetch();
         return $this->memberID;
+        
     }
     public function uniqueUser($username){
        // this is validation 
@@ -113,14 +114,12 @@ class Member extends Password{
         return null;
     }
     public function permition(){
-        if(!isset($this->memberID)){    
-           return 'visitor';
-        }
         try{
         $stmt = $this->_db->prepare('SELECT permition FROM members WHERE memberID = :memberID');
         $stmt->execute([':memberID'=>$this->memberID]);
-        $permition = $stmt->fetch();
-            return $permition['permition'];
+        $result = $stmt->fetch();
+        $this->permit = $result['permition'];
+            return $this->permit;
         }catch(PDOException $Exception){
             $err = $Exception->getMessage() . (int)$Exception->getCode();
             return dump($err);

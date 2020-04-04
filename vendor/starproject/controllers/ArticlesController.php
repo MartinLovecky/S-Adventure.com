@@ -9,17 +9,9 @@ use starproject\arraybasics\MultiDimensional;
 
 class ArticlesController extends Articles{
 
-    public $all,$urls,$img;
-    private $_selector,$_ArticleArray;
+    public $all,$urls,$img,$names;
+    private $_selector,$_buffer;
     
-    private function _ArrayName(){
-        if($selector->article != 'empty' && $selector->page != 'empty'){
-            $this->_ArticleArray = $this->all[ucfirst($this->_selector->article)][$this->_selector->page];
-            return $this->_ArticleArray;
-        }
-        return null;
-    }
-
     public function __construct(Selector $selector){
         $this->all = $this->getArticles();
         $this->names = array_keys($this->getArticles());
@@ -65,9 +57,12 @@ class ArticlesController extends Articles{
             $r_smallH2 = isset($router->request['smallH2']) ?? '';
             $r_body = isset($router->request['body']) ?? '';
             // UPDATE
-            if($this->_ArrayName() !== null){
-                $this->_ArticleArray = ['chapter'=>$r_chapter,'nadpisH1'=>$r_nadpisH1,'nadpisH2'=>$r_nadpisH2,'smallH2'=>$r_smallH2,'body'=>$r_body];
-                return '<div role="alert" class="alert alert-success text-center text-success"><span>Úspěšne upraveno</span></div>';
+            if($this->_SetAllowed()){
+                $this->_buffer = ['chapter'=>$r_chapter,'nadpisH1'=>$r_nadpisH1,'nadpisH2'=>$r_nadpisH2,'smallH2'=>$r_smallH2,'body'=>$r_body];
+                $this->all[ucfirst($this->_selector->article)][$this->_selector->page] = $this->_buffer;
+                if(strlen($this->all[ucfirst($this->_selector->article)][$this->_selector->page]['body']) > 0){
+                    return '<div role="alert" class="alert alert-success text-center text-success"><span>Úspěšne upraveno</span></div>';
+                }
             }
                 return '<div role="alert" class="alert alert-danger text-center text-danger"><span>Příběh a stránka musí být v URL zadaná</span></div>';
         }
@@ -80,5 +75,8 @@ class ArticlesController extends Articles{
         // ADD new to existing
         $this->_ArticleArray = $router->request['page'];
 
+    }
+    public function delete(){
+        
     }
 }

@@ -6,7 +6,7 @@ use starproject\database\costumers\Member;
 
 class Selector{
 
-public $url,$action,$article,$page,$allowed;
+public $url,$action,$article,$page,$allowed,$_query;
 
 public function __construct(){
     $this->url = explode('/',trim(str_replace(['-','_','#','<','(','{','!',','],' ',urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)))));
@@ -15,6 +15,7 @@ public function __construct(){
     $this->page = (isset($this->url[3])) ? $this->url[3] : 'empty';
     $this->allowed = ['editor','roster','login','logout','register','','reset','resetPassword','activate','member','404','terms','vop','index','test','show','create','update','delete','allwin','samuel','isama','isamanh','isamanw','angel','mry','star','terror','demoni','hyperion'];
     $this->allowedPage = [range(1,300)];
+    $this->_query = $_GET['action'] ?? null;
 }
 public function title(){
     if($this->action === ''){
@@ -61,9 +62,6 @@ public function allowedView(){
         return true; 
     }
         return false; 
-}
-public function query(){
-    return (isset($_SERVER["QUERY_STRING"])) ?? null;
 }
 public function get(String $string,Member $member){
     list($logged,$member,$memberID,$name,$surname,$avatar,$age,$location) = $member->is_logged_in();

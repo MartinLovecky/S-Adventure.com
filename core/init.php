@@ -17,20 +17,32 @@ require(DIR . '/vendor/autoload.php');
 
 $blade = new BladeOne(DIR.'/views',DIR.'/tmp',BladeOne::MODE_AUTO);
 $db = new DataBase;
+$message = new Messages; 
+# Check Fail DB con !! 
+if($db->con() === null)
+{   
+    echo 'Please write email to respect9888@gmail.com with Subject: SA-2002 and Message: Database conection fail';
+    die;
+}
 $mail = new Mailer;
-$message = new Messages;
-$articles = new Articles; //maybe not needed
+$articles = new Articles; 
 $selector = new Selector;
 $router = new Router;
 $hform = new Forms;
 $member = new Member($db,$selector);
 $validation = new Validation($db,$message);
-$requestController = new RequestController;
+$requestController = new RequestController($validation,$member,$db);
 $articlesController = new ArticlesController($selector);
 
 // $blade->setAuth($username, $role, $permissions);
 
 // Insert all necesary variables for ALL views here
-$router->data = ["blade"=>$blade,"request"=>$router->request,"selector"=>$selector,'message'=>$message,'hform'=>$hform,'member'=>$member,'articles'=>$articlesController];
-
+$router->data = ["blade"=>$blade,"request"=>$router->request,"selector"=>$selector,'message'=>$message,'hform'=>$hform,'member'=>$member,'articles'=>$articlesController,'requestController'=>$requestController];
+/*
+$blade->setCanFunction(function($action, $subject = null) {
+    // Perform your permissions checks here
+    
+    return true;
+});
+*/
 ?>
