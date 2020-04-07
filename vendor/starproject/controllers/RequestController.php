@@ -17,12 +17,13 @@ public function __construct(Validation $validation,Member $member, DB $db){
 }
 
 public function _register($request){
-    if(!empty($request) && $request['type'] == 'register'){
-        $validation = $this->_validation->validate($request);
+    if(!empty($request)){
+    if($request['type'] == 'register'){
+        $validation = $this->_validation->validateRegister($request);
         if(isset($validation['message'])){
             return ['message'=>$validation['message'],['old_email'=>$request['email'],'old_username'=>$request['username']]];      
         }
-        $hashedpassword = $this->_member->password_hash($validation['password'], PASSWORD_BCRYPT);
+        $hashedpassword = password_hash($validation['password'], PASSWORD_DEFAULT);
         $activation = md5(uniqid(rand(),true));        
         try{
             // Insert valid data to db && return data for submit
@@ -33,18 +34,49 @@ public function _register($request){
             return ['message'=>$e->getMessage().(int)$e->getCode()];
         }
     }
+    }
+    return null;
+}
+
+public function _login($request){
     return null;
 }
 
 public function submit($request){
     if(!empty($request)){
-        $register = $this->_register($request);
-        if(isset($register)){
-            
+    $register = $this->_register($request);
+        if(\in_array('message',$register)){
+            return $register['message'];
         }
+        if(!\in_array('message',$register)){
+            $id = $register['id'];
+            $to = $register['to'];
+            $subject = "Potvrzení registrace";
+            $activasion = $register['activasion'];
+            $username = $register['username'];
+            require(DIR."/public/templates/email.php"); 
+            $this->_mail->Body = $body;
+            $this->_mail->Host = "smtp.gmail.com";
+            $this->_mail->SMTPDebug = 2;
+            $this->_mail->CharSet = "UTF-8";
+            $this->_mail->SMTPAuth = true;
+            $this->_mail->Username = $this->_mail->_email; // create 'web-email'
+            $this->_mail->Password = $this->_mail->_paswword; // maybe wrong pwd
+            $this->_mail->SMTPSecure = "tls";
+            $this->_mail->Port = 587;
+            $this->_mail->subject($subject);
+            $this->_mail->isHTML(true);
+            $this->_mail->body($body);
+            $this->_mail->setFrom("noreply@example.com","example.com");
+            $this->_mail->addAddress($to);
+            $this->_mail->addAttachment("public/images/attachment/help.png");
+            if($this->_mail->send()){
+                \header("Location: http://staradventure.xf.cz/register?action=joined"); exit;
+            }
+        }
+    $login = $this->_login($request);    
     }
-    return null;
+    return null; 
 }
-
     
 }

@@ -2,20 +2,19 @@
 
 namespace starproject\tools;
 
+use starproject\fundemation\Config;
 use starproject\database\costumers\Member;
 
-class Selector{
-
-public $url,$action,$article,$page,$allowed,$_query;
+class Selector extends Config{
 
 public function __construct(){
     $this->url = explode('/',trim(str_replace(['-','_','#','<','(','{','!',','],' ',urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)))));
     $this->action = $this->url[1]; // this is set all time
     $this->article = (isset($this->url[2])) ? $this->url[2] : 'empty'; 
     $this->page = (isset($this->url[3])) ? $this->url[3] : 'empty';
-    $this->allowed = ['editor','roster','login','logout','register','','reset','resetPassword','activate','member','404','terms','vop','index','test','show','create','update','delete','allwin','samuel','isama','isamanh','isamanw','angel','mry','star','terror','demoni','hyperion'];
-    $this->allowedPage = [range(1,300)];
-    $this->_query = $_GET['action'] ?? null;
+    $this->allowedAction = ['editor','roster','login','logout','register','','reset','resetPassword','activate','member','404','terms','vop','index','test','show','create','update','delete','allwin','samuel','isama','isamanh','isamanw','angel','mry','star','terror','demoni','hyperion'];
+    $this->allowedPages = [range(1,300)];
+    $this->queryAction = $_GET['action'] ?? null;
 }
 public function title(){
     if($this->action === ''){
@@ -26,7 +25,7 @@ public function title(){
         return $this->action;
 }
 public function viewName(){
-    if(in_array($this->action,$this->allowed) && $this->article == 'empty'){
+    if(in_array($this->action,$this->allowedAction) && $this->article == 'empty'){
         switch($this->action){
         case '':
         return 'index'; 
@@ -48,7 +47,7 @@ public function viewName(){
         break;
         }
     }
-    if(isset($this->article) && in_array($this->article,$this->allowed)){
+    if(isset($this->article) && in_array($this->article,$this->allowedAction)){
         return 'article';
     }
     if (\count($this->url) >= 4) {
@@ -58,7 +57,7 @@ public function viewName(){
 }
 public function allowedView(){
     // return true false
-    if (in_array($this->action,$this->allowed)) {
+    if (in_array($this->action,$this->allowedAction)) {
         return true; 
     }
         return false; 

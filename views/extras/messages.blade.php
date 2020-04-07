@@ -1,9 +1,9 @@
-<?php
+<?php  
 // this look like selector
 $AllBags = ['register'=>$requestController->_register($request),'login'=>null];
 $CurrentBag = array_filter($AllBags);
 // messages for ?action='something'
-$msg = $message->_getAction($selector->_query);
+$msg = $message->_getAction($selector->queryAction);
 
 if(!empty($CurrentBag)){
     foreach($CurrentBag as $key =>$value){

@@ -14,7 +14,7 @@ class Member extends Password{
 
     public function __construct(DB $db,Selector $selector){
         $this->_db = $db->con();    
-        $this->_query = $selector->query();
+        $this->_query = $selector->queryAction;
         $this->username = (isset($_SESSION['username'])) ?? null; 
     }
     public function getMemberID($username,$activation){

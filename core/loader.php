@@ -2,7 +2,7 @@
     //start app
     ob_start();
     session_start();
-    define('DIR','C:\xampp\htdocs\StarAdventure'); 
+    define('DIR',$_SERVER['DOCUMENT_ROOT']); 
 
     // INIT classes
     require(DIR . '/core/init.php');
