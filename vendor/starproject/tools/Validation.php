@@ -14,7 +14,7 @@ public function __construct(DB $db,Messages $message){
     $this->_message = $message;
 }
 public function validateRegister($request){
-    if($request['type'] == 'register' && $request['persistent_register'] == 'yes'){  
+    if($request['persistent_register'] == 'yes'){  
         $username = htmlentities($request['username'], ENT_QUOTES, 'UTF-8');
         $email = htmlspecialchars_decode($request['email'],ENT_QUOTES);
         $password = htmlentities($request['password'], ENT_QUOTES, 'UTF-8');
@@ -36,5 +36,15 @@ public function validateRegister($request){
     }else{
             return ['message'=>$this->_message->message(['error'=>'Pro úspěšnou registraci musíte souhlasit s VOP a Terms'])];
     }
+}
+public function validateLogin($request){
+    $username = htmlentities($request['username'], ENT_QUOTES, 'UTF-8');
+    $password = htmlentities($request['password'], ENT_QUOTES, 'UTF-8');
+    if (strlen($username) < 4) return ['message'=>$this->_message->message(['error'=>'Uživatelskí jméno musí obsahovat více jak 4 znaky'])];
+	if (strlen($username) > 11) return ['message'=>$this->_message->message(['error'=>'Uživatelskí jméno nesmí obsahovat více jak 11 znaků'])];
+    if (!ctype_alnum($username)) return ['message'=>$this->_message->message(['error'=>'Uživatelskí jméno má nesprávný tvar'])];
+    if (strlen($password) < 5) return ['message'=>$this->_message->message(['error'=>'Heslo musí být delší jak 5 znaků'])];
+    // TODO: DataBase check Based on Username = we can have only unique users => Inside Register is check for unique Users
+	return ['username'=>$username,'password'=>$password];
 }
 }

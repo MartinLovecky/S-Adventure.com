@@ -1,10 +1,17 @@
 <?php
 
-/*
-    Take any Request from LOGIN , REGISTER , RESET , CONTACT and run magic
-     request is empty array if not submited
-*/
+if(!empty($request))
+{
+   switch ($request['type']) {
+       case 'register':
+           $requestController->submitRegister($request);
+           break;
+       case 'login':
+           $requestController->submitLogin($request);
+           break;          
 
-$requestController->submit($request);
+       
+   }
+}
 
 ?>

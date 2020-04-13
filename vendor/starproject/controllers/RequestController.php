@@ -17,14 +17,13 @@ public function __construct(Validation $validation,Member $member, DB $db){
 }
 
 public function _register($request){
-    if(!empty($request)){
-    if($request['type'] == 'register'){
-        $validation = $this->_validation->validateRegister($request);
-        if(isset($validation['message'])){
-            return ['message'=>$validation['message'],['old_email'=>$request['email'],'old_username'=>$request['username']]];      
-        }
-        $hashedpassword = password_hash($validation['password'], PASSWORD_DEFAULT);
-        $activation = md5(uniqid(rand(),true));        
+    // Validate REGISTER REQUEST 
+    $validation = $this->_validation->validateRegister($request);
+    if(isset($validation['message'])){
+        return ['message'=>$validation['message'],['old_email'=>$request['email'],'old_username'=>$request['username']]];      
+    }
+    $hashedpassword = password_hash($validation['password'], PASSWORD_DEFAULT);
+    $activation = md5(uniqid(rand(),true));        
         try{
             // Insert valid data to db && return data for submit
             $stmt = $this->_db->prepare("INSERT INTO members (username,password,email,active,permition,avatar) VALUES (:username, :password, :email, :active, :permition, :avatar)");
@@ -33,22 +32,24 @@ public function _register($request){
         }catch(PDOException $e){
             return ['message'=>$e->getMessage().(int)$e->getCode()];
         }
-    }
-    }
     return null;
 }
 
 public function _login($request){
-    return null;
+   $validation = $this->_validation->validateLogin($request);
+   if(isset($validation['message'])){
+       return ['message'=>$validation['message'],['old_Username'=>$request['username']]];
+   }
+        return ['username'=>$validation['username'],'password'=>$validation['password']];
 }
 
-public function submit($request){
-    if(!empty($request)){
+public function submitRegister($request){
+
     $register = $this->_register($request);
-        if(\in_array('message',$register)){
-            return $register['message'];
-        }
-        if(!\in_array('message',$register)){
+    if(\in_array('message',$register)){
+        return $register['message'];
+    }
+    if(!\in_array('message',$register)){
             $id = $register['id'];
             $to = $register['to'];
             $subject = "Potvrzení registrace";
@@ -71,12 +72,27 @@ public function submit($request){
             $this->_mail->addAddress($to);
             $this->_mail->addAttachment("public/images/attachment/help.png");
             if($this->_mail->send()){
-                \header("Location: http://staradventure.xf.cz/register?action=joined"); exit;
+                \header("Location: http://staradventure.xf.cz/login?action=joined"); exit;
             }
-        }
-    $login = $this->_login($request);    
     }
     return null; 
 }
+
+public function submitLogin($request){
+    // Take correct info and login check for login errors
+    $login = $this->_login($request);
+    if(\in_array('message',$login)){
+        return ['message'=>$validation['message']];
+    }
+    if(!\in_array('message',$login)){
+        $username = $login['username'];
+        $password = $login['password'];
+        if($member->login($username,$password)){
+            \header("Location: http://staradventure.xf.cz/member/$username"); exit;
+        }
+    }
+    return null;
     
+}
+
 }

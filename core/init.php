@@ -18,17 +18,19 @@ require(DIR . '/vendor/autoload.php');
 $blade = new BladeOne(DIR.'/views',DIR.'/tmp',BladeOne::MODE_AUTO);
 $db = new DataBase;
 $message = new Messages; 
-# Check Fail DB con !! 
-if($db->con() === null)
-{   
-    echo 'Please write email to respect9888@gmail.com with Subject: SA-2002 and Message: Database conection fail';
-    die;
-}
 $mail = new Mailer;
 $articles = new Articles; 
 $selector = new Selector;
 $router = new Router;
 $hform = new Forms;
+# Check Fail DB con !! 
+if($db->con() === null)
+{   
+echo 'Please write email to '.$mail->_email.' with Subject: SA-2002 and Message: Database conection fail'; die;
+}
+
+dump($_SESSION); die;
+
 $member = new Member($db,$selector);
 $validation = new Validation($db,$message);
 $requestController = new RequestController($validation,$member,$db);
