@@ -4,6 +4,7 @@
 Localhost test website using Blade engine
 
 ###Visual code extensions
+
 [BetterComments](https://github.com/aaron-bond/better-comments)
 [LaravelBladeSnippets](https://github.com/onecentlin/laravel-blade-snippets-vscode)
 [PHPNamespaceResolver](https://github.com/MehediDracula/PHP-Namespace-Resolver)
