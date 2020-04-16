@@ -40,7 +40,7 @@ public function _login($request){
    if(isset($validation['message'])){
        return ['message'=>$validation['message'],['old_Username'=>$request['username']]];
    }
-        return ['username'=>$validation['username'],'password'=>$validation['password']];
+       return ['username'=>$validation['username'],'password'=>$validation['password']];
 }
 
 public function submitRegister($request){

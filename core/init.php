@@ -29,8 +29,6 @@ if($db->con() === null)
 echo 'Please write email to '.$mail->_email.' with Subject: SA-2002 and Message: Database conection fail'; die;
 }
 
-dump($_SESSION); die;
-
 $member = new Member($db,$selector);
 $validation = new Validation($db,$message);
 $requestController = new RequestController($validation,$member,$db);

@@ -2,10 +2,11 @@
 
 namespace starproject\tools;
 
-use starproject\tools\Messages;
 use \starproject\database\DB;
+use starproject\tools\Messages;
+use starproject\database\costumers\Password;
 
-class Validation {
+class Validation extends Password{
 
 private $_db,$_message;    
     
@@ -24,7 +25,7 @@ public function validateRegister($request){
         $stmt->execute([":username"=>$username]);
         $row = $stmt->fetch();
     
-        if(!empty($row["username"]))return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno se již používá'])];
+        if(!empty($row['username']))return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno se již používá'])];
         if(empty($username) || empty($email) || empty($password) || empty($password))return ['message'=>$this->_message->error('Všechna pole musí být vyplněna')];
         if (strlen($username) < 4) return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno musí obsahovat minimálně 4 znaky'])];
 		if (strlen($username) > 25) return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno může obsahovat maximálně 25 znaků'])];
@@ -37,6 +38,20 @@ public function validateRegister($request){
             return ['message'=>$this->_message->message(['error'=>'Pro úspěšnou registraci musíte souhlasit s VOP a Terms'])];
     }
 }
+
+public function setSession($username,$password){
+    $stmt = $this->_db->prepare("SELECT `password`, username, memberID FROM members WHERE username = :username AND active='Yes'");
+	$stmt->execute([':username'=>$username]);
+    $row = $stmt->fetch();
+    if($this->password_verify($password,$row['password']) == 1){
+        $_SESSION['loggedin'] = true;
+        $_SESSION['username'] = $row['username'];
+        $_SESSION['memberID'] = $row['memberID'];
+        $_SESSION['email'] = $row['email'];
+        return true;
+    }
+}
+
 public function validateLogin($request){
     $username = htmlentities($request['username'], ENT_QUOTES, 'UTF-8');
     $password = htmlentities($request['password'], ENT_QUOTES, 'UTF-8');
@@ -44,7 +59,11 @@ public function validateLogin($request){
 	if (strlen($username) > 11) return ['message'=>$this->_message->message(['error'=>'Uživatelskí jméno nesmí obsahovat více jak 11 znaků'])];
     if (!ctype_alnum($username)) return ['message'=>$this->_message->message(['error'=>'Uživatelskí jméno má nesprávný tvar'])];
     if (strlen($password) < 5) return ['message'=>$this->_message->message(['error'=>'Heslo musí být delší jak 5 znaků'])];
-    // TODO: DataBase check Based on Username = we can have only unique users => Inside Register is check for unique Users
-	return ['username'=>$username,'password'=>$password];
+    //Check DB
+    $stmt = $this->_db->prepare("SELECT username FROM members WHERE username = :username");
+    $stmt->execute([":username"=>$username]);
+    $row = $stmt->fetch();
+    if($row['username'] !== $username)return['message'=>$this->_message->message(['error'=>'Uživatel nexistuje,<a href="">registrovat ?</a>'])];
+    if ($this->setSession($username,$password))return ['username'=>$username,'password'=>$password];
 }
 }
