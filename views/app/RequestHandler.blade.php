@@ -5,10 +5,13 @@ if(!empty($request))
    switch ($request['type']) {
        case 'register':
            $requestController->submitRegister($request);
-           break;
+        break;
        case 'login':
            $requestController->submitLogin($request);
-           break;          
+        break;
+       case 'reset_send_email':
+            $requestController->submitReset($request);
+        break;              
 
        
    }

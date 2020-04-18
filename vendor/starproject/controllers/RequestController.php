@@ -18,6 +18,7 @@ public function __construct(Validation $validation,Member $member, DB $db){
 
 public function _register($request){
     // Validate REGISTER REQUEST 
+    if(!empty($request)){
     $validation = $this->_validation->validateRegister($request);
     if(isset($validation['message'])){
         return ['message'=>$validation['message'],['old_email'=>$request['email'],'old_username'=>$request['username']]];      
@@ -32,6 +33,7 @@ public function _register($request){
         }catch(PDOException $e){
             return ['message'=>$e->getMessage().(int)$e->getCode()];
         }
+    }
     return null;
 }
 
@@ -41,6 +43,10 @@ public function _login($request){
        return ['message'=>$validation['message'],['old_Username'=>$request['username']]];
    }
        return ['username'=>$validation['username'],'password'=>$validation['password']];
+}
+
+public function _sendResetEmail(){
+    $validation = $this->_validation->validateResetMail($request);
 }
 
 public function submitRegister($request){
@@ -93,6 +99,10 @@ public function submitLogin($request){
     }
     return null;
     
+}
+
+public function submitReset($request){
+    return null;
 }
 
 }
