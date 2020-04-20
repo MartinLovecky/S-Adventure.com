@@ -8,11 +8,12 @@ use \starproject\database\DB;
 
 class RequestController{
 
-private $_validation,$_member,$_db;
+private $_validation,$_member,$_db,$_mail;
 
-public function __construct(Validation $validation,Member $member, DB $db){
+public function __construct(Validation $validation,Member $member, DB $db, Mail $mail){
     $this->_validation = $validation;
     $this->_member = $member;
+    $this->_mail = $mail;
     $this->_db = $db->con();
 }
 
@@ -77,8 +78,8 @@ public function submitRegister($request){
             $this->_mail->SMTPDebug = 2;
             $this->_mail->CharSet = "UTF-8";
             $this->_mail->SMTPAuth = true;
-            $this->_mail->Username = $this->_mail->_email; // create 'web-email'
-            $this->_mail->Password = $this->_mail->_paswword; // maybe wrong pwd
+            $this->_mail->Username = $this->_mail->_email; 
+            $this->_mail->Password = $this->_mail->_paswword; 
             $this->_mail->SMTPSecure = "tls";
             $this->_mail->Port = 587;
             $this->_mail->subject($subject);
@@ -125,23 +126,24 @@ public function submitsendReset($request){
         // TODO: create email template for reset password IMPORT Mail class to _construct
         //! Setup GMAIL acc for this project 
         //require(DIR . '/views/actions/mail_reset.php');
-		$mail->Host = 'smtp.gmail.com';
-        $mail->Body = $body;
-		$mail->SMTPDebug = 2;
-		$mail->CharSet = 'UTF-8';
-		$mail->SMTPAuth = true;
-		$mail->Username = null;
-		$mail->Password = null; 
-		$mail->SMTPSecure = "ssl";
-		$mail->Port = 465;
-		$mail->subject($subject);
-		$mail->isHTML(true);
-		$mail->body($body);
-		$mail->setFrom("noreply@sadventure.com","sadventure.com");
-		$mail->addAddress($to);
-		$mail->addAttachment('public/images/attachment/help.png');
-		if ($mail->send())
+		$this->_mail->Host = 'smtp.gmail.com';
+        $this->_mail->Body = $body;
+		$this->_mail->SMTPDebug = 2;
+		$this->_mail->CharSet = 'UTF-8';
+		$this->_mail->SMTPAuth = true;
+		$this->_mail->Username = null;
+		$this->_mail->Password = null; 
+		$this->_mail->SMTPSecure = "ssl";
+		$this->_mail->Port = 465;
+		$this->_mail->subject($subject);
+		$this->_mail->isHTML(true);
+		$this->_mail->body($body);
+		$this->_mail->setFrom("noreply@sadventure.com","sadventure.com");
+		$this->_mail->addAddress($to);
+		$this->_mail->addAttachment('public/images/attachment/help.png');
+		if ($this->_mail->send()){
             header('Location: http://sadventure.com/login?action=reset');exit;
+        }
     }
 }
 

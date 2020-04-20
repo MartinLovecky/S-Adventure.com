@@ -31,7 +31,7 @@ echo 'Please write email to '.$mail->_email.' with Subject: SA-2002 and Message:
 
 $member = new Member($db,$selector);
 $validation = new Validation($db,$message);
-$requestController = new RequestController($validation,$member,$db);
+$requestController = new RequestController($validation,$member,$db,$mail);
 $articlesController = new ArticlesController($selector);
 
 // $blade->setAuth($username, $role, $permissions);
