@@ -81,6 +81,14 @@ public function validateLogin($request){
 
 public function validateResetMail($request){
     $email = htmlspecialchars_decode($request['email'], ENT_QUOTES);
+    if($this->_emptyFields([$email]))return['message'=>$this->_message->message(['error'=>'Všechna pole musí být vyplněna'])];
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL))return['message'=>$this->_message->message(['error'=>'Zadejte prosím platný email'])];
+    // Check DB
+    $stmt = $db->prepare('SELECT email FROM members WHERE email = :email');
+    $stmt->execute([':email']);
+    $row = $stmt->fetch();
+    if($row['email'] != $email)return['message'=>$this->_message->message(['error'=>'K zadému emailu neexistuje žádný účet'])];
+    return ['email'=>$email];
 
 }
 

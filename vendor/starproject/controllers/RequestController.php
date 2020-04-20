@@ -45,8 +45,18 @@ public function _login($request){
        return ['username'=>$validation['username'],'password'=>$validation['password']];
 }
 
-public function _sendResetEmail(){
+public function _sendResetEmail($request){
     $validation = $this->_validation->validateResetMail($request);
+    if(isset($validation['message'])){
+        return ['message'=>$validation['message'],['old_email'=>$request['email']]];
+    }
+        $stmt = $db->prepare('SELECT `password`, email FROM members WHERE email = :email');
+        $stmt->execute([':email' => $row['email']]);
+        $result = $stmt->fetch();
+        $token = hash_hmac('SHA256', $this->_member->generate_entropy(8), $result['password']);
+        $storedToken = hash('SHA256', ($token));
+        return ['email'=>$validation['email'],'storedToken'=>$storedToken];
+
 }
 
 public function submitRegister($request){
@@ -74,11 +84,11 @@ public function submitRegister($request){
             $this->_mail->subject($subject);
             $this->_mail->isHTML(true);
             $this->_mail->body($body);
-            $this->_mail->setFrom("noreply@example.com","example.com");
+            $this->_mail->setFrom("noreply@sadventure.com","sadventure.com");
             $this->_mail->addAddress($to);
             $this->_mail->addAttachment("public/images/attachment/help.png");
             if($this->_mail->send()){
-                \header("Location: http://staradventure.xf.cz/login?action=joined"); exit;
+                \header("Location: http://sadventure.com/login?action=joined"); exit;
             }
     }
     return null; 
@@ -99,6 +109,40 @@ public function submitLogin($request){
     }
     return null;
     
+}
+
+public function submitsendReset($request){
+    // This function send reset email to user 
+    $reset = $this->_sendResetEmail($request);
+    if(\in_array('message',$reset)){
+        return ['message'=>$reset['message']];
+    }
+    if(!\in_array('message',$reset)){
+        $stmt = $db->prepare("UPDATE members SET resetToken = :token, resetComplete ='No' WHERE email = :email");
+        $stmt->execute([':email'=>$reset['email'],':token' =>$reset['storedToken']]);
+        $to = $reset['email'];
+        $subject = "Reset hesla";
+        // TODO: create email template for reset password IMPORT Mail class to _construct
+        //! Setup GMAIL acc for this project 
+        //require(DIR . '/views/actions/mail_reset.php');
+		$mail->Host = 'smtp.gmail.com';
+        $mail->Body = $body;
+		$mail->SMTPDebug = 2;
+		$mail->CharSet = 'UTF-8';
+		$mail->SMTPAuth = true;
+		$mail->Username = null;
+		$mail->Password = null; 
+		$mail->SMTPSecure = "ssl";
+		$mail->Port = 465;
+		$mail->subject($subject);
+		$mail->isHTML(true);
+		$mail->body($body);
+		$mail->setFrom("noreply@sadventure.com","sadventure.com");
+		$mail->addAddress($to);
+		$mail->addAttachment('public/images/attachment/help.png');
+		if ($mail->send())
+            header('Location: http://sadventure.com/login?action=reset');exit;
+    }
 }
 
 public function submitReset($request){
