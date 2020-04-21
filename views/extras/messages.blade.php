@@ -1,6 +1,6 @@
 <?php  
 // this look like selector
-$AllBags = ['register'=>$requestController->_register($request),'login'=>null];
+$AllBags = ['register'=>$requestController->_register($request),'login'=>$requestController->_login($request)];
 $CurrentBag = array_filter($AllBags);
 // messages for ?action='something'
 $msg = $message->_getAction($selector->queryAction);

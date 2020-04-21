@@ -8,7 +8,7 @@ if(is_numeric($memberID) && !empty($active)){
 
 	//if the row was updated redirect the user
 	if($stmt->rowCount() == 1){
-		header('Location: http://example.com/login?action=active'); exit;
+		header('Location: http://sadventure.com/login?action=active'); exit;
 	} 
 }
 ?>

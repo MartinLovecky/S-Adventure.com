@@ -63,13 +63,13 @@ public function allowedView(){
         return false; 
 }
 public function get(String $string,Member $member){
-    list($logged,$member,$memberID,$name,$surname,$avatar,$age,$location) = $member->is_logged_in();
+    list($logged,$memberName,$memberID,$name,$surname,$avatar,$age,$location) = $member->is_logged_in();
     switch ($string) {
         case 'memberID':
             return $memberID;
                 break;
-        case 'member':
-            return $member;
+        case 'memberName':
+            return $memberName;
                 break;
         case 'logged':
             return $logged;

@@ -1,5 +1,6 @@
 <?php
 
+
 if(!empty($request))
 {
    switch ($request['type']) {
@@ -14,6 +15,7 @@ if(!empty($request))
         break;              
         case 'reset_pwd';
             $requestController->submitReset($request);
+        default: null;            
    }
 }
 

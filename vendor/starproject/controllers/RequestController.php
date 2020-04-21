@@ -5,12 +5,13 @@ namespace starproject\controllers;
 use \starproject\tools\Validation;
 use \starproject\database\costumers\Member;
 use \starproject\database\DB;
+use \starproject\tools\Mailer;
 
 class RequestController{
 
 private $_validation,$_member,$_db,$_mail;
 
-public function __construct(Validation $validation,Member $member, DB $db, Mail $mail){
+public function __construct(Validation $validation,Member $member, DB $db, Mailer $mail){
     $this->_validation = $validation;
     $this->_member = $member;
     $this->_mail = $mail;
@@ -19,7 +20,7 @@ public function __construct(Validation $validation,Member $member, DB $db, Mail 
 
 public function _register($request){
     // Validate REGISTER REQUEST 
-    if(!empty($request)){
+    if(!empty($request) && $request['type'] == 'register'){
     $validation = $this->_validation->validateRegister($request);
     if(isset($validation['message'])){
         return ['message'=>$validation['message'],['old_email'=>$request['email'],'old_username'=>$request['username']]];      
@@ -39,11 +40,14 @@ public function _register($request){
 }
 
 public function _login($request){
-   $validation = $this->_validation->validateLogin($request);
+   if(!empty($request) && $request['type'] == 'login'){
+        $validation = $this->_validation->validateLogin($request);
    if(isset($validation['message'])){
        return ['message'=>$validation['message'],['old_Username'=>$request['username']]];
    }
        return ['username'=>$validation['username'],'password'=>$validation['password']];
+   }
+    return null;
 }
 
 public function _sendResetEmail($request){
@@ -89,7 +93,7 @@ public function submitRegister($request){
             $this->_mail->addAddress($to);
             $this->_mail->addAttachment("public/images/attachment/help.png");
             if($this->_mail->send()){
-                \header("Location: http://sadventure.com/login?action=joined"); exit;
+                return \header("Location: http://sadventure.com/login?action=joined"); exit;
             }
     }
     return null; 
@@ -105,7 +109,7 @@ public function submitLogin($request){
         $username = $login['username'];
         $password = $login['password'];
         if($member->login($username,$password)){
-            \header("Location: http://staradventure.xf.cz/member/$username"); exit;
+            return \header("Location: http://staradventure.xf.cz/member/$username"); exit;
         }
     }
     return null;
@@ -142,7 +146,7 @@ public function submitsendReset($request){
 		$this->_mail->addAddress($to);
 		$this->_mail->addAttachment('public/images/attachment/help.png');
 		if ($this->_mail->send()){
-            header('Location: http://sadventure.com/login?action=reset');exit;
+            return \header('Location: http://sadventure.com/login?action=reset');exit;
         }
     }
 }

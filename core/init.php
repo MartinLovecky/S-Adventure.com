@@ -29,6 +29,19 @@ if($db->con() === null)
 echo 'Please write email to '.$mail->_email.' with Subject: SA-2002 and Message: Database conection fail'; die;
 }
 
+// TODO:  $router->url('/something')->mobile('memberName',$class))->action('logged'); = http://www.sadventure.com/something/username/?action=logged
+  
+/** variants
+    *$router->url(); = http://www.sadventure.com/
+    *$router->url('/');  = http://www.sadventure.com/index
+    *$router->url('/show') = http://www.sadventure.com/show
+    
+    *mobile()
+    *mobile('articleName',$selector); = http://www.sadventure.com/show/{articleName}/1
+
+**/
+
+
 $member = new Member($db,$selector);
 $validation = new Validation($db,$message);
 $requestController = new RequestController($validation,$member,$db,$mail);
