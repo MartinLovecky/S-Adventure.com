@@ -17,6 +17,8 @@
 	</div>
 	</body>
 	</html>
-@else 
-	{{ header('Location: http://www.sadventure.com/member/'.$selector->get('memberName',$member).'?=logged') }}
+@else
+
+@php\header('Location: http://sadventure.com/member/'.$selector->get('memberID',$member).'?action=logged');@endphp
+	
 @endif

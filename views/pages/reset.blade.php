@@ -13,5 +13,5 @@
 
 </html>
 @else 
-	{{ header('Location: http://www.sadventure.com/member/'.$selector->get('memberName',$member).'?action=logged') }}
+	{{ header('Location: http://sadventure.com/member/'.$selector->get('memberName',$member).'?action=logged') }}
 @endif

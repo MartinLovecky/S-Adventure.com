@@ -63,6 +63,8 @@ class Messages{
                 case 'joined':
                     return $this->message(['error'=>'Registrace úspěšná, pro aktivovaní účtu zkotrolujte email']);
                 break;
+                case 'logged':
+                    return $this->message(['success'=>'Přihlášení úspěšné']);
                 default: null;
             }
         }

@@ -93,7 +93,7 @@ public function submitRegister($request){
             $this->_mail->addAddress($to);
             $this->_mail->addAttachment("public/images/attachment/help.png");
             if($this->_mail->send()){
-                return \header("Location: http://sadventure.com/login?action=joined"); exit;
+                return \header("Location: http://sadventure.com/login?action=joined"); 
             }
     }
     return null; 
@@ -108,8 +108,8 @@ public function submitLogin($request){
     if(!\in_array('message',$login)){
         $username = $login['username'];
         $password = $login['password'];
-        if($member->login($username,$password)){
-            return \header("Location: http://staradventure.xf.cz/member/$username"); exit;
+        if($this->_member->login($username,$password)){
+            return \header("Location: http://staradventure.xf.cz/member/$username"); 
         }
     }
     return null;
@@ -146,7 +146,7 @@ public function submitsendReset($request){
 		$this->_mail->addAddress($to);
 		$this->_mail->addAttachment('public/images/attachment/help.png');
 		if ($this->_mail->send()){
-            return \header('Location: http://sadventure.com/login?action=reset');exit;
+            return \header('Location: http://sadventure.com/login?action=reset');
         }
     }
 }

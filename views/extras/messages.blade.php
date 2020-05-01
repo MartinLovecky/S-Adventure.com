@@ -14,7 +14,7 @@ if(!empty($CurrentBag)){
 	}     
 }
 // doesnt works with BLADE bcs variables are not inside $router->insert(,[HERE]);
-if(empty($msg))
+if(empty($msg) && $selector->action != 'member')
 {
 	echo '<h3 class="text-center">'.ucfirst($selector->viewname()).'</h3>';
 }

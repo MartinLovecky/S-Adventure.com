@@ -51,7 +51,7 @@ public function validateRegister($request){
 }
 
 public function setSession($username,$password){
-    $stmt = $this->_db->prepare("SELECT `password`, username, memberID,email FROM members WHERE username = :username AND active='Yes'");
+    $stmt = $this->_db->prepare("SELECT `password`,username,memberID,email,permition FROM members WHERE username = :username AND active='Yes'");
 	$stmt->execute([':username'=>$username]);
     $row = $stmt->fetch();
     if($this->password_verify($password,$row['password']) == 1){
@@ -59,6 +59,7 @@ public function setSession($username,$password){
         $_SESSION['username'] = $row['username'];
         $_SESSION['memberID'] = $row['memberID'];
         $_SESSION['email'] = $row['email'];
+        $_SESSION['permition'] = $row['permition'];
         return true;
     }
 }

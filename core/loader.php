@@ -11,7 +11,7 @@
     $title = 'SA | '.$selector->title();
 
     // IF you want use files from public directory (images,css... ) you need set base url
-    //$blade->setBaseUrl(DIR .'/public/');
+    // $blade->setBaseUrl(DIR .'/public/');
     // then you can do @asset('folder.fileName.css/jpg/etc..')
 
     // blade @asset ussing any online storage

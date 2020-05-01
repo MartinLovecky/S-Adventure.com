@@ -7,14 +7,14 @@ use \starproject\tools\Selector;
 use starproject\database\costumers\Password;
 
 class Member extends Password{
-
+    //! CLASS IS MIX OF OLD CODE WITH NEW CODE I WILL RE-WRITE complete code for this 
     private $_db,$_query;
-    public $username = 'visitor',$role = 'none',$permit = 'read';
+    public $username = 'visitor',$role = 'none',$permission = 'read';
     protected $memberID;
 
-    public function __construct(DB $db,Selector $selector){
+    public function __construct(DB $db){
         $this->_db = $db->con();    
-        $this->_query = $selector->queryAction;
+        $this->_query = $_GET['action'] ?? null; //! SANITAZE !!! $validation->sanitaze();
         $this->username = (isset($_SESSION['username'])) ?? null; 
     }
     public function getMemberID($username,$activation){
@@ -49,10 +49,11 @@ class Member extends Password{
         }
         return null;
     }
-    public function is_logged_in(){
+    public function set_member_data(){
         $member = (isset($_SESSION['username'])) ? htmlspecialchars($_SESSION['username'],ENT_QUOTES) : 'visitor';
 		$memberID = (isset($_SESSION['memberID'])) ? $_SESSION['memberID'] : rand(1,9999);
-		$logged = (isset($_SESSION['loggedin'])) ? $_SESSION['loggedin'] : false;
+        $logged = (isset($_SESSION['loggedin'])) ? $_SESSION['loggedin'] : false;
+        $permission = (isset($_SESSION['permission'])) ? $_SESSION['permission'] : 'visit';
 		$dataDB = $this->userInfo($member);
 		$name = $dataDB['name'];
 		$surname = $dataDB['surname'];
@@ -60,7 +61,7 @@ class Member extends Password{
 		$age = $dataDB['age'];
 		$location = $dataDB['location'];
 		$avatar = $dataDB['avatar'];
-			return array($logged,$member,$memberID,$name,$surname,$avatar,$age,$location);
+			return [$logged,$member,$memberID,$name,$surname,$avatar,$age,$location];
     }
     public function userInfo($member){
 		try {

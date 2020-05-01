@@ -12,6 +12,7 @@ public $url = [];
 public $allowedAction = [];
 public $allowedPages = [];
 public $queryAction = '';
+public $allowedAricles = [];
 
 //User vars
 public $memberID = '';
@@ -26,6 +27,8 @@ public $location = null;
 // Request AKA ROUTER
 public $request = [];
 public $viewData = [];
+public $urlName = '';
+public $subURL = '';
 
 //Others vars used in application
 public $AllBags = [];
