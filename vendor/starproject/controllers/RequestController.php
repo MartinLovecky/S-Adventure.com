@@ -109,7 +109,7 @@ public function submitLogin($request){
         $username = $login['username'];
         $password = $login['password'];
         if($this->_member->login($username,$password)){
-            return \header("Location: http://sadventure.com//member/$username"); 
+            return \header("Location: http://sadventure.com/member/$username"); 
         }
     }
     return null;

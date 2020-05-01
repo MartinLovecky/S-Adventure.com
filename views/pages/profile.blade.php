@@ -26,6 +26,3 @@
 </div>
 
 <div class="col" style="margin-bottom: 100px;"></div>
-@can('update', Model::class)
-    
-@endcan
