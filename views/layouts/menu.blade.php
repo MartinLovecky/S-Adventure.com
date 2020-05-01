@@ -25,8 +25,8 @@
                                   <a class="dropdown-item text-center" role="presentation" href="http://sadventure.com/#"><strong>Item</strong></a>
                                 </div>
                             </li>
-                        </ul>@if(!$selector->get('logged',$member))<a class="btn btn-primary bg-danger border rounded-circle" role="button" href="http://sadventure.com/register" style="color: rgb(255,255,255);">Registrace</a><a class="btn btn-primary bg-success border rounded-circle" role="button" href="http://sadventure.com/login" style="color: rgb(255,255,255);">Přihlášení</a>@endif
-                        @if($selector->get('logged',$member))<span class="navbar-text actions" id="imgName"><img class="rounded-circle img-fluid" src="http://localhost/example/public/resources/img/avatars/{{$selector->get("avatar",$member)}}" alt="img" width="50px"><span class="text-warning"><a class="text-capitalize" href="http://example.com/member/{{$selector->get("member",$member)}}">{{$selector->get("member",$member)}}</a></span></span>@endif
+                        </ul>@if(!$member->logged)<a class="btn btn-primary bg-danger border rounded-circle" role="button" href="http://sadventure.com/register" style="color: rgb(255,255,255);">Registrace</a><a class="btn btn-primary bg-success border rounded-circle" role="button" href="http://sadventure.com/login" style="color: rgb(255,255,255);">Přihlášení</a>@endif
+                        @if($member->logged)<span class="navbar-text actions" id="imgName"><img class="rounded-circle img-fluid" src="http://localhost/example/public/resources/img/avatars/{{$member->avatar}}" alt="img" width="50px"><span class="text-warning"><a class="text-capitalize" href="http://example.com/member/{{$member->username}}">{{$member->username}}</a></span></span>@endif
                     </div>
             </div>
             </nav>
