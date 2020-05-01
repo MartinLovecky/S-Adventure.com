@@ -1,7 +1,7 @@
 <?php
 // TODO: @can('',$member)
 //! FIXME: permission for -> show/update/create/delete/member
-//! FIX : CLASS MEMBER FULLY
+//! FIX : selector->get()
 // TODO: PERMISSION
 // TODO: Now roles are set manuly inside DBTable. Admin should have this ability inside web !!!   
 //? Work in progress MemberData

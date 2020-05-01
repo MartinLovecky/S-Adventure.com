@@ -1,4 +1,4 @@
-@if (!$selector->get('logged',$member))
+@if (!$member->logged)
 	@include('layouts.app')
 		<div class="login-dark"> {{-- target => [folder.file],data] --}}
 		{!! $hform->options(['target'=>['app.RequestHandler',['requestController'=>$requestController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])->open($blade)!!}
@@ -19,6 +19,6 @@
 	</html>
 @else
 
-@php\header('Location: http://sadventure.com/member/'.$selector->get('memberID',$member).'?action=logged');@endphp
+@php\header('Location: http://sadventure.com/member/'.$member->username.'?action=logged');@endphp
 	
 @endif

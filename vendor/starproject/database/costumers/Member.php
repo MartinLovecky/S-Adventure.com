@@ -7,10 +7,11 @@ use starproject\database\costumers\Password;
 
 class Member extends Password{
 
-    private $_db,$_query,$memberID;
-    public $username,$role,$permission,$email;
-    public $name,$surname,$avatar,$age,$location,$resetToken,$resetComplete,$bookmark,$remeber;
+    private $_db,$_query;
+    public $username,$role,$permission,$email,$memberID,$logged;
+    public $memberName,$surname,$avatar,$age,$location,$resetToken,$resetComplete,$bookmark,$remeber;
     //! never store password or hash
+    // TODO: public/private -> button for show/hide user info
 
 public function __constuctr(DB $db){
     // Data dont need be sanitazed they are from Register
@@ -20,8 +21,9 @@ public function __constuctr(DB $db){
     $this->email = $_SESSION['email'] ?? null;
     $this->memberID = $_SESSION['memberID'] ??  rand(1,9999);
     $this->_query = $_GET['action'] ?? null;
+    $this->logged = $_SESSION['logged'] ?? false;
     // member INFO
-    $this->name = $_SESSION['name'] ?? null;
+    $this->memberName = $_SESSION['name'] ?? null;
     $this->surname = $_SESSION['surname'] ?? null;
     $this->$avatar = $_SESSION['avatar'] ?? null;
     $this->age = $_SESSION['age'] ?? null;

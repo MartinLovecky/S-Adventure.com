@@ -72,34 +72,5 @@ public function allowedView(){
     }
         return false; 
 }
-//Remake
-public function get(String $string){
-    list($logged,$memberName,$memberID,$name,$surname,$avatar,$age,$location) = $this->_member->is_logged_in();
-    switch ($string) {
-        case 'memberID':
-            return $memberID;
-                break;
-        case 'memberName':
-            return $memberName;
-                break;
-        case 'logged':
-            return $logged;
-                break;
-        case 'name':
-            return $name;
-                break;
-        case 'surname':
-            return $surname;
-                break;
-        case 'avatar':
-            return $avatar;
-                break;
-        case 'age':
-            return $age;
-                break;
-        case 'location':
-            return $location;
-                break;                
-    }
-}
+
 }

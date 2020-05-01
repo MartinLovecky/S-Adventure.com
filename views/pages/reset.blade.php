@@ -1,4 +1,4 @@
-@if (!$selector->get('logged',$member))
+@if (!$member->logged)
 @include('layouts.app')
 <div class="login-dark">
     {!! $hform->options(['target'=>['app.RequestHandler',['requestController'=>$requestController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])->open($blade)!!}
@@ -13,5 +13,5 @@
 
 </html>
 @else 
-	{{ header('Location: http://sadventure.com/member/'.$selector->get('memberName',$member).'?action=logged') }}
+	{{ header('Location: http://sadventure.com/member/'.$member->username.'?action=logged') }}
 @endif
