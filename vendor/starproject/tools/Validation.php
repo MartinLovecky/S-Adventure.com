@@ -32,7 +32,7 @@ public function validateRegister($request){
         $password_again = htmlentities($request['password_again'], ENT_QUOTES, 'UTF-8');
         // check empty filelds
         if($this->_emptyFields([$username,$email,$password,$password_again]))return['message'=>$this->_message->message(['error'=>'Všechna pole musí být vyplněna'])];
-        // chceck db
+        // use $member
         $stmt = $this->_db->prepare("SELECT username FROM members WHERE username = :username");
         $stmt->execute([":username"=>$username]);
         $row = $stmt->fetch();
@@ -51,7 +51,7 @@ public function validateRegister($request){
 }
 
 public function setSession($username,$password){
-    $stmt = $this->_db->prepare("SELECT `password`,username,memberID,email,permition FROM members WHERE username = :username AND active='Yes'");
+    $stmt = $this->_db->prepare("SELECT * FROM members WHERE username = :username AND active='Yes'");
 	$stmt->execute([':username'=>$username]);
     $row = $stmt->fetch();
     if($this->password_verify($password,$row['password']) == 1){
@@ -59,7 +59,16 @@ public function setSession($username,$password){
         $_SESSION['username'] = $row['username'];
         $_SESSION['memberID'] = $row['memberID'];
         $_SESSION['email'] = $row['email'];
-        $_SESSION['permition'] = $row['permition'];
+        $_SESSION['active'] = $row['active'];
+        $_SESSION['name'] = $row['name'];
+        $_SESSION['surname'] = $row['surname'];
+        $_SESSION['avatar'] = $row['avatar'];
+        $_SESSION['age'] = $row['age'];
+        $_SESSION['location'] = $row['location'];
+        $_SESSION['resetToken'] = $row['resetToken'];
+        $_SESSION['resetComplete'] = $row['resetComplete'];
+        $_SESSION['bookmark'] = $row['bookmark'];
+        $_SESSION['remeber'] = $row['remeber'];
         return true;
     }
 }

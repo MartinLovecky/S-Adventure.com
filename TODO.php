@@ -1,7 +1,10 @@
 <?php
 // TODO: @can('',$member)
 //! FIXME: permission for -> show/update/create/delete/member
+//! FIX : CLASS MEMBER FULLY
 // TODO: PERMISSION
+// TODO: Now roles are set manuly inside DBTable. Admin should have this ability inside web !!!   
+//? Work in progress MemberData
 /** $router->url('/something')->mobile('memberID',$class))->action('logged'); = http://sadventure.com/something/username/?action=logged¨
  * change link to page {username} to {memberID}
  * http://sadventure.com/member/1
@@ -20,11 +23,11 @@
  *action('logged')    
 
 **/
-//$member->_getUser(); -> default return username=>visitor,role=>none,//?permission=>visit
+// default  username=>visitor,role=>none,//?permission=>visit
 // IF user is logged -> username => Username,role=>user,//?permission=>view 
 // IF user is Editor -> username =>Username,role=>edior,//?permission=>edit
 // IF user is Admin -> username =>Username,role=>admin,//?permission=>all
-// TODO: Now roles are set manuly inside DBTable. Admin should have this ability inside web !!!                          
+                       
 // $blade->setAuth($username, $role, $permissions);
 // can('visit',$class)
 /*

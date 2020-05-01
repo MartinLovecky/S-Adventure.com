@@ -29,8 +29,8 @@ public function _register($request){
     $activation = md5(uniqid(rand(),true));        
         try{
             // Insert valid data to db && return data for submit
-            $stmt = $this->_db->prepare("INSERT INTO members (username,password,email,active,permition,avatar) VALUES (:username, :password, :email, :active, :permition, :avatar)");
-            $stmt->execute([":username"=>$validation['username'],":password"=>$hashedpassword,":email"=>$validation['email'],":active"=>$activation,":permition"=>"user",":avatar"=>"empty_profile.png"]); 
+            $stmt = $this->_db->prepare("INSERT INTO members (username,password,email,active,permission,avatar) VALUES (:username, :password, :email, :active, :permission, :avatar)");
+            $stmt->execute([":username"=>$validation['username'],":password"=>$hashedpassword,":email"=>$validation['email'],":active"=>$activation,":permission"=>"user",":avatar"=>"empty_profile.png"]); 
             return ['to'=>$validation['email'],'username'=>$validation['username'],'activation'=>$activation];
         }catch(PDOException $e){
             return ['message'=>$e->getMessage().(int)$e->getCode()];
@@ -109,7 +109,7 @@ public function submitLogin($request){
         $username = $login['username'];
         $password = $login['password'];
         if($this->_member->login($username,$password)){
-            return \header("Location: http://staradventure.xf.cz/member/$username"); 
+            return \header("Location: http://sadventure.com//member/$username"); 
         }
     }
     return null;

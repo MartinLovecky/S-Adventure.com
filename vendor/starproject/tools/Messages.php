@@ -48,6 +48,8 @@ class Messages{
                 case 'active':
                     return $this->message(['success'=>'Váš účet je aktivní můžete se přihlásit']);
                 break;
+                case 'failActive':
+                    return  $this->message(['error'=>'Aktivace účtu se nezdaržila kotaktujte prosím Admina']);
                 case 'reset':
                     return $this->message(['success'=>'Prosím zkotrolujte si Váš email']);
                 break;
