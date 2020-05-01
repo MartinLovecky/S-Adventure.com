@@ -9,7 +9,7 @@ class Selector extends Config{
 
 private $_member;    
     
-public function __construct(Member $meber){
+public function __construct(Member $member){
     $this->_member = $member;
     $this->url = explode('/',trim(str_replace(['-','_','#','<','(','{','!',','],' ',urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)))));
     $this->action = $this->url[1]; // this is set all time
