@@ -2,13 +2,13 @@
     <footer id="myFooter">
         <div class="container-fluid">
             <div class="row text-center">
-                <div class="col-12 col-sm-6 col-md-3"><img src="http://localhost/example/public/img/apple-touch-icon.png"></div>
+                <div class="col-12 col-sm-6 col-md-3"><img src="@asset('img.icon.jpg')"></div>
                     <div class="col-12 col-sm-6 col-md-2">
                         <h5>Začínáme</h5>
                         <ul>
-                            <li><a href="http://example.com">Úvod</a></li>
-                            <li><a href="http://example.com/register">Registrace</a></li>
-                            <li><a href="http://example.com/login">Přihlášení</a></li>
+                            <li><a href="{{$router->url('/index')->mobile([])->action()}}">Úvod</a></li>
+                            <li><a href="{{$router->url('/register')->mobile([])->action()}}">Registrace</a></li>
+                            <li><a href="{{$router->url('/login')->mobile([])->action()}}">Přihlášení</a></li>
                             <li><a href="#">Other Links</a></li>
                         </ul>
                     </div>

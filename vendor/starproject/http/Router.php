@@ -8,6 +8,8 @@ use starproject\fundemation\Config;
 
 class Router extends Config{
 
+public $urlName;
+
 public function __construct(){
     $this->request = $_POST ?? null;
     $this->urlName = 'http://sadventure.com/';
@@ -25,28 +27,43 @@ public function _runApp(BladeOne $blade,Selector $selector){
 public function url(string $string){
     switch($string){
         case '':
-            return $this->url;
+            $this->urlName;
+            return $this;
         break;
         case '/':
-            return $this->url.'index/';
+            $this->urlName.'/index';
+            return $this;
         break;    
-        case 'show':
-            return $this->url.'show/';
-        default:
-            return $this;            
+        case '/show':
+            $this->urlName.'/show';
+            return $this;
+        break;    
+        case '/chars':
+            $this->urlName.'/chars';
+            return $this;      
+        break;
+        case '/login':
+            $this->urlName.'/login';
+            return $this;      
+        break;
+        case '/register':
+            $this->urlName.'/register';
+            return $this;      
+        break;                                    
     }
 }
-public function mobile(string $string,Selector $selector){
-    if($string === 'memberName'){
-        // insiside DB is Visitor his data are used when PPL are not logged_in
-        $this->subURL = $this->urlName.'member/'.$selector->get('memberName',$_SESSION['memberName']);
-        return $this->subURL;
-    }
-    if($string === 'viewName'){
-        //! Fixme this wont work $selector->article pick currenct /show/{article} we need second att 
-        $this->subURL = $this->urlName.'show/'.$selector->article.'/1';
-        return $this->subURL;
-    }
+public function mobile(array $options){
+   if(empty($options)){
+        $this->urlName;
+        return $this;
+   }
+   if(array_key_exists('artName',$options)){
+    $this->urlName = '/show/'.$options['artName'].'/1/';
+    return $this;
+   }
+}
+public function action(){
+    return $this->urlName;
 }
 
 }

@@ -35,7 +35,7 @@ $requestController = new RequestController($validation,$member,$db,$mail);
 $articlesController = new ArticlesController($selector);
 
 // Insert all necesary variables for ALL views here
-$router->data = ["blade"=>$blade,"request"=>$router->request,"selector"=>$selector,'message'=>$message,'hform'=>$hform,'member'=>$member,'articles'=>$articlesController,'requestController'=>$requestController];
+$router->data = ["router"=>$router,"blade"=>$blade,"request"=>$router->request,"selector"=>$selector,'message'=>$message,'hform'=>$hform,'member'=>$member,'articles'=>$articlesController,'requestController'=>$requestController];
 
 //$blade->setAuth($member->getUserName(),)
 ?>
