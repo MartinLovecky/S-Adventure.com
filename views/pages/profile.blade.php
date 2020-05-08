@@ -1,4 +1,5 @@
-@include('layouts.app')
+@extends('layouts.app')
+@section('profile')
 <div class="col-xl-12 offset-xl-0" id="main">
     <div class="container">
         <ol class="breadcrumb">
@@ -24,5 +25,4 @@
     <p>Město: {{$member->location}}</p>
     <p>Viditelný: public/private</p>
 </div>
-
-<div class="col" style="margin-bottom: 100px;"></div>
+@endsection

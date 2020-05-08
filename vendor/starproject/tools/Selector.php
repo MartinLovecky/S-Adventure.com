@@ -29,7 +29,6 @@ public function title(){
         return $this->action;
 }
 public function viewName(){
-    //TODO: /member will show list of all users without their info if not public(set up by user)
     if($this->allowedView() && $this->article == 'empty'){
         switch($this->action){
         case '':

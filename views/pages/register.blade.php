@@ -1,7 +1,7 @@
+@include('layouts.app')
 @if (!$member->logged)
-	@include('layouts.app')
 		<div class="login-dark"> {{-- target => [folder.file],data] --}}
-		{!! $hform->options(['target'=>['app.RequestHandler',['requestController'=>$requestController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])->open($blade)!!}
+		{!! $hform->create(['target'=>['app.RequestHandler',['requestController'=>$requestController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])!!}
 	@include('extras.messages',['selector'=>$selector,'message'=>$message,'requestController'=>$requestController])
 		<div class="form-group"><input type="text" name="username" value="@isset($username){{$username}}@endisset" placeholder="Uživatel" class="form-control" required/></div>
 		<div class="form-group"><input type="email" name="email" value="@isset($email){{$email}}@endisset" placeholder="Email" class="form-control" required/></div>
@@ -18,7 +18,5 @@
 	</body>
 	</html>
 @else
-
-@php\header('Location: http://sadventure.com/member/'.$member->username.'?action=logged');@endphp
-	
+{{ \header('Location: http://sadventure.com/member/'.$member->username.'?action=logged')}}
 @endif

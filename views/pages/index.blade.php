@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('index')
 @include('layouts.menu',['member'=>$member,'router'=>$router])
 <div class="col-xl-12" id="jump">
     <div class="jumbotron" style="background-color: rgba(247,247,249,0);">
@@ -58,3 +59,4 @@
         </div>
 </div>
 @include('layouts.footer',['router'=>$router])
+@endsection 

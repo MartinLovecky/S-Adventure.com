@@ -52,6 +52,7 @@ public function url(string $string){
         break;                                    
     }
 }
+
 public function mobile(array $options){
    if(empty($options)){
         $this->urlName;
@@ -61,7 +62,10 @@ public function mobile(array $options){
     $this->urlName = '/show/'.$options['artName'].'/1/';
     return $this;
    }
+        $this->urlName;
+        return $this;
 }
+
 public function action(){
     return $this->urlName;
 }

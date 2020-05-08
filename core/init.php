@@ -21,7 +21,7 @@ $message = new Messages;
 $mail = new Mailer;
 $articles = new Articles; 
 $router = new Router;
-$hform = new Forms;
+$hform = new Forms($blade);
 
 # Check Fail DB con !! 
 if($db->con() === null){   

@@ -2,7 +2,8 @@
 // TODO: @can('',$member)
 //! FIXME: permission for -> show/update/create/delete/member
 // TODO: PERMISSION implemation
-// TODO: Now roles are set manuly inside DBTable. Admin should have this ability inside web !!!   
+// TODO: Now roles are set manuly inside DBTable. Admin should have this ability inside web !!! 
+// TODO: /member will show list of all users without their info if not public(set up by user)  
 //? Work in progress MemberData
 
 

@@ -37,6 +37,7 @@
 </head>
 
 <body>
+@yield($selector->viewName()) 
 
 
 
