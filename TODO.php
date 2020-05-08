@@ -5,7 +5,7 @@
 // TODO: Now roles are set manuly inside DBTable. Admin should have this ability inside web !!! 
 // TODO: /member will show list of all users without their info if not public(set up by user)  
 //? Work in progress MemberData
-
+//! FIXME : Login works after 2x input (correct data)
 
 // default  username=>visitor,role=>none,//?permission=>visit
 // IF user is logged -> username => Username,role=>user,//?permission=>view 
