@@ -30,7 +30,7 @@ echo $message->message(['error'=>'Please write email to '.$mail->_email.' with S
 
 $member = new Member($db);
 $selector = new Selector($member);
-$validation = new Validation($db,$message);
+$validation = new Validation($db,$message,$member);
 $requestController = new RequestController($validation,$member,$db,$mail);
 $articlesController = new ArticlesController($selector);
 

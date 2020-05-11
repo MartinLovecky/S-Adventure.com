@@ -3,7 +3,8 @@
 //! FIXME: permission for -> show/update/create/delete/member
 // TODO: PERMISSION implemation
 // TODO: Now roles are set manuly inside DBTable. Admin should have this ability inside web !!! 
-// TODO: /member will show list of all users without their info if not public(set up by user)  
+// TODO: /member will show list of all users without their info if not public(set up by user) 
+// TODO: public/private -> button for show/hide user info 
 //? Work in progress MemberData
 //! FIXME : Login works after 2x input (correct data)
 

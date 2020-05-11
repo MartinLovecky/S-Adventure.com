@@ -1,6 +1,5 @@
 <?php
 
-
 if(!empty($request))
 {
    switch ($request['type']) {

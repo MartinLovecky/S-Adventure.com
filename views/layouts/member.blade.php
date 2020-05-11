@@ -3,21 +3,16 @@ $avatarx = (isset($_FILES['avatar']['name'])) ? $_FILES['avatar']['name'] : 'emp
 $temp = (isset($_FILES['avatar']['tmp_name'])) ? $_FILES['avatar']['tmp_name'] : 'empty';
 @endphp
 <div class="col-xl-6 offset-xl-0 text-center">
-    <h3>Úprava účtu</h3>
-    @isset($errors)
-        @foreach ($errors as $error)
-            {{$error}}    
-        @endforeach    
-    @endisset
+<h3>Úprava účtu</h3>
     {{-- Nefunkční bez member table --}}
-    {!! $HForm->options(['method'=>'POST','class'=>'text-center','target'=>['app.RequestController',['avatar'=>$avatarx,'temp'=>$temp,'member'=>$member,'db'=>$db,'request'=>$request,'memberID'=>$memberID]],'autocomplete'=>'off','enctype'=>'multipart/form-data'])->open() !!}
-        <div class="form-group">{!!$HForm->options(['name'=>'name','type'=>'text','class'=>'form-control','placeholder'=>'Jméno'])->input()!!}</div>
-        <div class="form-group">{!!$HForm->options(['name'=>'surname','type'=>'text','class'=>'form-control','placeholder'=>'Příjmení'])->input()!!}</div>
-        <div class="form-group">{!!$HForm->options(['name'=>'age','type'=>'date','class'=>'form-control','min'=>'1979-12-31','max'=>'2018-01-02'])->input()!!}</div>
-        <div class="form-group">{!!$HForm->options(['name'=>'location','type'=>'text','class'=>'form-control','placeholder'=>'Město'])->input()!!}</div>
-        <div class="form-group"><label>Avatar:</label>{!!$HForm->options(['name'=>'avatar','type'=>'file','status'=>'required'])->input()!!}</div>
-        <input type="hidden" name="member" value='member'>
-        <div class="form-group">{!!$HForm->options(['name'=>'submit','type'=>'submit','class'=>'btn btn-success btn-block','value'=>'Upravit'])->input()!!}</div>
+    {!! $hform->create(['method'=>'POST','class'=>'text-center','target'=>['app.RequestHandler',['avatar'=>$avatarx,'temp'=>$temp,'requestController'=>$requestController,'request'=>$request]],'autocomplete'=>'off','enctype'=>'multipart/form-data']) !!}
+        <div class="form-group"><input type="text" name="name" class="form-control" placeholder="Jméno"></div>
+        <div class="form-group"><input type="text" name="surname" class="form-control" placeholder="Příjmení"></div>
+        <div class="form-group"><input type="date" name="age" class="form-control" min="1979-12-31" max="2020-01-01"></div>
+        <div class="form-group"><input type="text" name="location" class="form-control" placeholder="Město"></div>
+        <div class="form-group"><label>Avatar:</label><input type="file" name="avatar" required></div>
+        <input type="hidden" name="member_edit" value='member_edit'>
+        <div class="form-group"><button class="btn btn-success btn-block" name="submit" type="submit" value="submit">Uprav</button></div>
         <p>*Pro úpravu účtu je nutné zadat Avatar</p>
-    {!! $HForm->close() !!}  
+    {!! $hform->close() !!}  
 </div>

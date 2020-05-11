@@ -3,7 +3,7 @@
 namespace starproject\database\costumers;
 
 use \starproject\database\DB as Database;
-use starproject\database\costumers\Password;
+use \starproject\database\costumers\Password;
 
 class Member extends Password{
 
@@ -11,7 +11,6 @@ class Member extends Password{
     public $username,$role,$permission,$email,$memberID,$logged;
     public $memberName,$surname,$avatar,$age,$location,$resetToken,$resetComplete,$bookmark,$remeber;
     //! never store password or hash
-    // TODO: public/private -> button for show/hide user info
 
 public function __construct(Database $db){
     // Data dont need be sanitazed they are from Register
@@ -83,14 +82,15 @@ public function activate(){
     return \header('Location: http://sadventure.com/login?action=failActive'); ;
 }
 
-/*
- public function uniqueUser($username){
-       this is validation 
-       $stmt = $this->_db->prepare("SELECT username FROM members WHERE username = :username");
-       $stmt->execute([":username"=>$username]);
-       $row = $stmt->fetch();
-       return $row;
+public function userExist($username){   
+    $stmt = $this->_db->prepare("SELECT username FROM members WHERE username = :username");
+    $stmt->execute([":username"=>$username]);
+    $row = $stmt->fetch();
+    if($row['username'] !== $username){
+         return false;
     }
-*/
+    return true;
+}
+
     
 }
