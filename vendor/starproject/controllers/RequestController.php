@@ -29,8 +29,9 @@ public function _register($request){
     $activation = md5(uniqid(rand(),true));        
         try{
             // Insert valid data to db && return data for submit
-            $stmt = $this->_db->prepare("INSERT INTO members (username,password,email,active,permission,avatar) VALUES (:username, :password, :email, :active, :permission, :avatar)");
-            $stmt->execute([":username"=>$validation['username'],":password"=>$hashedpassword,":email"=>$validation['email'],":active"=>$activation,":permission"=>"user",":avatar"=>"empty_profile.png"]); 
+            $values = ['username'=>$validation['username'],'password'=>$hashedpassword,'email'=>$validation['email'],'active'=>$activation,'permission'=>'user','avatar'=>'empty_profile.png'];
+            $stmt = $this->_db->insertInto('members')->values($values);
+            $stmt->execute(); 
             return ['to'=>$validation['email'],'username'=>$validation['username'],'activation'=>$activation];
         }catch(PDOException $e){
             return ['message'=>$e->getMessage().(int)$e->getCode()];
@@ -55,9 +56,8 @@ public function _sendResetEmail($request){
     if(isset($validation['message'])){
         return ['message'=>$validation['message'],['old_email'=>$request['email']]];
     }
-        $stmt = $db->prepare('SELECT `password`, email FROM members WHERE email = :email');
-        $stmt->execute([':email' => $row['email']]);
-        $result = $stmt->fetch();
+        $stmt = $this->_db->from('members')->where('email',$email);
+        $result = $stmt->fetch('password');
         $token = hash_hmac('SHA256', $this->_member->generate_entropy(8), $result['password']);
         $storedToken = hash('SHA256', ($token));
         return ['email'=>$validation['email'],'storedToken'=>$storedToken];
@@ -93,7 +93,7 @@ public function submitRegister($request){
             $this->_mail->addAddress($to);
             $this->_mail->addAttachment("public/images/attachment/help.png");
             if($this->_mail->send()){
-                return \header("Location: http://sadventure.com/login?action=joined"); 
+                header("Location: http://sadventure.com/login?action=joined"); 
             }
     }
     return null; 
@@ -109,7 +109,7 @@ public function submitLogin($request){
         $username = $login['username'];
         $password = $login['password'];
         if($this->_member->login($username,$password)){
-            return \header("Location: http://sadventure.com/member/$username"); 
+            header("Location: http://sadventure.com/member/$username"); exit;
         }
     }
     return null;
@@ -123,12 +123,12 @@ public function submitsendReset($request){
         return ['message'=>$reset['message']];
     }
     if(!\in_array('message',$reset)){
-        $stmt = $db->prepare("UPDATE members SET resetToken = :token, resetComplete ='No' WHERE email = :email");
-        $stmt->execute([':email'=>$reset['email'],':token' =>$reset['storedToken']]);
+        // update db
+        $set = ['resetToken'=>$reset['storedToken'],'resetComplete'=>'No'];
+        $stmt = $this->_db->update('members',$set,$reset['email']);
+        $stmt->execute();
         $to = $reset['email'];
         $subject = "Reset hesla";
-        // TODO: create email template for reset password IMPORT Mail class to _construct
-        //! Setup GMAIL acc for this project 
         //require(DIR . '/views/actions/mail_reset.php');
 		$this->_mail->Host = 'smtp.gmail.com';
         $this->_mail->Body = $body;
@@ -146,7 +146,7 @@ public function submitsendReset($request){
 		$this->_mail->addAddress($to);
 		$this->_mail->addAttachment('public/images/attachment/help.png');
 		if ($this->_mail->send()){
-            return \header('Location: http://sadventure.com/login?action=reset');
+            header('Location: http://sadventure.com/login?action=reset');
         }
     }
 }

@@ -22,6 +22,7 @@ return array(
     'Microsoft\\PhpParser\\' => array($vendorDir . '/microsoft/tolerant-php-parser/src'),
     'LanguageServer\\' => array($vendorDir . '/felixfbecker/language-server/src'),
     'LanguageServerProtocol\\' => array($vendorDir . '/felixfbecker/language-server-protocol/src'),
+    'Envms\\FluentPDO\\' => array($vendorDir . '/envms/fluentpdo/src'),
     'Composer\\XdebugHandler\\' => array($vendorDir . '/composer/xdebug-handler/src'),
     'AdvancedJsonRpc\\' => array($vendorDir . '/felixfbecker/advanced-json-rpc/lib'),
 );

@@ -12,7 +12,7 @@ $temp = (isset($_FILES['avatar']['tmp_name'])) ? $_FILES['avatar']['tmp_name'] :
         <div class="form-group"><input type="text" name="location" class="form-control" placeholder="Město"></div>
         <div class="form-group"><label>Avatar:</label><input type="file" name="avatar" required></div>
         <input type="hidden" name="member_edit" value='member_edit'>
-        <div class="form-group"><button class="btn btn-success btn-block" name="submit" type="submit" value="submit">Uprav</button></div>
+        <div class="form-group"><button class="btn btn-success btn-block" name="submit" type="submit" value="submit">Upravit</button></div>
         <p>*Pro úpravu účtu je nutné zadat Avatar</p>
     {!! $hform->close() !!}  
 </div>

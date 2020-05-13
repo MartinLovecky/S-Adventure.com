@@ -8,7 +8,6 @@ use PHPMailer\PHPMailer\SMTP;
 
 class Mailer extends PHPMailer{
 
-    //TODO: SETUP 'project' email at google 
     public $_paswword = "!",$_email = "/";
 
     public function subject($subject)

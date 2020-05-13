@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee79db67f31061b8be49e3ca0d70d81f",
+    "content-hash": "46c39629674ad15daa2eafe56fc69ce8",
     "packages": [
         {
             "name": "composer/xdebug-handler",
@@ -107,6 +107,56 @@
                 "view"
             ],
             "time": "2020-02-28T13:53:28+00:00"
+        },
+        {
+            "name": "envms/fluentpdo",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/envms/fluentpdo.git",
+                "reference": "ed842a6731b95477976b0271573e885994fb6702"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/envms/fluentpdo/zipball/ed842a6731b95477976b0271573e885994fb6702",
+                "reference": "ed842a6731b95477976b0271573e885994fb6702",
+                "shasum": ""
+            },
+            "require-dev": {
+                "envms/fluent-test": "^1.0",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Envms\\FluentPDO\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0",
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "envms",
+                    "homepage": "http://env.ms"
+                }
+            ],
+            "description": "FluentPDO is a quick and light PHP library for rapid query building. It features a smart join builder, which automatically creates table joins.",
+            "homepage": "https://github.com/envms/fluentpdo",
+            "keywords": [
+                "builder",
+                "database",
+                "db",
+                "dbal",
+                "fluent",
+                "mysql",
+                "oracle",
+                "pdo",
+                "query"
+            ],
+            "time": "2019-04-27T20:21:50+00:00"
         },
         {
             "name": "felixfbecker/advanced-json-rpc",
@@ -1111,6 +1161,7 @@
     "stability-flags": {
         "eftec/bladeone": 20,
         "felixfbecker/language-server": 20,
+        "envms/fluentpdo": 20,
         "phpmailer/phpmailer": 20,
         "symfony/var-dumper": 20
     },

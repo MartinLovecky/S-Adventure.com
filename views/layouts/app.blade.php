@@ -37,7 +37,23 @@
 </head>
 
 <body>
-@yield($selector->viewName()) 
+{{-- For some wierd reason in some cases none of $router->data are passed to view even they are WTF ???--}}
+<?php
+// looking for solution !
+/* ProblemSolving
+* a) DIR work = loader works dump works(well its global)
+* b) inside register/login .. vars from init doesnt work
+* -> Issue whit Class $hform bcs of $this; but why ?
+* c) Issue with 2x input to sum forms -> $hfrom + $blade
+* -> definitly isue inside $hform or $blade not sure where yet
+*/
+if(!isset($selector)){
+  require(DIR . '/core/init.php'); ?>
+    @yield($selector->viewName())<?php
+}else{?>
+     @yield($selector->viewName())<?php
+    }
+?>
 
 
 

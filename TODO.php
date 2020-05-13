@@ -7,6 +7,7 @@
 // TODO: public/private -> button for show/hide user info 
 //? Work in progress MemberData
 //! FIXME : Login works after 2x input (correct data)
+//TODO: SETUP 'project' email at google 
 
 // default  username=>visitor,role=>none,//?permission=>visit
 // IF user is logged -> username => Username,role=>user,//?permission=>view 

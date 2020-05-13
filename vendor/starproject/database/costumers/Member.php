@@ -54,10 +54,9 @@ public function login($username,$password){
 }
 public function getHash($username){
     try{
-        $stmt = $this->_db->prepare("SELECT `password`, username, memberID FROM members WHERE username = :username AND active='Yes'");
-        $stmt->execute([':username'=>$username]);
-        $hash = $stmt->fetch();
-        return $hash['password'];
+        $stmt = $this->_db->from('members')->where('username',$username);
+        $hash = $stmt->fetch('password');
+        return $hash;
     }catch(PDOException $e){
         return $e;
     }
@@ -83,8 +82,7 @@ public function activate(){
 }
 
 public function userExist($username){   
-    $stmt = $this->_db->prepare("SELECT username FROM members WHERE username = :username");
-    $stmt->execute([":username"=>$username]);
+    $stmt = $this->_db->from('members')->where('username',$username);
     $row = $stmt->fetch();
     if($row['username'] !== $username){
          return false;

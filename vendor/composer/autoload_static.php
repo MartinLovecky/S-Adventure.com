@@ -61,6 +61,10 @@ class ComposerStaticInitb707d24bb537524e3438618eec524e45
             'LanguageServer\\' => 15,
             'LanguageServerProtocol\\' => 23,
         ),
+        'E' => 
+        array (
+            'Envms\\FluentPDO\\' => 16,
+        ),
         'C' => 
         array (
             'Composer\\XdebugHandler\\' => 23,
@@ -137,6 +141,10 @@ class ComposerStaticInitb707d24bb537524e3438618eec524e45
         'LanguageServerProtocol\\' => 
         array (
             0 => __DIR__ . '/..' . '/felixfbecker/language-server-protocol/src',
+        ),
+        'Envms\\FluentPDO\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/envms/fluentpdo/src',
         ),
         'Composer\\XdebugHandler\\' => 
         array (

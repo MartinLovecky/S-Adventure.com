@@ -106,6 +106,58 @@
         ]
     },
     {
+        "name": "envms/fluentpdo",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/envms/fluentpdo.git",
+            "reference": "ed842a6731b95477976b0271573e885994fb6702"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/envms/fluentpdo/zipball/ed842a6731b95477976b0271573e885994fb6702",
+            "reference": "ed842a6731b95477976b0271573e885994fb6702",
+            "shasum": ""
+        },
+        "require-dev": {
+            "envms/fluent-test": "^1.0",
+            "phpunit/phpunit": "^7.0"
+        },
+        "time": "2019-04-27T20:21:50+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "Envms\\FluentPDO\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache-2.0",
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "envms",
+                "homepage": "http://env.ms"
+            }
+        ],
+        "description": "FluentPDO is a quick and light PHP library for rapid query building. It features a smart join builder, which automatically creates table joins.",
+        "homepage": "https://github.com/envms/fluentpdo",
+        "keywords": [
+            "builder",
+            "database",
+            "db",
+            "dbal",
+            "fluent",
+            "mysql",
+            "oracle",
+            "pdo",
+            "query"
+        ]
+    },
+    {
         "name": "felixfbecker/advanced-json-rpc",
         "version": "v3.1.0",
         "version_normalized": "3.1.0.0",

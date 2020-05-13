@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "eftec/bladeone": "^3.36@dev",
-        "felixfbecker/language-server": "dev-master"
+        "felixfbecker/language-server": "dev-master",
+        "envms/fluentpdo": "dev-master"
     },
     "require-dev": {
         "phpmailer/phpmailer": "dev-master",

@@ -21,10 +21,11 @@ $message = new Messages;
 $mail = new Mailer;
 $articles = new Articles; 
 $router = new Router;
-$hform = new Forms($blade);
+$hform = new Forms;
 
 # Check Fail DB con !! 
 if($db->con() === null){   
+    // blade->run(page) -> for send msg
 echo $message->message(['error'=>'Please write email to '.$mail->_email.' with Subject: SA-2002 and Message: Database conection fail']); die;
 }
 

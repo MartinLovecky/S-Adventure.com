@@ -45,10 +45,10 @@ public function validateRegister($request){
 }
 
 public function setSession($username,$password){
-    $stmt = $this->_db->prepare("SELECT * FROM members WHERE username = :username AND active='Yes'");
-	$stmt->execute([':username'=>$username]);
+    $stmt = $this->_db->from('members')->where('username',$username);
     $row = $stmt->fetch();
-    if($this->password_verify($password,$row['password']) == 1){
+    //"SELECT * FROM members WHERE username = :username AND active='Yes'")
+    if($this->_member->password_verify($password,$row['password']) == 1){
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $row['username'];
         $_SESSION['memberID'] = $row['memberID'];
@@ -82,8 +82,7 @@ public function validateResetMail($request){
     if($this->_emptyFields([$email]))return['message'=>$this->_message->message(['error'=>'Všechna pole musí být vyplněna'])];
     if(!filter_var($email, FILTER_VALIDATE_EMAIL))return['message'=>$this->_message->message(['error'=>'Zadejte prosím platný email'])];
     // Check DB
-    $stmt = $db->prepare('SELECT email FROM members WHERE email = :email');
-    $stmt->execute([':email']);
+    $stmt = $this->_db->from('members')->where('email',$email);
     $row = $stmt->fetch();
     if($row['email'] != $email)return['message'=>$this->_message->message(['error'=>'K zadému emailu neexistuje žádný účet'])];
     return ['email'=>$email];
