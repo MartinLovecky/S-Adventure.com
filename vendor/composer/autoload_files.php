@@ -13,6 +13,7 @@ return array(
     'a1cce3d26cc15c00fcd0b3354bd72c88' => $vendorDir . '/sabre/event/lib/Promise/functions.php',
     '383eaff206634a77a1be54e64e6459c7' => $vendorDir . '/sabre/uri/lib/functions.php',
     '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => $vendorDir . '/symfony/polyfill-mbstring/bootstrap.php',
+    'a4a119a56e50fbb293281d9a48007e0e' => $vendorDir . '/symfony/polyfill-php80/bootstrap.php',
     'caf3abc48ff070873ebdd8b0b3e3ed61' => $vendorDir . '/felixfbecker/language-server/src/utils.php',
     '9bf3e7d6fe9641970dc01b8d6883ca73' => $vendorDir . '/felixfbecker/language-server/src/FqnUtilities.php',
     '8e586103bb738bdd52591d2da31dd349' => $vendorDir . '/felixfbecker/language-server/src/ParserHelpers.php',
