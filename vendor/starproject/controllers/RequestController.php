@@ -7,6 +7,7 @@ use \starproject\database\costumers\Member;
 use \starproject\database\DB;
 use \starproject\tools\Mailer;
 
+
 class RequestController{
 
 private $_validation,$_member,$_db,$_mail;
@@ -100,7 +101,6 @@ public function submitRegister($request){
 }
 
 public function submitLogin($request){
-    // Take correct info and login check for login errors
     $login = $this->_login($request);
     if(\in_array('message',$login)){
         return ['message'=>$validation['message']];
@@ -109,11 +109,11 @@ public function submitLogin($request){
         $username = $login['username'];
         $password = $login['password'];
         if($this->_member->login($username,$password)){
-            header("Location: http://sadventure.com/member/$username"); exit;
+           header('Location: http://sadventure.com/member/'.$username.'?action=logged');
         }
     }
     return null;
-    
+
 }
 
 public function submitsendReset($request){

@@ -45,22 +45,15 @@ public function isValidUsername($username){
 public function login($username,$password){
     if (!$this->isValidUsername($username)) return false;
     if (strlen($password) < 5) return false;
+    // only for existing user -> inside requestcontroller->validation->userExist
+    $stmt = $this->_db->from('members')->where('username',$username);
+    $hash = $stmt->fetch('password');
 
-    $row = $this->getHash($username);
-
-    if($this->password_verify($password,$row['password']) == 1){
+    if($this->password_verify($password,$hash) == 1){
         return true;
     }
 }
-public function getHash($username){
-    try{
-        $stmt = $this->_db->from('members')->where('username',$username);
-        $hash = $stmt->fetch('password');
-        return $hash;
-    }catch(PDOException $e){
-        return $e;
-    }
-}
+
 
 public function logout(){
     session_destroy();
