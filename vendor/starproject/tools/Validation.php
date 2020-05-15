@@ -83,10 +83,9 @@ public function validateResetMail($request){
     if(!filter_var($email, FILTER_VALIDATE_EMAIL))return['message'=>$this->_message->message(['error'=>'Zadejte prosím platný email'])];
     // Check DB
     $stmt = $this->_db->from('members')->where('email',$email);
-    $row = $stmt->fetch();
-    if($row['email'] != $email)return['message'=>$this->_message->message(['error'=>'K zadému emailu neexistuje žádný účet'])];
+    $rowEmail = $stmt->fetch('email');
+    if($rowEmail != $email)return['message'=>$this->_message->message(['error'=>'K zadému emailu neexistuje žádný účet'])];
     return ['email'=>$email];
-
 }
 
 }

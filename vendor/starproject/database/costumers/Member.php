@@ -4,6 +4,7 @@ namespace starproject\database\costumers;
 
 use \starproject\database\DB as Database;
 use \starproject\database\costumers\Password;
+use \starproject\http\Router;
 
 class Member extends Password{
 
@@ -54,24 +55,24 @@ public function login($username,$password){
     }
 }
 
-
 public function logout(){
     session_destroy();
-    return \header('Location: http://sadventure.com/index');
+    Router::redirect('index');
 }
 
 public function activate(){
     if(!empty($this->_query) && isset($this->_query['x']) && isset($this->_query['y'])){
         $memberID = $this->_query['x'];
         $active = $this->_query['y'];
-        $stmt = $this->_db->prepare("UPDATE members SET active = 'Yes' WHERE memberID = :memberID AND active = :active");
-        $stmt->execute([':memberID' =>$memberID,':active'=>$active]);
+        $set = ['active'=>'YES'];
+        $stmt = $this->_db->update('members',$set,$memberID);
+        $stmt->execute();
         if($stmt->rowCount() == 1){
-            return \header('Location: http://sadventure.com/login?action=active'); 
+            Router::redirect('login?action=active');
         }
     }
-    //fail ?
-    return \header('Location: http://sadventure.com/login?action=failActive'); ;
+    //fail 
+    Router::redirect('login?action=failActive');
 }
 
 public function userExist($username){   
@@ -82,6 +83,5 @@ public function userExist($username){
     }
     return true;
 }
-
     
 }

@@ -6,7 +6,7 @@ use \starproject\tools\Validation;
 use \starproject\database\costumers\Member;
 use \starproject\database\DB;
 use \starproject\tools\Mailer;
-
+use \starproject\http\Router;
 
 class RequestController{
 
@@ -57,45 +57,26 @@ public function _sendResetEmail($request){
     if(isset($validation['message'])){
         return ['message'=>$validation['message'],['old_email'=>$request['email']]];
     }
-        $stmt = $this->_db->from('members')->where('email',$email);
-        $result = $stmt->fetch('password');
-        $token = hash_hmac('SHA256', $this->_member->generate_entropy(8), $result['password']);
-        $storedToken = hash('SHA256', ($token));
+    $stmt = $this->_db->from('members')->where('email',$email);
+    $result = $stmt->fetch('password');
+    $token = hash_hmac('SHA256', $this->_member->generate_entropy(8), $result['password']);
+    $storedToken = hash('SHA256', ($token));
         return ['email'=>$validation['email'],'storedToken'=>$storedToken];
 
 }
 
 public function submitRegister($request){
-
     $register = $this->_register($request);
     if(\in_array('message',$register)){
         return $register['message'];
     }
     if(!\in_array('message',$register)){
-            $id = $register['id'];
-            $to = $register['to'];
-            $subject = "Potvrzení registrace";
-            $activasion = $register['activasion'];
-            $username = $register['username'];
-            require(DIR."/public/templates/email.php"); 
-            $this->_mail->Body = $body;
-            $this->_mail->Host = "smtp.gmail.com";
-            $this->_mail->SMTPDebug = 2;
-            $this->_mail->CharSet = "UTF-8";
-            $this->_mail->SMTPAuth = true;
-            $this->_mail->Username = $this->_mail->_email; 
-            $this->_mail->Password = $this->_mail->_paswword; 
-            $this->_mail->SMTPSecure = "tls";
-            $this->_mail->Port = 587;
-            $this->_mail->subject($subject);
-            $this->_mail->isHTML(true);
-            $this->_mail->body($body);
-            $this->_mail->setFrom("noreply@sadventure.com","sadventure.com");
-            $this->_mail->addAddress($to);
-            $this->_mail->addAttachment("public/images/attachment/help.png");
-            if($this->_mail->send()){
-                header("Location: http://sadventure.com/login?action=joined"); 
-            }
+        $subject = "Potvrzení registrace";
+        $build = ['body'=>$this->_mail->template('email',['id'=>$register['id'],'activasion'=>$register['activasion'],'username'=>$register['username']]),'subject'=>$subject,'to'=>$register['to']];
+        $this->_mail->builder($build);
+        if($this->_mail->send()){
+            Router::redirect('login?action=joined');
+        }
     }
     return null; 
 }
@@ -109,7 +90,7 @@ public function submitLogin($request){
         $username = $login['username'];
         $password = $login['password'];
         if($this->_member->login($username,$password)){
-           header('Location: http://sadventure.com/member/'.$username.'?action=logged');
+            Router::redirect('member/'.$username.'?action=logged');
         }
     }
     return null;
@@ -117,36 +98,19 @@ public function submitLogin($request){
 }
 
 public function submitsendReset($request){
-    // This function send reset email to user 
     $reset = $this->_sendResetEmail($request);
     if(\in_array('message',$reset)){
         return ['message'=>$reset['message']];
     }
     if(!\in_array('message',$reset)){
-        // update db
         $set = ['resetToken'=>$reset['storedToken'],'resetComplete'=>'No'];
         $stmt = $this->_db->update('members',$set,$reset['email']);
         $stmt->execute();
-        $to = $reset['email'];
         $subject = "Reset hesla";
-        //require(DIR . '/views/actions/mail_reset.php');
-		$this->_mail->Host = 'smtp.gmail.com';
-        $this->_mail->Body = $body;
-		$this->_mail->SMTPDebug = 2;
-		$this->_mail->CharSet = 'UTF-8';
-		$this->_mail->SMTPAuth = true;
-		$this->_mail->Username = null;
-		$this->_mail->Password = null; 
-		$this->_mail->SMTPSecure = "ssl";
-		$this->_mail->Port = 465;
-		$this->_mail->subject($subject);
-		$this->_mail->isHTML(true);
-		$this->_mail->body($body);
-		$this->_mail->setFrom("noreply@sadventure.com","sadventure.com");
-		$this->_mail->addAddress($to);
-		$this->_mail->addAttachment('public/images/attachment/help.png');
+        $build = ['body'=>$this->_mail->template('mail_reset',['to'=>$reset['email'],'subject'=>$subject])];
+        $this->_mail->builder($build);	
 		if ($this->_mail->send()){
-            header('Location: http://sadventure.com/login?action=reset');
+            Router::redirect('login?action=reset');
         }
     }
 }

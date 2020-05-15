@@ -20,6 +20,7 @@ public function __construct(Member $member){
     $this->allowedPages = [range(1,300)];
     $this->queryAction = $_GET['action'] ?? null; //! SANITAZE !!! $validation->sanitaze();
 }
+
 public function title(){
     if($this->action === ''){
         return 'Home';
@@ -28,6 +29,7 @@ public function title(){
     }
         return $this->action;
 }
+
 public function viewName(){
     if($this->allowedView() && $this->article == 'empty'){
         switch($this->action){
@@ -64,6 +66,7 @@ public function viewName(){
     }
     return '404';
 }
+
 public function allowedView(){
     // return true false
     if (in_array($this->action,$this->allowedAction)) {

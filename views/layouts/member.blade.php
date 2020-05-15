@@ -5,7 +5,7 @@ $temp = (isset($_FILES['avatar']['tmp_name'])) ? $_FILES['avatar']['tmp_name'] :
 <div class="col-xl-6 offset-xl-0 text-center">
 <h3>Úprava účtu</h3>
     {{-- Nefunkční bez member table --}}
-    {!! $hform->create(['method'=>'POST','class'=>'text-center','target'=>['app.RequestHandler',['avatar'=>$avatarx,'temp'=>$temp,'requestController'=>$requestController,'request'=>$request]],'autocomplete'=>'off','enctype'=>'multipart/form-data']) !!}
+    {!! $hform->create(['method'=>'POST','class'=>'text-center','target'=>['app.RequestHandler',['avatar'=>$avatarx,'temp'=>$temp,'requestController'=>$requestController,'request'=>$request]],'autocomplete'=>'off','enctype'=>'multipart/form-data'])->run($blade) !!}
         <div class="form-group"><input type="text" name="name" class="form-control" placeholder="Jméno"></div>
         <div class="form-group"><input type="text" name="surname" class="form-control" placeholder="Příjmení"></div>
         <div class="form-group"><input type="date" name="age" class="form-control" min="1979-12-31" max="2020-01-01"></div>
