@@ -24,7 +24,6 @@
     $blade->addAssetDict('img.icon.jpg','http://staradventure.xf.cz/views/includes/assets/img/apple-touch-icon.png');
 
     // run APP
-    echo $router->_runApp($blade,$selector);
-
+     echo $router->_runApp($blade,$selector);
 ?>
 

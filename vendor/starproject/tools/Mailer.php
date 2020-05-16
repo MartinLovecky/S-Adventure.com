@@ -2,13 +2,13 @@
 
 namespace starproject\tools;
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\SMTP;
+use \PHPMailer\PHPMailer\PHPMailer;
+use \PHPMailer\PHPMailer\Exception;
+use \PHPMailer\PHPMailer\SMTP;
 
 class Mailer extends PHPMailer{
 
-    private $_paswword = "!",$_email = "/";
+    public $_password = 'e48cf3bac0900b695dd25e3c64ab417b',$_email = 'sadventure534@gmail.com';
 
     public function subject($subject){
       $this->Subject = $subject;
@@ -25,19 +25,34 @@ class Mailer extends PHPMailer{
     }
 
     public function template(string $string,array $data){
-      //
-      //require(DIR.'/public/templates/'.$string.'.php');
+      /*
+      if($string === 'register-email'){
+        $activasion = $data['activasion'];
+        $id = $data['id'];
+        $username = $data['username'];
+        body var inside template
+        require(DIR.'views/extras/'.$string.'.php');
+          return $body;
+      }
+      if($string === 'pwd-reset-email'){
+        #code
+      }*/
+      if($string === 'register-email'){
+        require(DIR.'/views/extras/'.$string.'.php');
+          return $body;
+      }
     }
 
     public function builder(array $build){
       // all need be setup !!!!
+      $this->IsSMTP();
       $this->Body = $build['body'];
       $this->Host = 'smtp.gmail.com';
       $this->SMTPDebug = 2;
       $this->CharSet = 'UTF-8';
       $this->SMTPAuth = true;
       $this->Username = $this->_email; 
-      $this->Password = $this->_paswword; 
+      $this->Password = $this->_password; 
       $this->SMTPSecure = "tls";
       $this->Port = 587;
       $this->subject($build['subject']);

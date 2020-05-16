@@ -6,9 +6,7 @@
 // TODO: /member will show list of all users without their info if not public(set up by user) 
 // TODO: public/private -> button for show/hide user info 
 //? Work in progress MemberData
-//! FIXME : Login works after 2x input (correct data)
-//TODO: SETUP 'project' email at google 
-
+// TODO: templates for email doesnt show correctly -> bugfixing
 // default  username=>visitor,role=>none,//?permission=>visit
 // IF user is logged -> username => Username,role=>user,//?permission=>view 
 // IF user is Editor -> username =>Username,role=>edior,//?permission=>edit

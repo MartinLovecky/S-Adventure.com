@@ -72,7 +72,7 @@ public function submitRegister($request){
     }
     if(!\in_array('message',$register)){
         $subject = "Potvrzení registrace";
-        $build = ['body'=>$this->_mail->template('email',['id'=>$register['id'],'activasion'=>$register['activasion'],'username'=>$register['username']]),'subject'=>$subject,'to'=>$register['to']];
+        $build = ['body'=>$this->_mail->template('register-email',['id'=>$register['id'],'activasion'=>$register['activasion'],'username'=>$register['username']]),'subject'=>$subject,'to'=>$register['to']];
         $this->_mail->builder($build);
         if($this->_mail->send()){
             Router::redirect('login?action=joined');
@@ -107,7 +107,7 @@ public function submitsendReset($request){
         $stmt = $this->_db->update('members',$set,$reset['email']);
         $stmt->execute();
         $subject = "Reset hesla";
-        $build = ['body'=>$this->_mail->template('mail_reset',['to'=>$reset['email'],'subject'=>$subject])];
+        $build = ['body'=>$this->_mail->template('pwd-reset-email',['to'=>$reset['email'],'subject'=>$subject])];
         $this->_mail->builder($build);	
 		if ($this->_mail->send()){
             Router::redirect('login?action=reset');
