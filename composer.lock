@@ -1141,12 +1141,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "8d1f467a76e7f48fa3f0661830eb371bf0b5d5f4"
+                "reference": "63629be9cb8cd264915bc7d40aa5361a7abad06b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/8d1f467a76e7f48fa3f0661830eb371bf0b5d5f4",
-                "reference": "8d1f467a76e7f48fa3f0661830eb371bf0b5d5f4",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/63629be9cb8cd264915bc7d40aa5361a7abad06b",
+                "reference": "63629be9cb8cd264915bc7d40aa5361a7abad06b",
                 "shasum": ""
             },
             "require": {
@@ -1175,7 +1175,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.1-dev"
+                    "dev-master": "5.2-dev"
                 }
             },
             "autoload": {
@@ -1209,7 +1209,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2020-05-08T12:37:13+00:00"
+            "time": "2020-05-16T12:09:30+00:00"
         }
     ],
     "aliases": [],
