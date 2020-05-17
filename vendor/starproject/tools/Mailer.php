@@ -44,7 +44,7 @@ class Mailer extends PHPMailer{
     }
 
     public function builder(array $build){
-      // all need be setup !!!!
+      // all $build need be setup !!!!
       $this->IsSMTP();
       $this->Body = $build['body'];
       $this->Host = 'smtp.gmail.com';

@@ -1,1 +1,1 @@
-<?php  $member->activate(); ?>
+<?php $member->activate(); ?>

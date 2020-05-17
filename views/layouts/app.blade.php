@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="@asset('css.Form-Dark.css')"> 
     <link rel="stylesheet" href="@asset('css.styles.css')">
     <link rel="stylesheet" href="@asset('css.project-horizont.css')">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
     <title>@isset($title){{$title}}@endisset</title>
@@ -37,16 +37,8 @@
 </head>
 
 <body>
-{{-- For some wierd reason in some cases none of $router->data are passed to view even they are WTF ???--}}
+
 <?php
-// looking for solution !
-/* ProblemSolving
-* a) DIR work = loader works dump works(well its global)
-* b) inside register/login .. vars from init doesnt work
-* -> Issue whit Class $hform bcs of $this; but why ?
-* c) Issue with 2x input to sum forms -> $hfrom + $blade
-* -> definitly isue inside $hform or $blade not sure where yet
-*/
 if(!isset($selector)){
   require(DIR . '/core/init.php'); ?>
     @yield($selector->viewName())<?php

@@ -63,6 +63,7 @@ public function setSession($username,$password){
         $_SESSION['resetComplete'] = $row['resetComplete'];
         $_SESSION['bookmark'] = $row['bookmark'];
         $_SESSION['remeber'] = $row['remeber'];
+        // not setup inside db $_SESSION['role'] = $row['role']
         return true;
     }
 }

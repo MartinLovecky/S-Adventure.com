@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('roster')
 <div class="projects-horizontal">
     <div class="container">
         <div class="intro"><h2 class="text-center">Seznam všech příběhů</h2></div>
@@ -19,6 +19,6 @@
         </div>
     </div>
 </div>
-
+@endsection
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>

@@ -1,12 +1,11 @@
 <?php
 // TODO: @can('',$member)
-//! FIXME: permission for -> show/update/create/delete/member
-// TODO: PERMISSION implemation
-// TODO: Now roles are set manuly inside DBTable. Admin should have this ability inside web !!! 
-// TODO: /member will show list of all users without their info if not public(set up by user) 
-// TODO: public/private -> button for show/hide user info 
+// TODO: Now roles are set manuly inside DBTable. Admin should have this ability inside web !!! (almost done)
+// TODO: /member will show list of all users without their info if not public(set up by user)  (almost done)
+// TODO: EDITOR
 //? Work in progress MemberData
 // TODO: templates for email doesnt show correctly -> bugfixing
+
 // default  username=>visitor,role=>none,//?permission=>visit
 // IF user is logged -> username => Username,role=>user,//?permission=>view 
 // IF user is Editor -> username =>Username,role=>edior,//?permission=>edit

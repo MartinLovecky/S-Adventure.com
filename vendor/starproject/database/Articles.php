@@ -3,9 +3,8 @@ namespace starproject\database;
 
 class Articles
 {
- 
-    private $id;
-    private $Articles = [
+    public $id;
+    public $Articles = [
             'Allwin'=>['description'=>'Vysvětluje počátek světa, ve kterém se příběh odehrává','url'=>'http://sadventure.com/show/allwin/1','img'=>'',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],

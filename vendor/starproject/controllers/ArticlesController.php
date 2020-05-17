@@ -2,7 +2,6 @@
 
 namespace starproject\controllers;
 
-use starproject\http\Router;
 use starproject\tools\Selector;
 use starproject\database\Articles;
 use starproject\arraybasics\MultiDimensional;
@@ -47,15 +46,15 @@ class ArticlesController extends Articles{
         }
         return null;
     }
-    public function updateArticle(Router $router){
+    public function updateArticle($request){
         // view secure permitions (inside Costumer) so we need only check request
-        if(isset($router->request['submit']) && $router->request['type'] == 'update'){
+        if(isset($request['submit']) && $request['type'] == 'update'){
             # RAW data Posted by trusted member [Admin or Editor];
-            $r_chapter = isset($router->request['chapter']) ?? '';
-            $r_nadpisH1 = isset($router->request['nadpisH1']) ?? '';
-            $r_nadpisH2 = isset($router->request['nadpisH2']) ?? '';
-            $r_smallH2 = isset($router->request['smallH2']) ?? '';
-            $r_body = isset($router->request['body']) ?? '';
+            $r_chapter = isset($request['chapter']) ?? '';
+            $r_nadpisH1 = isset($request['nadpisH1']) ?? '';
+            $r_nadpisH2 = isset($request['nadpisH2']) ?? '';
+            $r_smallH2 = isset($request['smallH2']) ?? '';
+            $r_body = isset($request['body']) ?? '';
             // UPDATE
             if($this->_SetAllowed()){
                 $this->_buffer = ['chapter'=>$r_chapter,'nadpisH1'=>$r_nadpisH1,'nadpisH2'=>$r_nadpisH2,'smallH2'=>$r_smallH2,'body'=>$r_body];
@@ -68,12 +67,12 @@ class ArticlesController extends Articles{
         }
         return null;
     }
-    public function create(Router $router){
+    public function create($request){
         // Request -> $request = ['page' => [10 => ['chapter','body'=>'']]];
         // Selector -> $selector = ['article'=>'allwin','page'=>'10'];
         // Articles -> $articles = ['Allwin'=>[1=>['chapter','body'=>'']]];
         // ADD new to existing
-        $this->_ArticleArray = $router->request['page'];
+        $this->_ArticleArray = $request['page'];
 
     }
     public function delete(){

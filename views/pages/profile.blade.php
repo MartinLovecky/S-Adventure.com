@@ -1,5 +1,8 @@
-@include('layouts.app')
-
+@if ($member->username == 'visitor')
+    {!! header('Location: '.$router->urlName.'index?action=permission') !!}
+@else
+@extends('layouts.app')
+@section('profile')
 <div class="container-fluid">
     <div class="row">
         <div class="col-xl-12 offset-xl-0">
@@ -34,6 +37,7 @@
     </div>
     </div>
 </div>
-
 @include('layouts.footer',['router'=>$router])
+@endsection
+@endif
 
