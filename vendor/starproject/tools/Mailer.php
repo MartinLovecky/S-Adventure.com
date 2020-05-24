@@ -25,20 +25,12 @@ class Mailer extends PHPMailer{
     }
 
     public function template(string $string,array $data){
-      /*
       if($string === 'register-email'){
-        $activasion = $data['activasion'];
-        $id = $data['id'];
-        $username = $data['username'];
-        body var inside template
-        require(DIR.'views/extras/'.$string.'.php');
+        require(DIR.'/views/extras/'.$string.'.php');
           return $body;
       }
       if($string === 'pwd-reset-email'){
-        #code
-      }*/
-      if($string === 'register-email'){
-        require(DIR.'/views/extras/'.$string.'.php');
+        require(DIR.'/views/extras/'.$string.'.php'); 
           return $body;
       }
     }

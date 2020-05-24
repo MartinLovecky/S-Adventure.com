@@ -32,7 +32,7 @@ echo $message->message(['error'=>'Please write email to '.$mail->_email.' with S
 $member = new Member($db);
 $selector = new Selector($member);
 $validation = new Validation($db,$message,$member);
-$requestController = new RequestController($validation,$member,$db,$mail);
+$requestController = new RequestController($validation,$member,$db,$mail,$selector);
 $articlesController = new ArticlesController($selector);
 
 // Insert all necesary variables for ALL views here

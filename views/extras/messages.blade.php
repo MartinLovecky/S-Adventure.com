@@ -1,25 +1,18 @@
-<?php  
-// this look like selector
-$AllBags = ['register'=>$requestController->_register($request),'login'=>$requestController->_login($request)];
-$CurrentBag = array_filter($AllBags);
+<?php
 // messages for ?action='something'
-$msg = $message->_getAction($selector->queryAction);
+$actionMsg = $message->_getAction($selector->queryAction);
 
-if(!empty($CurrentBag)){
-    foreach($CurrentBag as $key =>$value){
-    // CurrentBags contains [0] = > errors , [1] => Old_data in case of error       
-	//$emsg = (isset($CurrentBag[$key][0])) ?? null;
-	$username = (isset($CurrentBag[$key][1]['username'])) ?? null;
-	$email = (isset($CurrentBag[$key][1]['email'])) ?? null;               
-	}     
-}
-// doesnt works with BLADE bcs variables are not inside $router->insert(,[HERE]);
-if(empty($msg) && $selector->action != 'member')
+if(empty($actionMsg) && $selector->action != 'member')
 {
 	echo '<h3 class="text-center">'.ucfirst($selector->viewname()).'</h3>';
 }
-if(!empty($msg))
+if(!empty($actionMsg))
 {
 	echo $msg;
 }	
+if(isset($selector->message))
+{
+	echo $selector->message;
+}
+
 ?>

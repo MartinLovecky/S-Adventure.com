@@ -78,6 +78,10 @@ public function validateLogin($request){
     if($this->setSession($username,$password))return ['username'=>$username,'password'=>$password];
 }
 
+public function validateReset($request){
+    
+}
+
 public function validateResetMail($request){
     $email = htmlspecialchars_decode($request['email'], ENT_QUOTES);
     if($this->_emptyFields([$email]))return['message'=>$this->_message->message(['error'=>'Všechna pole musí být vyplněna'])];

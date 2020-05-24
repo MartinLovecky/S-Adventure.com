@@ -7,7 +7,8 @@ use starproject\database\costumers\Member;
 
 class Selector extends Config{
 
-private $_member;    
+private $_member;
+public $message,$OldData;  
     
 public function __construct(Member $member){
     $this->_member = $member;
@@ -74,5 +75,16 @@ public function allowedView(){
     }
         return false; 
 }
+
+public function getMessages($message){
+    $this->message = $message;
+    return $this->message;
+}
+
+public function oldData($data){
+   $this->OldData = $data;
+   return $this->OldData;
+}
+
 
 }
