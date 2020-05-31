@@ -6,6 +6,7 @@
 //? Work in progress MemberData
 // TODO: templates for email doesnt show correctly -> bugfixing
 // TODO: messages inside /index 
+
 // default  username=>visitor,role=>none,//?permission=>visit
 // IF user is logged -> username => Username,role=>user,//?permission=>view 
 // IF user is Editor -> username =>Username,role=>edior,//?permission=>edit

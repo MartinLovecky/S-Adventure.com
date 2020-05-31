@@ -14,6 +14,10 @@ if(!empty($request))
         break;              
         case 'reset_pwd';
             $requestController->submitReset($request);
+        break;
+        case 'bookmark';
+            $requestController->submitBookmark($request);
+        break;       
         default: null;            
    }
 }

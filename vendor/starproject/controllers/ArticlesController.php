@@ -8,16 +8,15 @@ use starproject\arraybasics\MultiDimensional;
 
 class ArticlesController extends Articles{
 
-    public $all,$urls,$img,$names;
+    public $all,$img,$descript;
     private $_selector,$_buffer;
     
     public function __construct(Selector $selector){
         $this->all = $this->getArticles();
         $this->names = array_keys($this->getArticles());
         $this->_selector = $selector;
-        // $this->descript = array_column($this->getArticles(),'description');
-        //$this->urls = array_column($this->getArticles(),'url');
-        //$this->imgs =  array_column($this->getArticles(),'img');
+        $this->descript = array_column($this->getArticles(),'description');
+        $this->img =  array_column($this->getArticles(),'img');
 
     }
     /*
@@ -59,6 +58,7 @@ class ArticlesController extends Articles{
             if($this->_SetAllowed()){
                 $this->_buffer = ['chapter'=>$r_chapter,'nadpisH1'=>$r_nadpisH1,'nadpisH2'=>$r_nadpisH2,'smallH2'=>$r_smallH2,'body'=>$r_body];
                 $this->all[ucfirst($this->_selector->article)][$this->_selector->page] = $this->_buffer;
+                    return $this;
                 if(strlen($this->all[ucfirst($this->_selector->article)][$this->_selector->page]['body']) > 0){
                     return '<div role="alert" class="alert alert-success text-center text-success"><span>Úspěšne upraveno</span></div>';
                 }

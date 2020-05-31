@@ -64,11 +64,19 @@
             </thead>
             <tbody>
                 {{-- If status is not public dont provide link to profile & hide user info inside profile --}}
+                @foreach ($member->allMembers() as $items)
                 <tr class="table-secondary">
-                    <td>{username}</td>
-                    <td>{permission}</td>
+                    @if ($member->visible())
+                    <td><a href="">{{$member['username']}}</a></td>
+                    <td>{{$member['permission']}}</td>
+                    <td>{{status}}</td>
+                    @else    
+                    <td></td>
+                    <td></td>
                     <td>{status}</td>
+                    @endif
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

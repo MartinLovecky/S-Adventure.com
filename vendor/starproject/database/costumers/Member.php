@@ -11,7 +11,6 @@ class Member extends Password{
     private $_db,$_query;
     public $username,$role,$permission,$email,$memberID,$logged;
     public $memberName,$surname,$avatar,$age,$location,$resetToken,$resetComplete,$bookmark,$remeber;
-    //! never store password or hash
 
 public function __construct(Database $db){
     // Data dont need be sanitazed they are from Register
@@ -32,9 +31,8 @@ public function __construct(Database $db){
     $this->resetComplete = $_SESSION['resetComplete'] ?? null;
     $this->bookmark = $_SESSION['bookmark'] ?? null;
     $this->_db = $db->con();
-    /*   Main idea is not write bunch of function for nothing... $_SESSION are set when user is registed otherwise use default value  */    
+    // remeber = $row['rember'] => checkbox to stay logged  
 }
-// remeber = $row['rember'] => checkbox to stay logged
 
 public function isValidUsername($username){
     if (strlen($username) < 4) return false;
@@ -83,5 +81,24 @@ public function userExist($username){
     }
     return true;
 }
-    
+
+public function bookmark(){
+    if(empty($this->bookmark)){
+        $this->bookmark = 'member/'.$this->username.'?action=emptyBookmark';
+            return $this->bookmark;
+    }
+        return $this->bookmark;
+
+}
+
+public function visible(){
+    #
+}
+
+public function allMembers(){
+    $stmt = $this->_db->from('members');
+    $all = $stmt->fetchAll('username','name','surname','avatar','age','location','permission','visible');
+    return $all;
+}
+
 }

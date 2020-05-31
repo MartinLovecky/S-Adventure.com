@@ -79,7 +79,14 @@ public function validateLogin($request){
 }
 
 public function validateReset($request){
-    
+    //fields , password,passwordConfirm , token 
+    $resetpwd = $request['password'];
+    $resetpwdAgain = $request['passwordConfirm'];
+    $token = htmlentities($request['hash'],ENT_QUOTES, 'UTF-8');
+    if($this->_emptyFields([$resetpwd,$resetpwdAgain,$token]))return ['message'=>$this->message->message(['error'=>'Všechna pole musí být vyplněna'])];
+    if(mb_strlen($resetpwd) < 6 || mb_strlen($resetpwdAgain) < 6) return ['message'=>$this->_message->message(['error'=>'Heslo musí mít nejméně 6 znaků'])];
+    if($resetpwd != $resetpwdAgain)return ['message'=>$this->_message->message(['error'=>'Heslo se musí schodovat'])];
+    return ['password'=>$resetpwd,'token'=>$token];
 }
 
 public function validateResetMail($request){
@@ -91,6 +98,13 @@ public function validateResetMail($request){
     $rowEmail = $stmt->fetch('email');
     if($rowEmail != $email)return['message'=>$this->_message->message(['error'=>'K zadému emailu neexistuje žádný účet'])];
     return ['email'=>$email];
+}
+
+public function validateBookmark($request){
+    /* CHECK LIST 
+        - LOGGED , PERMISSION, ARTICLE , PAGE , <- all should be okey
+    */
+    return ['message'=>$this->_message->message(['succes'=>'Záložka úspěšně uložena'])];
 }
 
 }

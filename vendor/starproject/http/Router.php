@@ -35,8 +35,7 @@ public static function redirect($location = null){
                 break;
             }
         }
-        header('Location: '.DIR.$location);
-        exit();
+        header('Location: http://sadventure.com/'.$location.'');
     }
 }
 

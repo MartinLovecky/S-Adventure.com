@@ -8,7 +8,7 @@ if(empty($actionMsg) && $selector->action != 'member')
 }
 if(!empty($actionMsg))
 {
-	echo $msg;
+	echo $actionMsg;
 }	
 if(isset($selector->message))
 {

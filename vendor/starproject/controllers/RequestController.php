@@ -65,7 +65,7 @@ private function _reset($request){
         return ['message'=>$validation['message']];
     }
     $hashedpassword = password_hash($validation['password'], PASSWORD_DEFAULT);
-    $stmt = $this->_db->from('members')->select(['resetToken','resetComplete'])->where('resetToken',$this->_selector->queryAction);
+    $stmt = $this->_db->from('members')->select(['resetToken','resetComplete'])->where('resetToken',$validation['token']);
     $result = $stmt->fetch();
         return ['resetToken'=>$result['resetToken'],'resetComplete'=>$result['resetComplete'],'hashedpassword'=>$hashedpassword];
 }
@@ -123,10 +123,36 @@ public function submitsendReset($request){
             Router::redirect('login?action=reset');
         }
     }
+    return null;
 }
 
 public function submitReset($request){
-    
+    $subReset = $this->_reset($request);
+    if(\in_array('message',$subReset)){
+        return $this->_selector->getMessages($reset['message']);
+    }
+    if(!\in_array('message',$subReset)){
+        //update
+        $set = ['password'=>$subReset['hashedpassword'],'resetComplete'=>$subReset['resetComplete']];
+        $stmt = $this->_db->update('members')->set($set)->where('resetToken',$subReset['resetToken']);
+        $stmt->execute();
+        // reset null for next reset
+        if($subReset['resetComplete'] === 'YES'){
+            $set = ['resetToken'=>null,'resetComplete'=>null];
+            $stmt = $this->_db->update('members')->set($set)->where('resetToken',$subReset['resetToken']);
+            $stmt->execute();
+                Router::redirect('login?action=resetAccount');
+        }
+    }
+    return null;
+}
+
+public function submitBookmark($request){
+    $bookmark = $validation->validtateBookmark($request);
+    $set = ['bookmark'=>'show/'.$this->article.'/'.$this->page];
+    $stmt = $this->_db->update('members')->set($set)->where('memberID',$this->_member->memberID);
+    $stmt->execute();
+    return $this->_selector->getMessages($bookmark['message']);
 }
 
 }
