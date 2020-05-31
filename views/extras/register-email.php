@@ -1,12 +1,11 @@
 <?php
 
 // for now only simple text  
-/*
 $body = '
-<h1 style="color: #241c15;">Děkuji za registraci: '.$username.'</h1>
-<a style="color: #ffffff; display: inline-block; font-size: 16px; text-decoration: none;height:30px;margin-top:15px;margin-bottom:5px;" href="" target="_blank" rel="noopener">Aktivovat účet</a>';
-*/
-
+<h1 style="color: #241c15;">Děkuji za registraci: '.$data['username'].'</h1>
+<a style="color: #ffffff; display: inline-block; font-size: 16px; text-decoration: none;height:30px;margin-top:15px;margin-bottom:5px;" href="http://staradventure.xf.cz/activate?x='.$data['id'].'&y='.$data['activasion'].'" target="_blank" rel="noopener">Aktivovat účet</a>';
+//!TEMPLETE DOEST WORK
+/*
 $body = '
 <head>
   <meta charset="utf-8">
@@ -176,11 +175,12 @@ $body = '
           <div class="d-table-cell photo-details"><img class="img-fluid" src="https://i.imgur.com/eDo7cFM.jpg">
             <h1><br><strong>Děkujeme za vaši registraci !</strong><br><br></h1>
             <p>Pro dokončení registrace klikněte na <strong>Aktivovat</strong><br>*Pokud jste to nebyli vy prosím ignorujte tento email.<br></p>
-            <p class="text-left">Uživatel:<span class="text-monospace text-warning" style="margin-left: 10px;">'.$username.'</span></p>
+            <p class="text-left">Uživatel:<span class="text-monospace text-warning" style="margin-left: 10px;">'.$data['username'].'</span></p>
             <p class="text-left" style="margin-bottom: 32px;">Vytvořen dne:<span class="text-monospace text-warning" style="margin-left: 10px;">'.date("Y-m-d").'</span></p>
-            <div class="photo-tags"><a herf="http://staradventure.xf.cz/activate?x='.$id.'&y='.$activasion.'" class="btn btn-block btn-lg" role="button">Aktivovat</a></div>
+            <div class="photo-tags"><a herf="http://staradventure.xf.cz/activate?x='.$data['id'].'&y='.$data['activasion'].'" class="btn btn-block btn-lg" role="button">Aktivovat</a></div>
           </div>
         </div>
       </div>
   </section>
 </body>';
+*/

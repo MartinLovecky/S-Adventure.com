@@ -52,11 +52,11 @@ private function _sendResetEmail($request){
     if(isset($validation['message'])){
         return ['message'=>$validation['message'],['email'=>$request['email']]];
     }
-    $stmt = $this->_db->from('members')->where('email',$email);
-    $result = $stmt->fetch('password');
-    $token = hash_hmac('SHA256', $this->_member->generate_entropy(8), $result['password']);
+    $stmt = $this->_db->from('members')->where('email',$request['email']);
+    $result = $stmt->fetchAll('memberID','password');
+    $token = hash_hmac('SHA256', $this->_member->generate_entropy(8), $result[2]['password']);
     $storedToken = hash('SHA256', ($token));
-        return ['email'=>$validation['email'],'storedToken'=>$storedToken,'token'=>$token];
+        return ['email'=>$validation['email'],'storedToken'=>$storedToken,'token'=>$token,'id'=>$result[2]['memberID']];
 }
 
 private function _reset($request){
@@ -114,7 +114,7 @@ public function submitsendReset($request){
     }
     if(!\in_array('message',$reset)){
         $set = ['resetToken'=>$reset['storedToken'],'resetComplete'=>'No'];
-        $stmt = $this->_db->update('members',$set,$reset['email']);
+        $stmt = $this->_db->update('members')->set($set)->where('memberID',$reset['id']);
         $stmt->execute();
         $subject = "Reset hesla";
         $build = ['body'=>$this->_mail->template('pwd-reset-email',['token'=>$reset['token']]),'to'=>$reset['email'],'subject'=>$subject];

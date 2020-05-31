@@ -1,3 +1,3 @@
 <?php
 
-$body = '<a href="http://sadventure.com/resetPassword?action='.$token.'">Reset</a></p>';
+$body = '<a href="http://sadventure.com/resetPassword?action='.$data['token'].'">Reset</a></p>';

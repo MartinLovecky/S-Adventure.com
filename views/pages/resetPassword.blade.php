@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('resetPassword')
-@isset($selector->queryAction && !$member->logged)
+@if($selector->queryAction && !$member->logged)
 <div class="login-dark">
     {!! $hform->create(['target'=>['app.RequestHandler',['requestController'=>$requestController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])->run($blade) !!} 
 @include('extras.messages',['selector'=>$selector,'message'=>$message])
@@ -14,5 +14,5 @@
     </div>
 </body>
 </html>
-@endisset
+@endif
 @endsection

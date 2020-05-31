@@ -25,6 +25,7 @@ class Mailer extends PHPMailer{
     }
 
     public function template(string $string,array $data){
+      //!DONT FORGET insert $data 
       if($string === 'register-email'){
         require(DIR.'/views/extras/'.$string.'.php');
           return $body;
