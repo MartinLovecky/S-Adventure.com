@@ -2,13 +2,21 @@
 
 namespace starproject\tools;
 
-use starproject\fundemation\Config;
 use starproject\database\costumers\Member;
 
-class Selector extends Config{
+class Selector {
 
 private $_member;
-public $message,$OldData;  
+public $message,$OldData;
+public $action = '';
+public $article = '';
+public $page = null;
+public $url = [];
+public $allowedAction = [];
+public $allowedPages = [];
+public $queryAction = '';
+public $allowedAricles = [];
+public $resetPWD = '';  
     
 public function __construct(Member $member){
     $this->_member = $member;
@@ -19,7 +27,8 @@ public function __construct(Member $member){
     $this->allowedAction = ['editor','roster','login','logout','register','','reset','resetPassword','activate','member','404','terms','vop','index','test','show','create','update','delete'];
     $this->allowedAricles = ['allwin','samuel','isama','isamanh','isamanw','angel','mry','star','terror','demoni','hyperion'];
     $this->allowedPages = [range(1,300)];
-    $this->queryAction = $_GET['action'] ?? null; //! SANITAZE !!! $validation->sanitaze();
+    $this->queryAction = $_GET['action'] ?? null; //! SANITAZE via blade {{$selector->queryAction}}
+    $this->resetPWD = $_GET['x'] ?? null;
 }
 
 public function title(){

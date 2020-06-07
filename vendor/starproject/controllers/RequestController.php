@@ -117,7 +117,7 @@ public function submitsendReset($request){
         $stmt = $this->_db->update('members')->set($set)->where('memberID',$reset['id']);
         $stmt->execute();
         $subject = "Reset hesla";
-        $build = ['body'=>$this->_mail->template('pwd-reset-email',['token'=>$reset['token']]),'to'=>$reset['email'],'subject'=>$subject];
+        $build = ['body'=>$this->_mail->template('pwd-reset-email',['token'=>$reset['token'],'id'=>$reset['id']]),'to'=>$reset['email'],'subject'=>$subject];
         $this->_mail->builder($build);	
 		if ($this->_mail->send()){
             Router::redirect('login?action=reset');

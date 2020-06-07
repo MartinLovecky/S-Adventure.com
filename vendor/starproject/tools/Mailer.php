@@ -8,7 +8,7 @@ use \PHPMailer\PHPMailer\SMTP;
 
 class Mailer extends PHPMailer{
 
-    public $_password = 'e48cf3bac0900b695dd25e3c64ab417b',$_email = 'sadventure534@gmail.com';
+    protected $_password = 'e48cf3bac0900b695dd25e3c64ab417b',$_email = 'sadventure534@gmail.com';
 
     public function subject($subject){
       $this->Subject = $subject;
@@ -25,7 +25,7 @@ class Mailer extends PHPMailer{
     }
 
     public function template(string $string,array $data){
-      //!DONT FORGET insert $data 
+      //!DONT FORGET insert $data inside template 
       if($string === 'register-email'){
         require(DIR.'/views/extras/'.$string.'.php');
           return $body;

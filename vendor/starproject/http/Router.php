@@ -4,15 +4,15 @@ namespace starproject\http;
 
 use eftec\bladeone\BladeOne;
 use starproject\tools\Selector;
-use starproject\fundemation\Config;
 
-class Router extends Config{
+class Router {
 
-public $urlName;
+public $urlName = 'http://sadventure.com/';
+public $request = [];
+public $viewData = [];
 
 public function __construct(){
     $this->request = $_POST ?? null;
-    $this->urlName = 'http://sadventure.com/';
 }
 
 public function _runApp(BladeOne $blade,Selector $selector){
