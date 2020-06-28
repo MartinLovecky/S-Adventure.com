@@ -4,14 +4,14 @@
     <div class="container">
         <div class="intro"><h2 class="text-center">Seznam všech příběhů</h2></div>
         <div class="row projects">
-            @foreach ($articles->names as $ArticleName)
+            @foreach ($articles->getArticles() as $articles)
             <div class="col-sm-6 item">
                 <div class="row">
-                    <div class="col-md-12 col-lg-5"><img src="desk.jpg" class="img-fluid" alt="{{$ArticleName}}" /></div>
+                    <div class="col-md-12 col-lg-5"><img src="{{$articles['img']}}" class="img-fluid" alt="Article img" /></div>
                     <div class="col">
-                        <h3 class="name">{{$ArticleName}}</h3>
-                    <p class="text-left description">{{$articles->all[$ArticleName]['description']}}</p>
-                        <a class="btn btn-outline-link" role="button" href="{{$articles->all[$ArticleName]['url']}}" style>Čti zde<i class="fa fa-play"></i></a></div>
+                        <h3 class="name">{{$articles[0]}}</h3>
+                        <p class="text-left description">{{$articles['description']}}</p>
+                        <a class="btn btn-outline-link" role="button" href="{{$articles['url']}}" style>Čti zde<i class="fa fa-play"></i></a></div>
                 </div>
             </div>
             @endforeach

@@ -5,7 +5,7 @@ class Articles
 {
     public $id;
     public $Articles = [
-            'Allwin'=>['description'=>'Vysvětluje počátek světa, ve kterém se příběh odehrává','img'=>'',
+            'Allwin'=>['description'=>'Vysvětluje počátek světa, ve kterém se příběh odehrává','img'=>'','Allwin','url'=>'http://sadventure.com/show/allwin/1',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -25,7 +25,7 @@ class Articles
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
             
-                'Samuel'=>['description'=>'Začátek hlavního příběhu','img'=>'',
+                'Samuel'=>['description'=>'Začátek hlavního příběhu','img'=>'','Samuel','url'=>'http://sadventure.com/show/samuel/1',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -44,7 +44,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Isama'=>['description'=>'Navazuje na příběh Samuela','img'=>'',
+                'Isama'=>['description'=>'Navazuje na příběh Samuela','img'=>'','Isama','url'=>'http://sadventure.com/show/isama/1',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -63,7 +63,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Isamanh'=>['description'=>'Pokračování Isamova příběhu','img'=>'',
+                'Isamanh'=>['description'=>'Pokračování Isamova příběhu','img'=>'','Isama nový Horizot','url'=>'http://sadventure.com/show/isamanh/1',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -82,7 +82,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Isamanw'=>['description'=>'Konec Isamova příběhu','img'=>'',
+                'Isamanw'=>['description'=>'Konec Isamova příběhu','img'=>'','Isama nový Svět','url'=>'http://sadventure.com/show/isamanw/1',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -101,7 +101,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Angel'=>['description'=>'Příběh má spojitost s příběhem Allwina','img'=>'',
+                'Angel'=>['description'=>'Příběh má spojitost s příběhem Allwina','img'=>'','Angel & Eklips','url'=>'http://sadventure.com/show/angel/1',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -120,7 +120,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Mry'=>['description'=>'Vysvětluje původ Mr. ?','img'=>'',
+                'Mry'=>['description'=>'Vysvětluje původ Mr. ?','img'=>'', 'Mr. Y','url'=>'http://sadventure.com/show/mry/1',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -139,7 +139,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Star'=>['description'=>'Příběh popisuje minolost Whita Stara','img'=>'',
+                'Star'=>['description'=>'Příběh popisuje minolost Whita Stara','img'=>'','Star','url'=>'http://sadventure.com/show/star/1',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -158,7 +158,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Hyperion'=>['description'=>'Historie Nového světa','img'=>'',
+                'Hyperion'=>['description'=>'Historie Nového světa','img'=>'','Hyperion','url'=>'http://sadventure.com/show/hyperion/1',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -177,7 +177,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Terror'=>['description'=>'Důležitá postava v Novém světě','img'=>'',
+                'Terror'=>['description'=>'Důležitá postava v Novém světě','img'=>'','url'=>'http://sadventure.com/show/terror/1','Terror',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
@@ -196,7 +196,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Demoni'=>['description'=>'Příběh vysvětlující rasu Démonů','img'=>'',
+                'Demoni'=>['description'=>'Příběh vysvětlující rasu Démonů','img'=>'','Demoni','url'=>'http://sadventure.com/show/demoni/1',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],

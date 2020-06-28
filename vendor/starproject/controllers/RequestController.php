@@ -70,6 +70,15 @@ private function _reset($request){
         return ['resetToken'=>$result['resetToken'],'resetComplete'=>$result['resetComplete'],'hashedpassword'=>$hashedpassword];
 }
 
+private function _resetUpdate($subReset){
+     //update reset DB
+     $set = ['password'=>$subReset['hashedpassword'],'resetComplete'=>$subReset['resetComplete']];
+     $stmt = $this->_db->update('members')->set($set)->where('memberID',$subReset['id']);
+     $stmt->execute();
+     $result = $stmt->fetch();
+        return $result;
+}
+
 public function submitRegister($request){
     $register = $this->_register($request);
     if(\in_array('message',$register)){
@@ -132,14 +141,11 @@ public function submitReset($request){
         return $this->_selector->getMessages($reset['message']);
     }
     if(!\in_array('message',$subReset)){
-        //update
-        $set = ['password'=>$subReset['hashedpassword'],'resetComplete'=>$subReset['resetComplete']];
-        $stmt = $this->_db->update('members')->set($set)->where('resetToken',$subReset['resetToken']);
-        $stmt->execute();
+        $resetUpdate = $this->_resetUpdate($subReset);
         // reset null for next reset
-        if($subReset['resetComplete'] === 'YES'){
+        if($resetUpdate['resetComplete'] === 'YES'){
             $set = ['resetToken'=>null,'resetComplete'=>null];
-            $stmt = $this->_db->update('members')->set($set)->where('resetToken',$subReset['resetToken']);
+            $stmt = $this->_db->update('members')->set($set)->where('memberID',$subReset['id']);
             $stmt->execute();
                 Router::redirect('login?action=resetAccount');
         }
