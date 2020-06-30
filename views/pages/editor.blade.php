@@ -7,18 +7,18 @@
     <div class="col-xl-12 offset-xl-0" id="main">
         <div class="container">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="http://sadventure.com/index"><span>Domů</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/member/{{$selector->username}}"><span>Profil</span></a></li>
+                <li class="breadcrumb-item"><a href="/index"><span>Domů</span></a></li>
+                <li class="breadcrumb-item"><a href="/member/{{$selector->username}}"><span>Profil</span></a></li>
                 <li class="breadcrumb-item">Akce:<li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/create"><span>Create</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/update"><span>Update</span></a></li>
-            @if($member->role === 'admin')<li class="breadcrumb-item"><a href="http://sadventure.com/delete"><span>Delete</span></a></li>@endif
+                <li class="breadcrumb-item"><a href="/create"><span>Create</span></a></li>
+                <li class="breadcrumb-item"><a href="/update"><span>Update</span></a></li>
+            @if($member->role === 'admin')<li class="breadcrumb-item"><a href="/delete"><span>Delete</span></a></li>@endif
                 <li class="breadcrumb-item">Příběh:<li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/{{$selector->action}}/allwin/1"><span>Allwin</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/{{$selector->action}}/samuel/1"><span>Samuel</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/{{$selector->action}}/isama/1"><span>Isama</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/{{$selector->action}}/isamaNH/1"><span>Nový horizont</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/{{$selector->action}}/isamaNW/1"><span>Nový svět</span></a></li>
+                <li class="breadcrumb-item"><a href="/{{$selector->action}}/allwin/1"><span>Allwin</span></a></li>
+                <li class="breadcrumb-item"><a href="/{{$selector->action}}/samuel/1"><span>Samuel</span></a></li>
+                <li class="breadcrumb-item"><a href="/{{$selector->action}}/isama/1"><span>Isama</span></a></li>
+                <li class="breadcrumb-item"><a href="/{{$selector->action}}/isamaNH/1"><span>Nový horizont</span></a></li>
+                <li class="breadcrumb-item"><a href="/{{$selector->action}}/isamaNW/1"><span>Nový svět</span></a></li>
             </ol>
             @include('extras.messages')
             {!! $hform->create(['target'=>['app.ArticleHandler',['articlesController'=>$articlesController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])->run($blade)!!}

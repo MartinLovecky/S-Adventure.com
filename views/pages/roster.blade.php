@@ -4,7 +4,7 @@
     <div class="container">
         <div class="intro"><h2 class="text-center">Seznam všech příběhů</h2></div>
         <div class="row projects">
-            @foreach ($articles->getArticles() as $articles)
+            @foreach ($articlesController->all as $articles)
             <div class="col-sm-6 item">
                 <div class="row">
                     <div class="col-md-12 col-lg-5"><img src="{{$articles['img']}}" class="img-fluid" alt="Article img" /></div>

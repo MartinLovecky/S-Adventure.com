@@ -6,9 +6,9 @@
                     <div class="col-12 col-sm-6 col-md-2">
                         <h5>Začínáme</h5>
                         <ul>
-                            <li><a href="{{$router->url('/')->mobile([])->action()}}">Úvod</a></li>
-                            <li><a href="{{$router->url('/register')->mobile([])->action()}}">Registrace</a></li>
-                            <li><a href="{{$router->url('/login')->mobile([])->action()}}">Přihlášení</a></li>
+                            <li><a href="/index">Úvod</a></li>
+                            <li><a href="/register">Registrace</a></li>
+                            <li><a href="/login">Přihlášení</a></li>
                             <li><a href="#">Other Links</a></li>
                         </ul>
                     </div>
