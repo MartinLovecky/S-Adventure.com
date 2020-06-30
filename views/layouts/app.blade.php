@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="@asset('css.Form-Dark.css')"> 
     <link rel="stylesheet" href="@asset('css.styles.css')">
     <link rel="stylesheet" href="@asset('css.project-horizont.css')">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://cdn.ckeditor.com/ckeditor5/12.4.0/classic/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/20.0.0/classic/ckeditor.js"></script>
     <title>@isset($title){{$title}}@endisset</title>
     <script>
         function onSubmit(token) {

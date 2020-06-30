@@ -41,31 +41,25 @@ public function title(){
 }
 
 public function viewName(){
-    if($this->allowedView() && $this->article == 'empty'){
+    if($this->allowedView()){
         switch($this->action){
         case '':
             return 'index'; 
         break;
-        case 'show':
-            return 'roster'; 
-        break;
-        case 'create':
-            return 'editor'; 
-        break;
-        case 'delete':
-            return 'editor'; 
-        break;
-        case 'update':
-            return 'editor'; 
-        break;
         case 'member':
             return 'members';                        
-        default:        
-            return $this->action;
         }
     }
-    if(isset($this->article) && in_array($this->article,$this->allowedAricles)){
+    if($this->action == 'show' && $this->article != 'empty'){
         return 'article';
+    }
+    if($this->action == 'show' && $this->article == 'empty'){
+        return 'roaster';
+    }
+    if($this->action == 'create' || $this->action == 'update' || $this->action == 'delete'){
+        if(isset($this->article) && in_array($this->article,$this->allowedAricles)){
+            return 'editor';
+        }
     }
     if($this->action == 'member' && isset($this->article)){
         return 'profile';

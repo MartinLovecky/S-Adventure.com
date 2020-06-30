@@ -29,13 +29,13 @@ class ArticlesController extends Articles{
         }
     }*/
     public function _SetAllowed(){
-        if($this->_selector->article !== 'empty' && $this->_selector->page !== 'empty'){
-            if(in_array($this->_selector->article,$this->_selector->allowed) && in_array($this->_selector->page,$this->_selector->_allowedPage)){
+        if($this->_selector->article != 'empty' && $this->_selector->page != 'empty'){
+            if(MultiDimensional::in_array_r($this->_selector->article,$this->_selector->allowedAricles) && MultiDimensional::in_array_r($this->_selector->page,$this->_selector->allowedPages)){
                 return true;    
             }
-            return false; 
+                return false;
         }
-        return false;
+        return null;
     }
 
     public function _GetArticle(){

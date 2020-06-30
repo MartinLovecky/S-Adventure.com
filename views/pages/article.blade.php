@@ -6,6 +6,8 @@
     {{-- if($articleController[$selector->article] == $selector->allowedArticle) --}}
     {{-- foreach($articleController->all as $article) ! dont use --}}
     {{-- isset($articleController['MainNadpis']) h3 --}}  
+
+
 <h3 style="text-align: center;"><em>Pomsta</em></h3>
 <dl>
 <dt><strong>Tajná základna - Země</strong></dt>
