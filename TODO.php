@@ -1,12 +1,15 @@
 <?php
+//! I dont have right now so much time for this projec that doesnt mean is dead 
 // TODO: @can('',$member)
 // TODO: Now roles are set manuly inside DBTable. Admin should have this ability inside web !!! (almost done)
 // TODO: /member will show list of all users without their info if not public(set up by user)  (almost done)
 // TODO: EDITOR
 //? Work in progress MemberData
-// TODO: templates for email doesnt show correctly -> bugfixing
+// TODO: templates for email doesnt show correctly -> bugfixing -> looking for someone or some guide 
 // TODO: messages inside /index 
 //! Maybe I will use google docs ... a lot of work
+//? Prep for /show/$story/$page -> bookmark|pagnation|article -> comments ? maybe
+
 
 // default  username=>visitor,role=>none,//?permission=>visit
 // IF user is logged -> username => Username,role=>user,//?permission=>view 
