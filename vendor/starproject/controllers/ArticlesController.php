@@ -8,16 +8,15 @@ use starproject\arraybasics\MultiDimensional;
 
 class ArticlesController extends Articles{
 
-    public $all,$img,$descript;
+    public $all,$img,$descript,$names;
     private $_selector,$_buffer;
     
     public function __construct(Selector $selector){
         $this->all = $this->getArticles();
         $this->names = array_keys($this->getArticles());
-        $this->_selector = $selector;
         $this->descript = array_column($this->getArticles(),'description');
         $this->img =  array_column($this->getArticles(),'img');
-
+        $this->_selector = $selector;
     }
     /*
     public function _GetKey(String $text){
@@ -30,6 +29,7 @@ class ArticlesController extends Articles{
     }*/
     public function _SetAllowed(){
         if($this->_selector->article != 'empty' && $this->_selector->page != 'empty'){
+            // string , array && string, array
             if(MultiDimensional::in_array_r($this->_selector->article,$this->_selector->allowedAricles) && MultiDimensional::in_array_r($this->_selector->page,$this->_selector->allowedPages)){
                 return true;    
             }
@@ -37,7 +37,6 @@ class ArticlesController extends Articles{
         }
         return null;
     }
-
     public function _GetArticle(){
         if($this->_SetAllowed()){
             /* ["chapter"],["nadpisH1"],["smallH2"],["body"] */
@@ -45,6 +44,7 @@ class ArticlesController extends Articles{
         }
         return null;
     }
+
     public function updateArticle($request){
         // view secure permitions (inside Costumer) so we need only check request
         if(isset($request['submit']) && $request['type'] == 'update'){

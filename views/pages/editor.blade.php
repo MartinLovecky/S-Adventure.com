@@ -1,3 +1,8 @@
+{{-- permission need fix
+@if ($member->permisson != 'all' || $member->permisson != 'edit')
+    {!! header('Location: '.$router->urlName.'index?action=permission') !!}
+@else
+--}}
 @extends('layouts.app')
 @section('editor')
 <body>
@@ -10,9 +15,9 @@
                 <li class="breadcrumb-item"><a href="/update"><span>Update</span></a></li>
             @if($member->role === 'admin')<li class="breadcrumb-item"><a href="/delete"><span>Delete</span></a></li>@endif
                 <li class="breadcrumb-item">Příběh:&nbsp;<li>
-                    @foreach ($articlesController->all as $article)
-                        <li class="breadcrumb-item"><a href="/{{$selector->action}}/{{mb_strtolower($article[0],'UTF-8')}}/1"><span>{{$article[0]}}</span></a></li>
-                    @endforeach
+                @foreach ($articlesController->all as $names => $article)
+                <li class="breadcrumb-item"><a href="/{{$selector->action}}/{{mb_strtolower($names,'UTF-8')}}/1"><span>{{$article[0]}}</span></a></li>
+                @endforeach
             </ol>
             @include('extras.messages')
             {!! $hform->create(['target'=>['app.ArticleHandler',['articlesController'=>$articlesController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])->run($blade)!!}
@@ -20,7 +25,7 @@
             <input type="text" name="nadpisH1" placeholder="Nadpis_H1">
             <input type="text" name="smallH2" placeholder="Nadpis_small_H2">
             <div id="editor">
-                <textarea name="body">@dump($articlesController->_GetArticle())</textarea>
+                <textarea name="body">Placeholder</textarea>
             </div>
             <script>
                 ClassicEditor
