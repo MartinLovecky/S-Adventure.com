@@ -54,7 +54,7 @@ public function viewName(){
         return 'article';
     }
     if($this->action == 'show' && $this->article == 'empty'){
-        return 'roaster';
+        return 'roster';
     }
     if($this->action == 'create' || $this->action == 'update' || $this->action == 'delete'){
         if(isset($this->article) && in_array($this->article,$this->allowedAricles)){

@@ -9,7 +9,7 @@
 // TODO: messages inside /index 
 //! Maybe I will use google docs ... a lot of work
 //? Prep for /show/$story/$page -> bookmark|pagnation|article -> comments ? maybe
-
+//? Creating new dingn for website -> for mobiles
 
 // default  username=>visitor,role=>none,//?permission=>visit
 // IF user is logged -> username => Username,role=>user,//?permission=>view 

@@ -4,7 +4,7 @@ namespace starproject\controllers;
 
 use starproject\tools\Selector;
 use starproject\database\Articles;
-use starproject\arraybasics\MultiDimensional;
+use starproject\arraybasics\MDR;
 
 class ArticlesController extends Articles{
 
@@ -28,9 +28,10 @@ class ArticlesController extends Articles{
         }
     }*/
     public function _SetAllowed(){
+        //? retutn message
         if($this->_selector->article != 'empty' && $this->_selector->page != 'empty'){
             // string , array && string, array
-            if(MultiDimensional::in_array_r($this->_selector->article,$this->_selector->allowedAricles) && MultiDimensional::in_array_r($this->_selector->page,$this->_selector->allowedPages)){
+            if(MDR::key_exists_r($this->_selector->article,$this->_selector->allowedAricles) && in_array($this->_selector->page,$this->_selector->allowedPages)){
                 return true;    
             }
                 return false;

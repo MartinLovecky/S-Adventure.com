@@ -20,6 +20,14 @@
                 <li><a href="{{$article['url']}}">{{$article[0]}}</a>&nbsp;→&nbsp;{{$article['description']}}</li>
                 @endforeach
             </ul>
+            <h4 class="text-capitalize">Vysvětlivky</h4>
+            <ul class="info">
+                <li><span class="text-success">Text</span>&nbsp;→&nbsp;Důležitá informace/událost.</li>
+                <li>????&nbsp;→&nbsp;Neznámá postava.</li>
+                <li>"Text"&nbsp;→&nbsp;Jedná se o myšlenky postav např. Stuart: "Voják Hmyzáků na tomhle místě?"</li>
+                <li>„Text"&nbsp;→&nbsp;Velmi výjimečně používám „&nbsp;" pro přímou řeč, většinou, když příběh vyprávý třetí osoba např. Vypraveč.</li>
+                <li>'Text'&nbsp;→ &nbsp;'Text' označuje přibližný popis např. Budova vypadala jako 'klášter'</li>
+            </ul>
        </div>
     </div>
 </div>
