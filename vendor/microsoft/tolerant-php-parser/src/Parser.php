@@ -31,6 +31,7 @@ use Microsoft\PhpParser\Node\Expression\{
     EvalIntrinsicExpression,
     ExitIntrinsicExpression,
     IssetIntrinsicExpression,
+    MatchExpression,
     MemberAccessExpression,
     ParenthesizedExpression,
     PrefixUpdateExpression,
@@ -43,6 +44,7 @@ use Microsoft\PhpParser\Node\Expression\{
     ScopedPropertyAccessExpression,
     SubscriptExpression,
     TernaryExpression,
+    ThrowExpression,
     UnaryExpression,
     UnaryOpExpression,
     UnsetIntrinsicExpression,
@@ -60,6 +62,7 @@ use Microsoft\PhpParser\Node\ForeachKey;
 use Microsoft\PhpParser\Node\ForeachValue;
 use Microsoft\PhpParser\Node\InterfaceBaseClause;
 use Microsoft\PhpParser\Node\InterfaceMembers;
+use Microsoft\PhpParser\Node\MatchArm;
 use Microsoft\PhpParser\Node\MissingMemberDeclaration;
 use Microsoft\PhpParser\Node\NamespaceAliasingClause;
 use Microsoft\PhpParser\Node\NamespaceUseGroupClause;
@@ -118,6 +121,7 @@ class Parser {
     private $nameOrStaticOrReservedWordTokens;
     private $reservedWordTokens;
     private $keywordTokens;
+    private $argumentStartTokensSet;
     // TODO consider validating parameter and return types on post-parse instead so we can be more permissive
     private $parameterTypeDeclarationTokens;
     private $returnTypeDeclarationTokens;
@@ -125,6 +129,9 @@ class Parser {
     public function __construct() {
         $this->reservedWordTokens = \array_values(TokenStringMaps::RESERVED_WORDS);
         $this->keywordTokens = \array_values(TokenStringMaps::KEYWORDS);
+        $this->argumentStartTokensSet = \array_flip(TokenStringMaps::KEYWORDS);
+        unset($this->argumentStartTokensSet[TokenKind::YieldFromKeyword]);
+        $this->argumentStartTokensSet[TokenKind::DotDotDotToken] = '...';
         $this->nameOrKeywordOrReservedWordTokens = \array_merge([TokenKind::Name], $this->keywordTokens, $this->reservedWordTokens);
         $this->nameOrReservedWordTokens = \array_merge([TokenKind::Name], $this->reservedWordTokens);
         $this->nameOrStaticOrReservedWordTokens = \array_merge([TokenKind::Name, TokenKind::StaticKeyword], $this->reservedWordTokens);
@@ -136,6 +143,21 @@ class Parser {
     }
 
     /**
+     * This method exists so that it can be overridden in subclasses.
+     * Any subclass must return a token stream that is equivalent to the contents in $fileContents for this to work properly.
+     *
+     * Possible reasons for applications to override the lexer:
+     *
+     * - Imitate token stream of a newer/older PHP version (e.g. T_FN is only available in php 7.4)
+     * - Reuse the result of token_get_all to create a Node again.
+     * - Reuse the result of token_get_all in a different library.
+     */
+    protected function makeLexer(string $fileContents): TokenStreamProviderInterface
+    {
+        return TokenStreamProviderFactory::GetTokenStreamProvider($fileContents);
+    }
+
+    /**
      * Generates AST from source file contents. Returns an instance of SourceFileNode, which is always the top-most
      * Node-type of the tree.
      *
@@ -143,7 +165,7 @@ class Parser {
      * @return SourceFileNode
      */
     public function parseSourceFile(string $fileContents, string $uri = null) : SourceFileNode {
-        $this->lexer = TokenStreamProviderFactory::GetTokenStreamProvider($fileContents);
+        $this->lexer = $this->makeLexer($fileContents);
 
         $this->reset();
 
@@ -655,6 +677,7 @@ class Parser {
         return function ($parentNode) {
             $parameter = new Parameter();
             $parameter->parent = $parentNode;
+            $parameter->visibilityToken = $this->eatOptional([TokenKind::PublicKeyword, TokenKind::ProtectedKeyword, TokenKind::PrivateKeyword]);
             $parameter->questionToken = $this->eatOptional1(TokenKind::QuestionToken);
             $typeDeclarationList = $this->tryParseParameterTypeDeclarationList($parameter);
             if ($typeDeclarationList) {
@@ -967,6 +990,7 @@ class Parser {
                 case TokenKind::ObjectCastToken:
                 case TokenKind::StringCastToken:
                 case TokenKind::UnsetCastToken:
+                case TokenKind::MatchKeyword:
 
                 // anonymous-function-creation-expression
                 case TokenKind::StaticKeyword:
@@ -1085,6 +1109,8 @@ class Parser {
                     return $this->parseQualifiedName($parentNode);
                 }
                 return $this->parseReservedWordExpression($parentNode);
+            case TokenKind::MatchKeyword:
+                return $this->parseMatchExpression($parentNode);
         }
         if (\in_array($token->kind, TokenStringMaps::RESERVED_WORDS)) {
             return $this->parseQualifiedName($parentNode);
@@ -1177,7 +1203,7 @@ class Parser {
             $token = $this->getCurrentToken();
             if ($token->kind === TokenKind::OpenBracketToken) {
                 return $this->parseTemplateStringSubscriptExpression($var);
-            } else if ($token->kind === TokenKind::ArrowToken) {
+            } else if ($token->kind === TokenKind::ArrowToken || $token->kind === TokenKind::QuestionArrowToken) {
                 return $this->parseTemplateStringMemberAccessExpression($var);
             } else {
                 return $var;
@@ -1226,7 +1252,7 @@ class Parser {
         $expression->parent = $memberAccessExpression;
 
         $memberAccessExpression->dereferencableExpression = $expression;
-        $memberAccessExpression->arrowToken = $this->eat1(TokenKind::ArrowToken);
+        $memberAccessExpression->arrowToken = $this->eat(TokenKind::ArrowToken, TokenKind::QuestionArrowToken);
         $memberAccessExpression->memberName = $this->eat1(TokenKind::Name);
 
         return $memberAccessExpression;
@@ -1293,10 +1319,14 @@ class Parser {
                 case TokenKind::AmpersandToken:
 
                 case TokenKind::VariableName:
-                    return true;
 
                 // nullable-type
                 case TokenKind::QuestionToken:
+
+                // parameter promotion
+                case TokenKind::PublicKeyword:
+                case TokenKind::ProtectedKeyword:
+                case TokenKind::PrivateKeyword:
                     return true;
             }
 
@@ -1762,6 +1792,8 @@ class Parser {
             case TokenKind::RequireKeyword:
             case TokenKind::RequireOnceKeyword:
                 return $this->parseScriptInclusionExpression($parentNode);
+            case TokenKind::ThrowKeyword: // throw-statement will become an expression in php 8.0
+                return $this->parseThrowExpression($parentNode);
         }
 
         $expression = $this->parsePrimaryExpression($parentNode);
@@ -2223,6 +2255,16 @@ class Parser {
         return $throwStatement;
     }
 
+    private function parseThrowExpression($parentNode) {
+        $throwExpression = new ThrowExpression();
+        $throwExpression->parent = $parentNode;
+        $throwExpression->throwKeyword = $this->eat1(TokenKind::ThrowKeyword);
+        // TODO error for failures to parse expressions when not optional
+        $throwExpression->expression = $this->parseExpression($throwExpression);
+
+        return $throwExpression;
+    }
+
     private function parseTryStatement($parentNode) {
         $tryStatement = new TryStatement();
         $tryStatement->parent = $parentNode;
@@ -2249,7 +2291,7 @@ class Parser {
         $qualifiedNameList = $this->parseQualifiedNameCatchList($catchClause)->children ?? [];
         $catchClause->qualifiedName = $qualifiedNameList[0] ?? null; // TODO generate missing token or error if null
         $catchClause->otherQualifiedNameList = array_slice($qualifiedNameList, 1);  // TODO: Generate error if the name list has missing tokens
-        $catchClause->variableName = $this->eat1(TokenKind::VariableName);
+        $catchClause->variableName = $this->eatOptional1(TokenKind::VariableName);
         $catchClause->closeParen = $this->eat1(TokenKind::CloseParenToken);
         $catchClause->compoundStatement = $this->parseCompoundStatement($catchClause);
 
@@ -2673,7 +2715,7 @@ class Parser {
             return $expression;
         }
 
-        if ($tokenKind === TokenKind::ArrowToken) {
+        if ($tokenKind === TokenKind::ArrowToken || $tokenKind === TokenKind::QuestionArrowToken) {
             $expression = $this->parseMemberAccessExpression($expression);
             return $this->parsePostfixExpressionRest($expression);
         }
@@ -2724,7 +2766,7 @@ class Parser {
     private function isArgumentExpressionStartFn() {
         return function ($token) {
             return
-                $token->kind === TokenKind::DotDotDotToken ? true : $this->isExpressionStart($token);
+                isset($this->argumentStartTokensSet[$token->kind]) || $this->isExpressionStart($token);
         };
     }
 
@@ -2732,8 +2774,22 @@ class Parser {
         return function ($parentNode) {
             $argumentExpression = new ArgumentExpression();
             $argumentExpression->parent = $parentNode;
-            $argumentExpression->byRefToken = $this->eatOptional1(TokenKind::AmpersandToken);
-            $argumentExpression->dotDotDotToken = $this->eatOptional1(TokenKind::DotDotDotToken);
+
+            $nextToken = $this->lexer->getTokensArray()[$this->lexer->getCurrentPosition()] ?? null;
+            if ($nextToken && $nextToken->kind === TokenKind::ColonToken) {
+                $name = $this->token;
+                $this->advanceToken();
+                if ($name->kind === TokenKind::YieldFromKeyword || !\in_array($name->kind, $this->nameOrKeywordOrReservedWordTokens)) {
+                    $name = new SkippedToken($name);
+                } else {
+                    $name->kind = TokenKind::Name;
+                }
+                $argumentExpression->name = $name;
+                $argumentExpression->colonToken = $this->eat1(TokenKind::ColonToken);
+            } else {
+                $argumentExpression->byRefToken = $this->eatOptional1(TokenKind::AmpersandToken);
+                $argumentExpression->dotDotDotToken = $this->eatOptional1(TokenKind::DotDotDotToken);
+            }
             $argumentExpression->expression = $this->parseExpression($argumentExpression);
             return $argumentExpression;
         };
@@ -2798,7 +2854,7 @@ class Parser {
         $expression->parent = $memberAccessExpression;
 
         $memberAccessExpression->dereferencableExpression = $expression;
-        $memberAccessExpression->arrowToken = $this->eat1(TokenKind::ArrowToken);
+        $memberAccessExpression->arrowToken = $this->eat(TokenKind::ArrowToken, TokenKind::QuestionArrowToken);
         $memberAccessExpression->memberName = $this->parseMemberName($memberAccessExpression);
 
         return $memberAccessExpression;
@@ -3548,10 +3604,63 @@ class Parser {
                 return $useVariableName;
             },
             $anonymousFunctionUseClause
-        );
+        ) ?: (new MissingToken(TokenKind::VariableName, $this->token->fullStart));
         $anonymousFunctionUseClause->closeParen = $this->eat1(TokenKind::CloseParenToken);
 
         return $anonymousFunctionUseClause;
+    }
+
+    private function parseMatchExpression($parentNode) {
+        $matchExpression = new MatchExpression();
+        $matchExpression->parent = $parentNode;
+        $matchExpression->matchToken = $this->eat1(TokenKind::MatchKeyword);
+        $matchExpression->openParen = $this->eat1(TokenKind::OpenParenToken);
+        $matchExpression->expression = $this->parseExpression($matchExpression);
+        $matchExpression->closeParen = $this->eat1(TokenKind::CloseParenToken);
+        $matchExpression->openBrace = $this->eat1(TokenKind::OpenBraceToken);
+        $matchExpression->arms = $this->parseDelimitedList(
+            DelimitedList\MatchExpressionArmList::class,
+            TokenKind::CommaToken,
+            $this->isMatchConditionStartFn(),
+            $this->parseMatchArmFn(),
+            $matchExpression);
+        $matchExpression->closeBrace = $this->eat1(TokenKind::CloseBraceToken);
+        return $matchExpression;
+    }
+
+    private function isMatchConditionStartFn() {
+        return function ($token) {
+            return $token->kind === TokenKind::DefaultKeyword ||
+                $this->isExpressionStart($token);
+        };
+    }
+
+    private function parseMatchArmFn() {
+        return function ($parentNode) {
+            $matchArm = new MatchArm();
+            $matchArm->parent = $parentNode;
+            $matchArmConditionList = $this->parseDelimitedList(
+                DelimitedList\MatchArmConditionList::class,
+                TokenKind::CommaToken,
+                $this->isMatchConditionStartFn(),
+                $this->parseMatchConditionFn(),
+                $matchArm
+            );
+            $matchArmConditionList->parent = $matchArm;
+            $matchArm->conditionList = $matchArmConditionList;
+            $matchArm->arrowToken = $this->eat1(TokenKind::DoubleArrowToken);
+            $matchArm->body = $this->parseExpression($matchArm);
+            return $matchArm;
+        };
+    }
+
+    private function parseMatchConditionFn() {
+        return function ($parentNode) {
+            if ($this->token->kind === TokenKind::DefaultKeyword) {
+                return $this->eat1(TokenKind::DefaultKeyword);
+            }
+            return $this->parseExpression($parentNode);
+        };
     }
 
     private function parseCloneExpression($parentNode) {

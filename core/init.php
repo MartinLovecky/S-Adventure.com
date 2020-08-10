@@ -23,6 +23,8 @@ $articles = new Articles;
 $router = new Router;
 $hform = new Forms;
 
+//! IF You want 'add' new page to allowedPages go to selector
+//? inside selector ultimate view rename / delete aftrer test done
 # Check Fail DB con !! 
 if($db->con() === null){   
     // blade->run(page) -> for send msg

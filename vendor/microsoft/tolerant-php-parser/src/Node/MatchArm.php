@@ -6,28 +6,24 @@
 
 namespace Microsoft\PhpParser\Node;
 
-use Microsoft\PhpParser\MissingToken;
 use Microsoft\PhpParser\Node;
-use Microsoft\PhpParser\Node\DelimitedList\UseVariableNameList;
+use Microsoft\PhpParser\Node\DelimitedList\MatchArmConditionList;
 use Microsoft\PhpParser\Token;
 
-class AnonymousFunctionUseClause extends Node {
-    /** @var Token */
-    public $useKeyword;
+class MatchArm extends Node {
+
+    /** @var MatchArmConditionList */
+    public $conditionList;
 
     /** @var Token */
-    public $openParen;
+    public $arrowToken;
 
-    /** @var UseVariableNameList|MissingToken */
-    public $useVariableNameList;
-
-    /** @var Token */
-    public $closeParen;
+    /** @var Expression */
+    public $body;
 
     const CHILD_NAMES = [
-        'useKeyword',
-        'openParen',
-        'useVariableNameList',
-        'closeParen'
+        'conditionList',
+        'arrowToken',
+        'body',
     ];
 }

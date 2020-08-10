@@ -6,7 +6,9 @@
 
     // INIT classes
     require(DIR . '/core/init.php');
+    
     /* FIX FOOTER min-height: calc(100vh - menuPX - footerPx) -> apply to main (container-fluid) */ 
+
     // title
     $title = 'SA | '.$selector->title();
 
@@ -14,7 +16,7 @@
     // $blade->setBaseUrl(DIR .'/public/');
     // then you can do @asset('folder.fileName.css/jpg/etc..')
 
-    // blade @asset ussing any online storage
+    // blade @asset ussing any online storage 
     $blade->addAssetDict('css.Form-Dark.css','http://staradventure.xf.cz/views/includes/assets/css/Login-Form-Dark.css');
     $blade->addAssetDict('css.styles.css','http://sadventure.com/public/css/styles.min.css'); //!footer change soon
     $blade->addAssetDict('css.project-horizont.css','http://staradventure.xf.cz/views/includes/assets/css/project-horizont.min.css');
@@ -24,6 +26,7 @@
     $blade->addAssetDict('img.icon.jpg','http://staradventure.xf.cz/views/includes/assets/img/apple-touch-icon.png');
 
     // run APP
-     echo $router->_runApp($blade,$selector);
+    //echo $router->_runApp($blade,$selector);
+    dd($blade->run('ultimate',[]));
 ?>
 
