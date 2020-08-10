@@ -15,15 +15,14 @@
 
     //include(DIR.MENU)
     //include(DIR.Messages)
-    dd($selector->allowedView());
+ 
 @endphp
 
+@use(\starproject\http\Router)
 
-@if ($member->permission == 'visit')
+@if ($member->permission == 'visit' && $selector->queryAction != 'permission')
 
-@use(\starproject\http)
-
-{{!!  Router::redirect('show/'.$selector->action.'/'.$selector->page.'?action=permission')  !!}}
+{{!!  Router::redirect('ultimate/allwin/1?action=permission')  !!}}
 
 @endif
-aafafafafadfa
+

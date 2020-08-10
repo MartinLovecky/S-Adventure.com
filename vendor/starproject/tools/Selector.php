@@ -40,19 +40,23 @@ public function title(){
         return $this->action;
 }
 
+public function allowedView(){
+    // return true false
+    if (in_array($this->action,$this->allowedAction)) {
+        return true; 
+    }
+        return false; 
+}
+
 public function viewName(){
+    
     if($this->allowedView()){
-        switch($this->action){
-        case '':
-            return 'index'; 
-        break;
-        case 'member':
-            return 'members';                        
-        }
+    if($this->action == ''){
+        return 'index';
     }
     if($this->action == 'show' && $this->article != 'empty'){
-        return 'article';
-    }
+            return 'article';
+        }
     if($this->action == 'show' && $this->article == 'empty'){
         return 'roster';
     }
@@ -61,22 +65,15 @@ public function viewName(){
             return 'editor';
         }
     }
+    if($this->action == 'member'){
+        return 'members';
+    }
     if($this->action == 'member' && isset($this->article)){
         return 'profile';
     }
-
-    if (\count($this->url) >= 4) {
-        return '404';
+        return $this->action;
     }
     return '404';
-}
-
-public function allowedView(){
-    // return true false
-    if (in_array($this->action,$this->allowedAction)) {
-        return true; 
-    }
-        return false; 
 }
 
 public function getMessages($message){
@@ -88,6 +85,5 @@ public function oldData($data){
    $this->OldData = $data;
    return $this->OldData;
 }
-
 
 }
