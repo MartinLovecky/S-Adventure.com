@@ -2,31 +2,26 @@
 
 namespace starproject\controllers;
 
+use starproject\http\Router;
 use starproject\tools\Selector;
-use starproject\database\Articles;
-use starproject\arraybasics\MDR;
+use starproject\database\Articles; // <= UPDATE | CREATE | DELETE -> array content
+//use \Envms\FluentPDO\Query; *dont use before you read Info.txt
+use starproject\database\costumers\Member;
 
 class ArticlesController extends Articles{
 
     public $all,$img,$descript,$names;
-    private $_selector,$_buffer;
+    private $_selector,$_member;
     
-    public function __construct(Selector $selector){
+    public function __construct(Selector $selector, Member $member){
         $this->all = $this->getArticles();
         $this->names = array_keys($this->getArticles());
         $this->descript = array_column($this->getArticles(),'description');
         $this->img =  array_column($this->getArticles(),'img');
         $this->_selector = $selector;
+        $this->_member = $member;
     }
-    /*
-    public function _GetKey(String $text){
-        if(MultiDimensional::in_array_r($text,$this->getArticles())){
-            if($selector->article != 'empty' && $selector->page != 'empty'){
-                return array_column($this->all[ucfirst($this->_selector->article)][$this->_selector->page],$text);
-            }
-                return null;
-        }
-    }*/
+  
     public function _SetAllowed(){
         //? retutn message
         if($this->_selector->article != 'empty' && $this->_selector->page != 'empty'){
@@ -45,8 +40,7 @@ class ArticlesController extends Articles{
         }
         return null;
     }
-
-    public function updateArticle($request){
+    public function updatePage($request){
         // view secure permitions (inside Costumer) so we need only check request
         if(isset($request['submit']) && $request['type'] == 'update'){
             # RAW data Posted by trusted member [Admin or Editor];
@@ -68,15 +62,48 @@ class ArticlesController extends Articles{
         }
         return null;
     }
-    public function create($request){
+    public function createPage(){
         // Request -> $request = ['page' => [10 => ['chapter','body'=>'']]];
         // Selector -> $selector = ['article'=>'allwin','page'=>'10'];
         // Articles -> $articles = ['Allwin'=>[1=>['chapter','body'=>'']]];
         // ADD new to existing
-        $this->_ArticleArray = $request['page'];
+        //$this->_ArticleArray = $request['page'];
+        /*
+            selector->queryAction
+        */
 
     }
-    public function delete(){
-        
+    public function deletePage(){
+        #code
+    }
+    public function canReadPage(){
+        if ($this->_selector->action == 'show' && $member->permission != 'visit'){
+            return true;
+        }
+    }
+    public function canUpdatePage(){
+        if($this->_selector->action == 'update'){
+        if($this->member->permission == 'edit' || $this->member->permission == 'all'){
+            return true;
+        }
+            return Router::redirect('show/allwin/1?action=permission');
+        }
+    }
+    public function canCreatePage(){
+        if($this->_selector->action == 'create'){
+            if($this->member->permission == 'all'){
+                return true;
+            }
+            return Router::redirect('show/allwin/1?action=permission');
+        }
+
+    }
+    public function canDeletePage(){
+        if($this->_selector->action == 'delete'){
+            if($this->member->permission == 'all'){
+                return true;
+            }
+            return Router::redirect('show/allwin/1?action=permission');
+        }
     }
 }

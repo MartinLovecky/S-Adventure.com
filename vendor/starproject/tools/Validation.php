@@ -4,9 +4,10 @@ namespace starproject\tools;
 
 use \starproject\database\DB;
 use \starproject\tools\Messages;
+use \starproject\tools\Sanitazor;
 use \starproject\database\costumers\Member;
 
-class Validation{
+class Validation extends Sanitazor{
 
 private $_db,$_message,$_member;    
     
@@ -27,10 +28,10 @@ private function _emptyFields(array $Fields){
 
 public function validateRegister($request){
     if($request['persistent_register'] == 'yes'){  
-        $username = htmlentities($request['username'], ENT_QUOTES, 'UTF-8');
+        $username = $this->sanitaze($request['username']);
         $email = htmlspecialchars_decode($request['email'],ENT_QUOTES);
-        $password = htmlentities($request['password'], ENT_QUOTES, 'UTF-8');
-        $password_again = htmlentities($request['password_again'], ENT_QUOTES, 'UTF-8');
+        $password = $this->sanitaze($request['password']);
+        $password_again = $this->sanitaze($request['password_again']);
         // check empty filelds
         if($this->_emptyFields([$username,$email,$password,$password_again]))return['message'=>$this->_message->message(['error'=>'Všechna pole musí být vyplněna'])];
         if(!$this->_member->userExist($username))return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno se již používá'])];
@@ -69,8 +70,8 @@ public function setSession($username,$password){
 }
 
 public function validateLogin($request){
-    $username = htmlentities($request['username'], ENT_QUOTES, 'UTF-8');
-    $password = htmlentities($request['password'], ENT_QUOTES, 'UTF-8');
+    $username = $this->sanitaze($request['username']);
+    $password = $this->sanitaze($request['password']);
     if($this->_emptyFields([$username,$password]))return ['message'=>$this->_message->message(['error'=>'Všechna pole musí být vyplněna'])];
     if(!$this->_member->isValidUsername($username)) return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno musí obsahovat minimálně 4 - 25 znaku'])];
     if(strlen($password) < 5) return ['message'=>$this->_message->message(['error'=>'Heslo musí být delší jak 5 znaků'])];
@@ -82,7 +83,7 @@ public function validateReset($request){
     //fields , password,passwordConfirm , token 
     $resetpwd = $request['password'];
     $resetpwdAgain = $request['passwordConfirm'];
-    $token = htmlentities($request['hash'],ENT_QUOTES, 'UTF-8');
+    $token = $this->sanitaze($request['hash']);
     if($this->_emptyFields([$resetpwd,$resetpwdAgain,$token]))return ['message'=>$this->message->message(['error'=>'Všechna pole musí být vyplněna'])];
     if(mb_strlen($resetpwd) < 6 || mb_strlen($resetpwdAgain) < 6) return ['message'=>$this->_message->message(['error'=>'Heslo musí mít nejméně 6 znaků'])];
     if($resetpwd != $resetpwdAgain)return ['message'=>$this->_message->message(['error'=>'Heslo se musí schodovat'])];

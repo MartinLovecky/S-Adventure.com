@@ -35,7 +35,7 @@ $member = new Member($db);
 $selector = new Selector($member);
 $validation = new Validation($db,$message,$member);
 $requestController = new RequestController($validation,$member,$db,$mail,$selector);
-$articlesController = new ArticlesController($selector);
+$articlesController = new ArticlesController($selector,$member);
 
 // Insert all necesary variables for ALL views here
 $router->data = ['router'=>$router,'blade'=>$blade,'request'=>$router->request,'selector'=>$selector,'message'=>$message,'hform'=>$hform,'member'=>$member,'articlesController'=>$articlesController,'requestController'=>$requestController];

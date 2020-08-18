@@ -10,7 +10,7 @@ use \Envms\FluentPDO\Query;
 class DB extends DBcon{
     
     public function con(){
-        //! INSERT, UPDATE and DELETE queries will only run after you call ->execute()
+        // INSERT, UPDATE and DELETE queries will only run after you call ->execute()
         try{
             $dns = 'mysql:host='.$this->config[$this->stateMode]['DB_Host'].';dbname='.$this->config[$this->stateMode]['DB_Name'].';charset='.$this->config['other']['Char_Set'].'';
             $db = new PDO($dns,$this->config[$this->stateMode]['DB_User'],$this->config[$this->stateMode]['DB_Password']);

@@ -2,24 +2,26 @@
 
 namespace starproject\tools;
 
+use starproject\tools\Validation;
 use starproject\database\costumers\Member;
 
 class Selector {
 
-private $_member;
+private $_member,$_validtation;
 public $message,$OldData;
-public $action = '';
-public $article = '';
+public $action;
+public $article;
 public $page = null;
 public $url = [];
 public $allowedAction = [];
 public $allowedPages = [];
-public $queryAction = '';
+public $queryAction;
 public $allowedAricles = [];
 public $resetPWD = '';  
     
-public function __construct(Member $member){
+public function __construct(Member $member,Validation $validation){
     $this->_member = $member;
+    $this->_validtation = $validation;
     $this->url = explode('/',trim(str_replace(['-','_','#','<','(','{','!',','],' ',urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)))));
     $this->action = $this->url[1]; // this is set all time
     $this->article = (isset($this->url[2])) ? $this->url[2] : 'empty'; 
@@ -27,8 +29,8 @@ public function __construct(Member $member){
     $this->allowedAction = ['editor','roster','login','logout','register','','reset','resetPassword','activate','member','404','terms','vop','index','test','show','create','update','delete','ultimate'];
     $this->allowedAricles = ['allwin','samuel','isama','isamanh','isamanw','angel','mry','star','terror','demoni','hyperion'];
     $this->allowedPages = [range(1,300)];
-    $this->queryAction = $_GET['action'] ?? null; //! SANITAZE via blade {{$selector->queryAction}}
-    $this->resetPWD = $_GET['x'] ?? null; //! SANITAZE via blade
+    $this->queryAction = $validation->sanitaze_GET('action') ?? null; 
+    $this->resetPWD = $validation->sanitaze_GET('x') ?? null; 
 }
 
 public function title(){

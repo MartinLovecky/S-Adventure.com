@@ -66,9 +66,13 @@ public function _getAction($action){
                 break;
             case 'logged':
                 return $this->message(['success'=>'Přihlášení úspěšné']);
+                break;
+            case 'permission':
+                return $this->message(['error'=>'Pro prohlížení příspěvků se musíte <a href="http://sadventure.com/login">Přihlásit</a>/<a href="http://sadventure.com/register">Registovat</a>']); 
                 default: null;
             }
         }
         return null;
     }
 }
+
