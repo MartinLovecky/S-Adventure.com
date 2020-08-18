@@ -12,6 +12,7 @@ use \starproject\database\DB as DataBase;
 use \starproject\database\costumers\Member;
 use \starproject\controllers\RequestController;
 use \starproject\controllers\ArticlesController;
+use \starproject\tools\Sanitazor;
 
 require(DIR . '/vendor/autoload.php'); 
 
@@ -22,7 +23,7 @@ $mail = new Mailer;
 $articles = new Articles; 
 $router = new Router;
 $hform = new Forms;
-
+$sanitazor  = new Sanitazor;
 //! IF You want 'add' new page to allowedPages go to selector
 //? inside selector ultimate view rename / delete aftrer test done
 # Check Fail DB con !! 
@@ -32,7 +33,7 @@ echo $message->message(['error'=>'Please write email to '.$mail->_email.' with S
 }
 
 $member = new Member($db);
-$selector = new Selector($member);
+$selector = new Selector($member,$sanitazor);
 $validation = new Validation($db,$message,$member);
 $requestController = new RequestController($validation,$member,$db,$mail,$selector);
 $articlesController = new ArticlesController($selector,$member);
