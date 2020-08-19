@@ -29,7 +29,7 @@ private function _emptyFields(array $Fields){
 public function validateRegister($request){
     if($request['persistent_register'] == 'yes'){  
         $username = $this->sanitaze($request['username']);
-        $email = htmlspecialchars_decode($request['email'],ENT_QUOTES);
+        $email = $this->sanitazeEmail($request['email']);
         $password = $this->sanitaze($request['password']);
         $password_again = $this->sanitaze($request['password_again']);
         // check empty filelds
@@ -91,9 +91,9 @@ public function validateReset($request){
 }
 
 public function validateResetMail($request){
-    $email = htmlspecialchars_decode($request['email'], ENT_QUOTES);
+    $email = $this->sanitazeEmail($request['email']);
     if($this->_emptyFields([$email]))return['message'=>$this->_message->message(['error'=>'Všechna pole musí být vyplněna'])];
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL))return['message'=>$this->_message->message(['error'=>'Zadejte prosím platný email'])];
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL))return['message'=>$this->_message->message(['error'=>'Prosím zadajte platný email'])];
     // Check DB
     $stmt = $this->_db->from('members')->where('email',$email);
     $rowEmail = $stmt->fetch('email');
