@@ -3,7 +3,6 @@
 @if (!$member->logged)
 	<div class="login-dark"> {{-- target => [folder.file],data] --}}
 	{!! $hform->create(['target'=>['app.RequestHandler',['requestController'=>$requestController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])->run($blade)!!}
-{{-- succes/error messages --}}
 @include('extras.messages',['selector'=>$selector,'message'=>$message])
 	<div class="form-group"><input type="text" name="username" value="@isset($selector->OldData['username']){{$selector->OldData['username']}}@endisset" placeholder="Uživatel" class="form-control" required/></div>
 	<div class="form-group"><input type="email" name="email" value="@isset($selector->OldData['email']){{$selector->OldData['email']}}@endisset" placeholder="Email" class="form-control" required/></div>

@@ -2,7 +2,7 @@
 // messages for ?action='something'
 $actionMsg = $message->_getAction($selector->queryAction);
 
-if(empty($actionMsg) && ($selector->action != 'member' || $selector->action != 'show' || $selector->action != 'ultimate')) 
+if(empty($actionMsg) && ($selector->msgTitle())) 
 {
 	echo '<h3 class="text-center">'.ucfirst($selector->viewname()).'</h3>';
 }

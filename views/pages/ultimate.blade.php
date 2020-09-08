@@ -11,7 +11,8 @@
         @include('pages.editor')
     @endif
     @if($articlesController->canCreatePage())
-    {{-- create/allwin/1  -> Link will create  !!$articlesController->createPage()!! --}}
+        {{-- /create/allwin/1 --}}
+    {!! $articlesController->createPage() !!}
     @endif
     @if($selector->action == 'delete' && $member->permission == 'all')
     {{-- create/allwin/1  -> Link will create  --}}
@@ -28,6 +29,4 @@
 {{--  Router::redirect('ultimate/allwin/1?action=permission')  --}}
 
 @endif
-
-
-
+{!! $articlesController->createPage() !!}

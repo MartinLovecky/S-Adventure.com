@@ -7,6 +7,7 @@ use starproject\tools\Selector;
 use starproject\database\Articles; // <= UPDATE | CREATE | DELETE -> array content
 //use \Envms\FluentPDO\Query; *dont use before you read Info.txt
 use starproject\database\costumers\Member;
+use starproject\arraybasics\MDR;
 
 class ArticlesController extends Articles{
 
@@ -23,7 +24,6 @@ class ArticlesController extends Articles{
     }
   
     public function _SetAllowed(){
-        //? retutn message
         if($this->_selector->article != 'empty' && $this->_selector->page != 'empty'){
             // string , array && string, array
             if(MDR::key_exists_r($this->_selector->article,$this->_selector->allowedAricles) && in_array($this->_selector->page,$this->_selector->allowedPages)){
@@ -63,14 +63,18 @@ class ArticlesController extends Articles{
         return null;
     }
     public function createPage(){
-        // Request -> $request = ['page' => [10 => ['chapter','body'=>'']]];
-        // Selector -> $selector = ['article'=>'allwin','page'=>'10'];
-        // Articles -> $articles = ['Allwin'=>[1=>['chapter','body'=>'']]];
-        // ADD new to existing
-        //$this->_ArticleArray = $request['page'];
-        /*
-            selector->queryAction
-        */
+        if(!$this->_SetAllowed()){
+            //return 'bb'; error msg you cannot use create function for invalid args exmp /create/ajdfgjahga/dada
+        }
+        $insert = [$this->_selector->page =>["chapter" => "","nadpisH1" => "","smallH2" => "","body" => ""]];
+        
+        if(array_key_exists($this->_selector->page,$this->all[ucfirst($this->_selector->article)])){
+            // return 'bbb';    error msg you cannot create something that exist !    
+        }
+        // we should somehow show msg Created 
+        // return array_push($insert,$this->all[ucfirst($this->_selector->article)]); 
+        
+    
 
     }
     public function deletePage(){

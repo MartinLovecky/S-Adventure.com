@@ -1,8 +1,3 @@
-{{-- permission need fix
-@if ($member->permisson != 'all' || $member->permisson != 'edit')
-    {!! header('Location: '.$router->urlName.'index?action=permission') !!}
-@else
---}}
 @extends('layouts.app')
 @section('editor')
 <body>

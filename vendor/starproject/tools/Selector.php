@@ -88,4 +88,11 @@ public function oldData($data){
    return $this->OldData;
 }
 
+public function msgTitle(){
+    //$selector->action != 'member' || $selector->action != 'show' || $selector->action != 'ultimate'
+    if($this->action == 'member' || $this->action == 'show' || $this->action == 'ultimate'){
+        return ;
+    }
+}
+
 }
