@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "composer/xdebug-handler",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/xdebug-handler.git",
-                "reference": "fa2aaf99e2087f013a14f7432c1cd2dd7d8f1f51"
+                "reference": "ebd27a9866ae8254e873866f795491f02418c5a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/xdebug-handler/zipball/fa2aaf99e2087f013a14f7432c1cd2dd7d8f1f51",
-                "reference": "fa2aaf99e2087f013a14f7432c1cd2dd7d8f1f51",
+                "url": "https://api.github.com/repos/composer/xdebug-handler/zipball/ebd27a9866ae8254e873866f795491f02418c5a5",
+                "reference": "ebd27a9866ae8254e873866f795491f02418c5a5",
                 "shasum": ""
             },
             "require": {
@@ -48,20 +48,20 @@
                 "Xdebug",
                 "performance"
             ],
-            "time": "2020-06-04T11:16:35+00:00"
+            "time": "2020-08-19T10:27:58+00:00"
         },
         {
             "name": "eftec/bladeone",
-            "version": "3.46.3",
+            "version": "3.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EFTEC/BladeOne.git",
-                "reference": "bb93f7852d2ef688073ca927753f2952adc49e4f"
+                "reference": "3580cd1ca291a560697d2c6c33e7efe2420f9462"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EFTEC/BladeOne/zipball/bb93f7852d2ef688073ca927753f2952adc49e4f",
-                "reference": "bb93f7852d2ef688073ca927753f2952adc49e4f",
+                "url": "https://api.github.com/repos/EFTEC/BladeOne/zipball/3580cd1ca291a560697d2c6c33e7efe2420f9462",
+                "reference": "3580cd1ca291a560697d2c6c33e7efe2420f9462",
                 "shasum": ""
             },
             "require": {
@@ -102,7 +102,7 @@
                 "templating",
                 "view"
             ],
-            "time": "2020-08-05T13:06:44+00:00"
+            "time": "2020-08-30T19:30:33+00:00"
         },
         {
             "name": "envms/fluentpdo",
@@ -110,17 +110,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/envms/fluentpdo.git",
-                "reference": "ed842a6731b95477976b0271573e885994fb6702"
+                "reference": "c348e932f4730db8d043dedf72b8d298ec6e7ad0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/envms/fluentpdo/zipball/ed842a6731b95477976b0271573e885994fb6702",
-                "reference": "ed842a6731b95477976b0271573e885994fb6702",
+                "url": "https://api.github.com/repos/envms/fluentpdo/zipball/c348e932f4730db8d043dedf72b8d298ec6e7ad0",
+                "reference": "c348e932f4730db8d043dedf72b8d298ec6e7ad0",
                 "shasum": ""
             },
             "require-dev": {
                 "envms/fluent-test": "^1.0",
-                "phpunit/phpunit": "^7.0"
+                "phpunit/phpunit": "^8.0"
             },
             "type": "library",
             "autoload": {
@@ -136,7 +136,7 @@
             "authors": [
                 {
                     "name": "envms",
-                    "homepage": "http://env.ms"
+                    "homepage": "https://env.ms"
                 }
             ],
             "description": "FluentPDO is a quick and light PHP library for rapid query building. It features a smart join builder, which automatically creates table joins.",
@@ -152,7 +152,7 @@
                 "pdo",
                 "query"
             ],
-            "time": "2019-04-27T20:21:50+00:00"
+            "time": "2020-09-01T18:38:20+00:00"
         },
         {
             "name": "felixfbecker/advanced-json-rpc",
@@ -321,12 +321,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JetBrains/phpstorm-stubs.git",
-                "reference": "147255f02ed786e1febaa641f86cfb9f656a3fda"
+                "reference": "2a655b07b8a9061c3c8d3879e305c87fbaa217f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JetBrains/phpstorm-stubs/zipball/147255f02ed786e1febaa641f86cfb9f656a3fda",
-                "reference": "147255f02ed786e1febaa641f86cfb9f656a3fda",
+                "url": "https://api.github.com/repos/JetBrains/phpstorm-stubs/zipball/2a655b07b8a9061c3c8d3879e305c87fbaa217f1",
+                "reference": "2a655b07b8a9061c3c8d3879e305c87fbaa217f1",
                 "shasum": ""
             },
             "require-dev": {
@@ -358,7 +358,7 @@
                 "stubs",
                 "type"
             ],
-            "time": "2020-07-28T12:16:34+00:00"
+            "time": "2020-08-28T07:40:28+00:00"
         },
         {
             "name": "microsoft/tolerant-php-parser",
@@ -964,12 +964,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
-                "reference": "e7acd3d92fa02728c51bf64b90615bffc84815f0"
+                "reference": "17ab94e4697d24e997214bcc0b15659c242c54c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/e7acd3d92fa02728c51bf64b90615bffc84815f0",
-                "reference": "e7acd3d92fa02728c51bf64b90615bffc84815f0",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/17ab94e4697d24e997214bcc0b15659c242c54c9",
+                "reference": "17ab94e4697d24e997214bcc0b15659c242c54c9",
                 "shasum": ""
             },
             "require": {
@@ -1019,7 +1019,7 @@
                 }
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
-            "time": "2020-08-05T08:34:30+00:00"
+            "time": "2020-09-07T15:04:19+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1156,12 +1156,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "4b5ca0096f952ea114182b10e6d8d47c3d84ac8d"
+                "reference": "618ecd0d52952b4c8de45404482c8a1d6cf0402f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/4b5ca0096f952ea114182b10e6d8d47c3d84ac8d",
-                "reference": "4b5ca0096f952ea114182b10e6d8d47c3d84ac8d",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/618ecd0d52952b4c8de45404482c8a1d6cf0402f",
+                "reference": "618ecd0d52952b4c8de45404482c8a1d6cf0402f",
                 "shasum": ""
             },
             "require": {
@@ -1224,7 +1224,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2020-06-30T14:43:42+00:00"
+            "time": "2020-09-08T14:20:09+00:00"
         }
     ],
     "aliases": [],

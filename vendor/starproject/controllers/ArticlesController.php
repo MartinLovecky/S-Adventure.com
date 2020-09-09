@@ -66,13 +66,15 @@ class ArticlesController extends Articles{
         if(!$this->_SetAllowed()){
             //return 'bb'; error msg you cannot use create function for invalid args exmp /create/ajdfgjahga/dada
         }
-        $insert = [$this->_selector->page =>["chapter" => "","nadpisH1" => "","smallH2" => "","body" => ""]];
+        // Cannot insert specific page sadly 
+        $insert = ["chapter" => "","nadpisH1" => "","smallH2" => "","body" => ""];
         
         if(array_key_exists($this->_selector->page,$this->all[ucfirst($this->_selector->article)])){
             // return 'bbb';    error msg you cannot create something that exist !    
         }
         // we should somehow show msg Created 
-        // return array_push($insert,$this->all[ucfirst($this->_selector->article)]); 
+        //? IDEA : return $blade->setView(view)->share(['variable'=>$newarray,'message'=>$msg])->run();
+        // return newarray = array_push($this->all[ucfirst($this->_selector->article),$insert]); 
         
     
 
