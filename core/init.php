@@ -24,19 +24,19 @@ $articles = new Articles;
 $router = new Router;
 $hform = new Forms;
 $sanitazor  = new Sanitazor;
-//! IF You want 'add' new page to allowedPages go to selector
-//? inside selector ultimate view rename / delete aftrer test done
-# Check Fail DB con !! 
+
 if($db->con() === null){   
-    // blade->run(page) -> for send msg
-echo $message->message(['error'=>'Please write email to '.$mail->_email.' with Subject: SA-2002 and Message: Database conection fail']); die;
+    echo $blade
+        ->setView('pages.kontakt')
+        ->share(['message'=>$message->message(['error'=>'Please write email to '.$mail->_email.' with Subject: SA-2002 and Message: Database conection fail'])])
+        ->run();
 }
 
 $member = new Member($db);
 $selector = new Selector($member,$sanitazor);
 $validation = new Validation($db,$message,$member);
 $requestController = new RequestController($validation,$member,$db,$mail,$selector);
-$articlesController = new ArticlesController($selector,$member);
+$articlesController = new ArticlesController($selector,$member,$message);
 
 // Insert all necesary variables for ALL views here
 $router->data = ['router'=>$router,'blade'=>$blade,'request'=>$router->request,'selector'=>$selector,'message'=>$message,'hform'=>$hform,'member'=>$member,'articlesController'=>$articlesController,'requestController'=>$requestController];

@@ -2,25 +2,27 @@
 
 namespace starproject\controllers;
 
-use starproject\http\Router;
-use starproject\tools\Selector;
-use starproject\database\Articles; // <= UPDATE | CREATE | DELETE -> array content
+use \starproject\http\Router;
+use \starproject\tools\Selector;
+use \starproject\database\Articles; // <= UPDATE | CREATE | DELETE -> array content
 //use \Envms\FluentPDO\Query; *dont use before you read Info.txt
-use starproject\database\costumers\Member;
-use starproject\arraybasics\MDR;
+use \starproject\database\costumers\Member;
+use \starproject\arraybasics\MDR;
+use \starproject\tools\Messages;
 
 class ArticlesController extends Articles{
 
     public $all,$img,$descript,$names;
-    private $_selector,$_member;
+    private $_selector,$_member,$_message;
     
-    public function __construct(Selector $selector, Member $member){
+    public function __construct(Selector $selector, Member $member, Messages $message){
         $this->all = $this->getArticles();
         $this->names = array_keys($this->getArticles());
         $this->descript = array_column($this->getArticles(),'description');
         $this->img =  array_column($this->getArticles(),'img');
         $this->_selector = $selector;
         $this->_member = $member;
+        $this->_message = $message;
     }
   
     public function _SetAllowed(){
@@ -64,9 +66,13 @@ class ArticlesController extends Articles{
     }
     public function createPage(){
         if(!$this->_SetAllowed()){
-            //return 'bb'; error msg you cannot use create function for invalid args exmp /create/ajdfgjahga/dada
+            // error msg you cannot use create function for invalid args exmp /create/ajdfgjahga/dada
+            return ['message'=>$this->_message->message(['error'=>'Nelze vytvořit stránku pro '.$this->_selector->article])];
         }
-        // Cannot insert specific page sadly 
+        // Cannot insert specific 'page'(key -> numeric ) sadly bcs that is not how array works
+        // There is maybe 'Solution' lets say we want create page 120 but last page in Articles is 20, we could 'fill' 21-119 via array_splice & array_merge 
+        //! BUT 21 - 119 MUST not exist !!
+        // doable but propably not necesary IDK
         $insert = ["chapter" => "","nadpisH1" => "","smallH2" => "","body" => ""];
         
         if(array_key_exists($this->_selector->page,$this->all[ucfirst($this->_selector->article)])){

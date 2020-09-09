@@ -12,12 +12,15 @@ if(!empty($request))
         case 'reset_send_email':
             $requestController->submitsendReset($request);
         break;              
-        case 'reset_pwd';
+        case 'reset_pwd':
             $requestController->submitReset($request);
         break;
-        case 'bookmark';
+        case 'bookmark':
             $requestController->submitBookmark($request);
-        break;       
+        break;
+        case 'kontakt':
+            $requestController->submitKontakt($request);
+        break;
         default: null;            
    }
 }

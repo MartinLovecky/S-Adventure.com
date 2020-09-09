@@ -79,6 +79,10 @@ private function _resetUpdate($subReset){
         return $result;
 }
 
+private function _kontakt($request){
+    #validation
+}
+
 public function submitRegister($request){
     $register = $this->_register($request);
     if(\in_array('message',$register)){
@@ -159,6 +163,10 @@ public function submitBookmark($request){
     $stmt = $this->_db->update('members')->set($set)->where('memberID',$this->_member->memberID);
     $stmt->execute();
     return $this->_selector->getMessages($bookmark['message']);
+}
+
+public function submitKontakt($request){
+    return null;
 }
 
 }
