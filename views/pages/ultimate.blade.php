@@ -11,8 +11,8 @@
         @include('pages.editor')
     @endif
     @if($articlesController->canCreatePage())
-        {{-- /create/allwin/1 --}}
-    {!! $articlesController->createPage() !!}
+        {{-- /create/allwin/1 cannot craete existting page--}}
+    {!! $articlesController->createPage($blade) !!}
     @endif
     @if($selector->action == 'delete' && $member->permission == 'all')
     {{-- create/allwin/1  -> Link will create  --}}

@@ -23,8 +23,7 @@ class ArticlesController extends Articles{
         $this->_selector = $selector;
         $this->_member = $member;
         $this->_message = $message;
-    }
-  
+    } 
     public function _SetAllowed(){
         if($this->_selector->article != 'empty' && $this->_selector->page != 'empty'){
             // string , array && string, array
@@ -64,26 +63,23 @@ class ArticlesController extends Articles{
         }
         return null;
     }
-    public function createPage(){
+    public function createPage($blade){
         if(!$this->_SetAllowed()){
             // error msg you cannot use create function for invalid args exmp /create/ajdfgjahga/dada
             return ['message'=>$this->_message->message(['error'=>'Nelze vytvořit stránku pro '.$this->_selector->article])];
         }
         // Cannot insert specific 'page'(key -> numeric ) sadly bcs that is not how array works
-        // There is maybe 'Solution' lets say we want create page 120 but last page in Articles is 20, we could 'fill' 21-119 via array_splice & array_merge 
-        //! BUT 21 - 119 MUST not exist !!
+        // There is maybe 'Solution' lets say we want create page 120 but last page in Articles is 20, we could 'fill' 21-119 
         // doable but propably not necesary IDK
+
         $insert = ["chapter" => "","nadpisH1" => "","smallH2" => "","body" => ""];
         
         if(array_key_exists($this->_selector->page,$this->all[ucfirst($this->_selector->article)])){
-            // return 'bbb';    error msg you cannot create something that exist !    
+            //you cannot create something that exist !   
+            return ['message'=>$this->_message->message(['error'=>'Nelze vytvořit stránku číslo '.$this->_selector->page.' protože již existuje v příběhu '.$this->_selector->article])]; 
         }
-        // we should somehow show msg Created 
-        //? IDEA : return $blade->setView(view)->share(['variable'=>$newarray,'message'=>$msg])->run();
+        //return $blade->setView('view')->share(['variable'=>$newarray,'message'=>$this->_message->message(['success'=>''])->run();
         // return newarray = array_push($this->all[ucfirst($this->_selector->article),$insert]); 
-        
-    
-
     }
     public function deletePage(){
         #code
