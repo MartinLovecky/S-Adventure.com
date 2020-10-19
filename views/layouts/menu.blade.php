@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-12 offset-lg-0" id="navbar">
             <nav class="navbar navbar-light navbar-expand-lg navigation-clean-button" style="height: 80px; font-size: 16px;">
-            <div class="container"><a class="navbar-brand" href="/index"><img class="img-fluid" src='@asset('img.icon.jpg')' alt="brand" width="80px"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="container"><a class="navbar-brand" href="/index"><img class="img-fluid" src='@asset('images/android-chrome-256x256.png')' alt="brand" width="80px"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navcol-1">
                         <ul class="nav navbar-nav text-center mx-auto">
                             <li class="nav-item" role="presentation"><a class="nav-link text-capitalize text-center>" href="/show/allwin/1"><strong>Allwin</strong></a></li>
@@ -26,7 +26,7 @@
                                 </div>
                             </li>
                         </ul>@if(!$member->logged)<a class="btn btn-primary bg-danger border rounded-circle" role="button" href="/register" style="color: rgb(255,255,255);">Registrace</a><a class="btn btn-primary bg-success border rounded-circle" role="button" href="http://sadventure.com/login" style="color: rgb(255,255,255);">Přihlášení</a>@endif
-                        @if($member->logged)<span class="navbar-text actions" id="imgName"><img class="rounded-circle img-fluid" src="http://localhost/example/public/resources/img/avatars/{{$member->avatar}}" alt="img" width="50px"><span class="text-warning"><a class="text-capitalize" href="http://sadventure.com/member/{{$member->username}}">{{$member->username}}</a></span></span>@endif
+                        @if($member->logged)<span class="navbar-text actions" id="imgName"><img class="rounded-circle img-fluid" src="@asset('images/avatars/{!!$member->avatar!!}')" alt="img" width="50px"><span class="text-warning"><a class="text-capitalize" href="http://sadventure.com/member/{{$member->username}}">{{$member->username}}</a></span></span>@endif
                         @if($articlesController->_SetAllowed()){!! $hform->create(['target'=>['app.RequestHandler',['requestController'=>$requestController,'request'=>$request]],'method'=>'POST','class'=>'form-inline'])->run($blade)!!}<input type="hidden" name="type" value='bookmark'><button class="btn btn-light" name="submit" type="submit"><i class="typcn typcn-bookmark" style="color: #f47c00;"></i><span class="text-lowercase font-size: 16px;">Uložit záložku</span></button>{!! $hform->close() !!}@endif
                     </div>
             </div>

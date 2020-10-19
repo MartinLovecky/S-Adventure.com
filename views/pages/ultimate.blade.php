@@ -1,5 +1,16 @@
 @include('layouts.app')
 
+{{-- 
+    PROBLEM with this solution /ultimate/allwin/1 
+    -> action = ultimate not user friendly (should be craete | update  etc);
+    -> action must be replaced by /ultimate/allwin/1?action=099af53f601532dbd31e0ea99ffdeb64
+    -> getting messgages from controller is real pain 
+    -----------------------------------------------
+    Solution 
+    * Scrap this idea & do it normaly 
+    * Keep idea
+--}}
+
 @if ($selector->queryAction != 'permission')
     @include('layouts.menu') 
     

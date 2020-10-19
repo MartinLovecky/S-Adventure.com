@@ -2,7 +2,7 @@
     <footer id="myFooter">
         <div class="container-fluid">
             <div class="row text-center">
-                <div class="col-12 col-sm-6 col-md-3"><img src="@asset('img.icon.jpg')"></div>
+                <div class="col-12 col-sm-6 col-md-3"><img src="@asset('images/android-chrome-256x256.png')"></div>
                     <div class="col-12 col-sm-6 col-md-2">
                         <h5>Začínáme</h5>
                         <ul>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="row footer-copyright">
                         <div class="col">
-                            <p><a href="http://sadventure.com/index">StarAdventure</a>&nbsp;© 2019&nbsp;All Rights Reserved.&nbsp;~ Vytvořil&nbsp;<a href="http://sadventure.com/member/Sensei">Sensei</a></p>
+                            <p><a href="http://sadventure.com/index">StarAdventure</a>&nbsp;© 2021&nbsp;All Rights Reserved.&nbsp;~ Vytvořil&nbsp;<a href="http://sadventure.com/member/Sensei">Sensei</a></p>
                         </div>
                     </div>
                 </div>
@@ -45,8 +45,8 @@
         </div>
     </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="@asset('js/jquery-3.5.1.min.js')"></script>
+    <script src="@asset('js/bootstrap.min.js')"></script>
 </body>
 
 </html>

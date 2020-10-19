@@ -69,8 +69,8 @@ class ArticlesController extends Articles{
             return ['message'=>$this->_message->message(['error'=>'Nelze vytvořit stránku pro '.$this->_selector->article])];
         }
         // Cannot insert specific 'page'(key -> numeric ) sadly bcs that is not how array works
-        // There is maybe 'Solution' lets say we want create page 120 but last page in Articles is 20, we could 'fill' 21-119 
-        // doable but propably not necesary IDK
+        // There is maybe 'Solution' lets say we want create page 120 but last page in Articles is 20, we could 'fill' 21-119 doable but propably not necesary IDK
+        // expm. last in 'Allwin'[20][$insert] if we try /create/allwin/50 it will add to Allwin[21]
 
         $insert = ["chapter" => "","nadpisH1" => "","smallH2" => "","body" => ""];
         

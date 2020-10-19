@@ -35,19 +35,19 @@
     <div class="container">
         <h1 class="text-capitalize text-center text-info">Team</h1>
         <div class="card-group">
-            <div class="card"><img class="rounded img-fluid card-img-top w-100 d-block" src="@asset('img.beruska.jpg')">
+            <div class="card"><img class="rounded img-fluid card-img-top w-100 d-block" src="@asset('images/avatars/editor.jpg')">
                 <div class="card-body text-center">
                     <h4 class="text-capitalize text-primary card-title">Květulka</h4>
                     <p>Editorka příběhu.<br></p>
                 </div>
             </div>
-            <div class="card"><img class="rounded img-fluid card-img-top w-100 d-block" src='@asset('img.sensei.jpg')'>
+            <div class="card"><img class="rounded img-fluid card-img-top w-100 d-block" src='@asset('images/avatars/sensei.jpeg')'>
                 <div class="card-body text-center">
                     <h4 class="text-capitalize text-primary card-title">Sensei</h4>
                     <p>Tvůrce webu. Autor příběhu.<br></p>
                 </div>
             </div>
-            <div class="card"><img class="rounded img-fluid card-img-top w-100 d-block" src='@asset('img.torag.jpg')'>
+            <div class="card"><img class="rounded img-fluid card-img-top w-100 d-block" src='@asset('images/avatars/torag.jpg')'>
                 <div class="card-body text-center">
                     <h4 class="text-primary card-title">Torag</h4>
                     <p>Hlavní konzultant.<br></p>

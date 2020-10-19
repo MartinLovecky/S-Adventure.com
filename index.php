@@ -1,1 +1,1 @@
-<?php require(__DIR__.'../views/app/Global.php'); ?>
+<?php require($_SERVER['DOCUMENT_ROOT'] . '/core/loader.php'); ?>

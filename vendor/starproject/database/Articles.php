@@ -156,7 +156,7 @@ class Articles
                     16=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     17=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>'']
                 ],
-                'Angel'=>['description'=>'Příběh má spojitost s příběhem Allwina','img'=>'','Angel & Eklips','url'=>'http://sadventure.com/show/angel/1',
+                'Aeg'=>['description'=>'Příběh má spojitost s příběhem Allwina','img'=>'','Angel & Eklips','url'=>'http://sadventure.com/show/angel/1',
                     1=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     2=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
                     3=>['chapter'=>'','nadpisH1'=>'','smallH2'=>'','body'=>''],
