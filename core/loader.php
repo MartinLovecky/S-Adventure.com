@@ -13,11 +13,9 @@
     $title = 'SA | '.$selector->title();
 
     // IF you want use files from public directory (images,css... ) you need set base url
-    // Public dir if Online dir fails
     $blade->setBaseUrl('/public/'); //-> @asset('folder.fileName.css/jpg/etc..')
     
-    /*
-    blade @asset ussing any online storage 
+    /*  online storage 
     $blade->addAssetDict('css.Form-Dark.css','http://staradventure.xf.cz/views/includes/assets/css/Login-Form-Dark.css');
     $blade->addAssetDict('css.styles.css','http://sadventure.com/public/css/styles.min.css');
     $blade->addAssetDict('css.project-horizont.css','http://staradventure.xf.cz/views/includes/assets/css/project-horizont.min.css');

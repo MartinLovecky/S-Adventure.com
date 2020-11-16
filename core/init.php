@@ -13,6 +13,7 @@ use \starproject\database\costumers\Member;
 use \starproject\controllers\RequestController;
 use \starproject\controllers\ArticlesController;
 use \starproject\tools\Sanitazor;
+use \starproject\tools\html\Wrapper;
 
 require(DIR . '/vendor/autoload.php'); 
 
@@ -27,19 +28,19 @@ $sanitazor  = new Sanitazor;
 
 if($db->con() === null){   
     echo $blade
-        ->setView('pages.kontakt')
-        ->share(['message'=>$message->message(['error'=>'Please write email to '.$mail->_email.' with Subject: SA-2002 and Message: Database conection fail'])])
-        ->run();
+            ->setView('pages.kontakt')
+            ->share(['message'=>$message->message(['error'=>'Please write email to '.$mail->_email.' with Subject: SA-2002 and Message: Database conection fail'])])
+            ->run();
 }
-
 $member = new Member($db);
 $selector = new Selector($member,$sanitazor);
+$wrapper = new Wrapper($selector);
 $validation = new Validation($db,$message,$member);
 $requestController = new RequestController($validation,$member,$db,$mail,$selector);
 $articlesController = new ArticlesController($selector,$member,$message);
 
 // Insert all variables for ALL views here
-$router->data = ['router'=>$router,'blade'=>$blade,'request'=>$router->request,'selector'=>$selector,'message'=>$message,'hform'=>$hform,'member'=>$member,'articlesController'=>$articlesController,'requestController'=>$requestController];
+$router->data = ['wrapper'=>$wrapper,'router'=>$router,'blade'=>$blade,'request'=>$router->request,'selector'=>$selector,'message'=>$message,'hform'=>$hform,'member'=>$member,'articlesController'=>$articlesController,'requestController'=>$requestController];
 
 //$blade->setAuth($member->getUserName(),)
 ?>
