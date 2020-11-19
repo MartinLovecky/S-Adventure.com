@@ -69,8 +69,12 @@ public function _getAction($action){
                 break;
             case 'permission':
                 return $this->message(['error'=>'Pro prohlížení příspěvků se musíte <a href="http://sadventure.com/login">Přihlásit</a>/<a href="http://sadventure.com/register">Registovat</a>']); 
+            case 'hash':
+                return $this->message(['error'=>'Pro změnu hesla je nutné ověřit e-mail']);     
                 default: null;
             }
+            
+      
         }
         return null;
     }

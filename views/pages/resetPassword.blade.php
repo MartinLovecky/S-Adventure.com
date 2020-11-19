@@ -16,5 +16,7 @@
     </div>
 </body>
 </html>
+@else
+    {{  \header('Location: http://sadventure.com/kontakt/?action=hash') }}
 @endif
 @endsection

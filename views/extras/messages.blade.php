@@ -1,18 +1,9 @@
-<?php
-// messages for ?action='something'
-$actionMsg = $message->_getAction($selector->queryAction);
-
-if(empty($actionMsg) && ($selector->msgTitle())) 
-{
-	echo '<h3 class="text-center">'.ucfirst($selector->viewname()).'</h3>';
-}
-if(!empty($actionMsg))
-{
-	echo $actionMsg;
-}	
-if(isset($selector->message))
-{
-	echo $selector->message;
-}
-
-?>
+@empty($selector->queryAction)
+	{!! '<h3 class="text-center">'.ucfirst($selector->viewname()).'</h3>' !!}
+@endempty
+@if (!empty($selector->queryAction))
+	{{	 $message->_getAction($selector->queryAction)	}}
+@endif
+@isset($selector->message)
+	{{	$selector->message	}}
+@endisset
