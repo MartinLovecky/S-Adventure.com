@@ -3,15 +3,16 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide&amp;subset=latin-ext">
+    <title>@isset($title){{$title}}@endisset</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <link rel="stylesheet" href="@asset('css/Login-Form-Dark.css')"> 
     <link rel="stylesheet" href="@asset('css/styles.min.css')">
     <link rel="stylesheet" href="@asset('css/project-horizont.min.css')">
-    <link rel="stylesheet" href="@asset('css/bootstrap.min.css')">
-  
-    <title>@isset($title){{$title}}@endisset</title>
     <script>
         function onSubmit(token) {
           alert('thanks ' + document.getElementById('field').value);
@@ -36,15 +37,4 @@
 
 <body>
 
-<?php
-if(!isset($selector)){
-  require(DIR . '/core/init.php'); ?>
-    @yield($selector->viewName())<?php
-}else{?>
-     @yield($selector->viewName())<?php
-    }
-?>
-
-
-
-  
+@yield($selector->viewName())

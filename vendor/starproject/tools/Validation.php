@@ -26,6 +26,10 @@ private function _emptyFields(array $Fields){
     }
 }
 
+private function _validCSFR(){
+    
+}
+
 public function validateRegister($request){
     if($request['persistent_register'] == 'yes'){  
         $username = $this->sanitaze($request['username']);

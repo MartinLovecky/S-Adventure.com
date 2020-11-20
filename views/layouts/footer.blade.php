@@ -1,53 +1,30 @@
-<div class="col-xl-12 offset-xl-0" id="footer">
-    <footer id="myFooter">
-        <div class="container-fluid">
-            <div class="row text-center">
-                <div class="col-12 col-sm-6 col-md-3"><img src="@asset('images/android-chrome-256x256.png')"></div>
-                    <div class="col-12 col-sm-6 col-md-2">
-                        <h5>Začínáme</h5>
-                        <ul>
-                            <li><a href="/index">Úvod</a></li>
-                            <li><a href="/register">Registrace</a></li>
-                            <li><a href="/login">Přihlášení</a></li>
-                            <li><a href="#">Other Links</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-2">
-                            <h5>Pro vás</h5>
-                            <ul>
-                                <li><a href="#">Space for you</a></li>
-                                <li><a href="#">Space for you</a></li>
-                                <li><a href="#">Space for you</a></li>
-                                <li><a href="#">Space for you</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-6 col-md-2">
-                            <h5>Support</h5>
-                            <ul>
-                                <li><a href="http://sadventure.com/faq">FAQ</a></li>
-                                <li><a href="http://sadventure.com/vop">VOP</a></li>
-                                <li><a href="http://sadventure.com/terms">Terms</a></li>
-                                <li><a href="#">External Links</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-3 social-networks">
-                            <div></div><a href="https://www.facebook.com/marthas.lovecky" class="facebook"><i class="fa fa-facebook"></i></a><a href="https://twitter.com/LoveckyMartin" class="twitter"><i class="fa fa-twitter"></i></a><a href="https://plus.google.com/u/0/100826627356661644699" class="google"><i class="fa fa-google-plus"></i></a><a href="https://stackoverflow.com/users/9011597/martin-loveck%C3%BD" class="linkedin"><i class="fa fa-linkedin"></i></a>
-                            <a class="btn btn-primary" role="button" href="http://sadventure.com/#" style="font-size: 16px;">Kontakt</a>
-                        </div>
-                    </div>
-                    <div class="row footer-copyright">
-                        <div class="col">
-                            <p><a href="http://sadventure.com/index">StarAdventure</a>&nbsp;© 2021&nbsp;All Rights Reserved.&nbsp;~ Vytvořil&nbsp;<a href="http://sadventure.com/member/Sensei">Sensei</a></p>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+<footer id="footer">
+    <div class="row" id="index_footer">
+        <div class="col-sm-6 col-md-4 footer-navigation">
+            <h3><a href="/index">Star<span>Adventure</span></a></h3>
+            <p class="links"><a href="#">Empty</a><strong>&nbsp;· </strong><a href="/terms">Terms</a><strong> · </strong><a href="/faq">Faq</a><strong> · </strong><a href="/vop">Vop</a></p>
+            <p class="company-name">StarAdventure © 2021 ~ Vytvořil&nbsp;<a href="/member/Sensei">Sensei</a></p>
+        </div>
+        <div class="col-sm-6 col-md-4 footer-contacts">
+            <div><span class="fa fa-map-marker footer-contacts-icon"> </span>
+                <p><span class="new-line-span"></span> Ústí nad Labem, Czech Republic</p>
+            </div>
+            <div><i class="fa fa-phone footer-contacts-icon"></i>
+                <p><a href="https://discord.gg/rGfAZYaa9h">Discord</a></p>
+            </div>
+            <div><i class="fa fa-envelope footer-contacts-icon"></i>
+                <p><a href="/kontakt" target="_blank">staradvanture.suport@seznam.cz</a></p>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-4 footer-about">
+            <div class="social-links social-icons"><a href="https://www.facebook.com/marthas.lovecky"><i class="fa fa-facebook"></i></a><a href="https://twitter.com/LoveckyMartin"><i class="fa fa-twitter"></i></a><a href="https://github.com/MartinLovecky/"><i class="fa fa-github"></i></a></div>
         </div>
     </div>
-    </div>
-    <script src="@asset('js/jquery-3.5.1.min.js')"></script>
-    <script src="@asset('js/bootstrap.min.js')"></script>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="@asset('js/script.min.js')"></script>
 </body>
 
 </html>
-

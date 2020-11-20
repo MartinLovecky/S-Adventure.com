@@ -55,13 +55,7 @@
 <body>
     <div class="table-responsive table-bordered text-center">
         <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Permission</th>
-                    <th>Soukromí</th>
-                </tr>
-            </thead>
+            
             <tbody>
                 {{-- If status is not public dont provide link to profile & hide user info inside profile --}}
                 @foreach ($member->allMembers() as $items)
