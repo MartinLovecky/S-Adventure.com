@@ -4,7 +4,8 @@ namespace starproject\controllers;
 
 use \starproject\http\Router;
 use \starproject\tools\Selector;
-use \starproject\database\story\Articles; // <= UPDATE | CREATE | DELETE -> DB content
+use \starproject\database\story\Articles; 
+use \starproject\database\DB; 
 use \Envms\FluentPDO\Query; 
 use \starproject\database\costumers\Member;
 use \starproject\arraybasics\MDR;
@@ -12,17 +13,20 @@ use \starproject\tools\Messages;
 
 class ArticlesController extends Articles{
 
-    private $_selector,$_member,$_message;
+    public $Article;
+    private $_selector,$_member,$_message,$_db;
     
-    public function __construct(Selector $selector, Member $member, Messages $message){
+    public function __construct(Selector $selector, Member $member, Messages $message, DB $db){
         $this->_selector = $selector;
         $this->_member = $member;
         $this->_message = $message;
+        $this->_db = $db->con();
+        $this->Article = $this->_GetArticle();
     } 
     public function _SetAllowed(){
         if($this->_selector->article != 'empty' && $this->_selector->page != 'empty'){
             // string , array && string, array
-            if(MDR::key_exists_r($this->_selector->article,$this->_selector->allowedAricles) && in_array($this->_selector->page,$this->_selector->allowedPages)){
+            if(MDR::key_exists_r($this->_selector->article,$this->_selector->allowedAricles) && MDR::in_array_r($this->_selector->page,$this->_selector->allowedPages)){
                 return true;    
             }
                 return false;
@@ -31,10 +35,12 @@ class ArticlesController extends Articles{
     }
     public function _GetArticle(){
         if($this->_SetAllowed()){
-            /* ["chapter"],["nadpisH1"],["smallH2"],["body"] */
-            return $this->all[ucfirst($this->_selector->article)][$this->_selector->page];
+            $stmt = $this->_db->from($this->_selector->article)->where('page',$this->_selector->page);
+            $result = $stmt->fetch();
+            // [page=>int,chapter=> null/string,body=>longtext]
+            return $result;
         }
-        return null;
+        return null; // 
     }
     public function updatePage($request){
         // view secure permitions (inside Costumer) so we need only check request

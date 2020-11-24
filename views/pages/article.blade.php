@@ -4,12 +4,11 @@
 <div class="col-lg-10 col-lg-offset-1 col-md-12">
 <div class="text">
     {{-- !permission check -> redirect with msg --}}
-    {{-- if($articleController[$selector->article] == $selector->allowedArticle) --}}
-    {{-- foreach($articleController->all as $article) ! dont use --}}
-    {{-- isset($articleController['MainNadpis']) h3 --}}
-      
-    {{-- 'Isama' => $selector-article, '1'=> $selector->page --}} 
-    {!!  $articlesController->Articles[ucfirst($selector->article)][$selector->page]['body']   !!}  
+
+@if (!empty($articlesController->Article['chapter']))
+    <h1 class="text-center">{{$articlesController->Article['chapter']}}</h1>
+@endif
+    {!!  $articlesController->Article['body']   !!}  
 <nav class="d-xl-flex justify-content-xl-center align-items-xl-center" id="wp_pagnation">
     <ul class="pagination">
         {!!  $wrapper->prev_page()   !!}
@@ -18,7 +17,4 @@
     </ul>
 </nav>
 </div>
-<div class="clearfix"></div>
-</div>
-</div>
-</div>
+@include('layouts.footer')

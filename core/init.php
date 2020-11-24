@@ -13,7 +13,6 @@ use \starproject\controllers\RequestController;
 use \starproject\controllers\ArticlesController;
 use \starproject\tools\Sanitazor;
 use \starproject\tools\html\Wrapper;
-use \starproject\database\story\ArticlesDB;
 
 require(DIR . '/vendor/autoload.php'); 
 
@@ -31,18 +30,17 @@ if($db->con() === null){
             ->share(['message'=>$message->message(['error'=>'Please write email to '.$mail->_email.' with Subject: SA-2002 and Message: Database conection fail'])])
             ->run();
 }
-$ArticlesDB = new ArticlesDB($db);
+
 $member = new Member($db);
 $selector = new Selector($member,$sanitazor);
 $wrapper = new Wrapper($selector);
 $validation = new Validation($db,$message,$member);
 $requestController = new RequestController($validation,$member,$db,$mail,$selector);
-$articlesController = new ArticlesController($selector,$member,$message);
+$articlesController = new ArticlesController($selector,$member,$message,$db);
 
 // Insert all variables for ALL views here
 $router->data = ['wrapper'=>$wrapper,'router'=>$router,'blade'=>$blade,'request'=>$router->request,'selector'=>$selector,'message'=>$message,'hform'=>$hform,'member'=>$member,'articlesController'=>$articlesController,'requestController'=>$requestController];
 
 //$blade->setAuth($member->getUserName(),)
 
-dd($ArticlesDB->getArticle($selector->article,$selector->page));
 ?>
