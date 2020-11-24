@@ -1,0 +1,7 @@
+user-agent: *
+disallow: /downloads/
+
+user-agent: magicsearchbot
+disallow: /uploads/
+
+sitemap: http://sadventure.com/sitemap-file.xml

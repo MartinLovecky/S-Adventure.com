@@ -4,22 +4,17 @@ namespace starproject\controllers;
 
 use \starproject\http\Router;
 use \starproject\tools\Selector;
-use \starproject\database\Articles; // <= UPDATE | CREATE | DELETE -> array content
-//use \Envms\FluentPDO\Query; *dont use before you read Info.txt
+use \starproject\database\story\Articles; // <= UPDATE | CREATE | DELETE -> DB content
+use \Envms\FluentPDO\Query; 
 use \starproject\database\costumers\Member;
 use \starproject\arraybasics\MDR;
 use \starproject\tools\Messages;
 
 class ArticlesController extends Articles{
 
-    public $all,$img,$descript,$names;
     private $_selector,$_member,$_message;
     
     public function __construct(Selector $selector, Member $member, Messages $message){
-        $this->all = $this->getArticles();
-        $this->names = array_keys($this->getArticles());
-        $this->descript = array_column($this->getArticles(),'description');
-        $this->img =  array_column($this->getArticles(),'img');
         $this->_selector = $selector;
         $this->_member = $member;
         $this->_message = $message;

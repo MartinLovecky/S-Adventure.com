@@ -35,8 +35,8 @@ public function __construct(Member $member,Sanitazor $sanitazor){
 }
 
 public function title(){
-    if($this->action === ''){
-        return 'Home';
+    if($this->action === '' || $this->action === 'index'){
+        return 'SA | Home';
     }elseif($this->action === 'show') {
         return $this->article.'-'.$this->page;
     }
