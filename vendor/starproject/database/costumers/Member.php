@@ -73,13 +73,13 @@ public function activate(){
     Router::redirect('login?action=failActive');
 }
 
-public function userExist($username){   
-    $stmt = $this->_db->from('members')->where('username',$username);
-    $row = $stmt->fetch();
-    if($row['username'] !== $username){
-         return false;
+public function userExist($username,$email){   
+    $stmt = $this->_db->from('members');
+    $row = $stmt->fetchPairs('username','email');
+    if(array_key_exists($username,$row) || in_array($email,$row)){
+        return true;
     }
-    return true;
+    return false;
 }
 
 public function bookmark(){

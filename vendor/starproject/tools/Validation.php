@@ -27,7 +27,7 @@ private function _emptyFields(array $Fields){
 }
 
 private function _validCSFR(){
-    
+    #    
 }
 
 public function validateRegister($request){
@@ -38,7 +38,7 @@ public function validateRegister($request){
         $password_again = $this->sanitaze($request['password_again']);
         // check empty filelds
         if($this->_emptyFields([$username,$email,$password,$password_again]))return['message'=>$this->_message->message(['error'=>'Všechna pole musí být vyplněna'])];
-        if(!$this->_member->userExist($username))return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno se již používá'])];
+        if($this->_member->userExist($username,$email))return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno nebo email se již používá'])];
         if(!$this->_member->isValidUsername($username)) return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno musí obsahovat minimálně 4 - 25 znaku'])];
         if(mb_strlen($password) < 6 || mb_strlen($password_again) < 6) return ['message'=>$this->_message->message(['error'=>'Heslo musí mít nejméně 6 znaků'])];
         if($password != $password_again)return ['message'=>$this->_message->message(['error'=>'Heslo se musí schodovat'])];

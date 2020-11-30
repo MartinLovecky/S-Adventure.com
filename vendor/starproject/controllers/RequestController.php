@@ -21,7 +21,7 @@ public function __construct(Validation $validation,Member $member, DB $db, Maile
     $this->_db = $db->con();
 }
 
-private function _register($request){
+public function _register($request){
     $validation = $this->_validation->validateRegister($request);
     if(isset($validation['message'])){
         return ['message'=>$validation['message'],['email'=>$request['email'],'username'=>$request['username']]];      
@@ -39,7 +39,7 @@ private function _register($request){
         }
 }
 
-private function _login($request){
+public function _login($request){
    $validation = $this->_validation->validateLogin($request);
    if(isset($validation['message'])){
        return ['message'=>$validation['message'],['username'=>$request['username']]];
@@ -47,7 +47,7 @@ private function _login($request){
        return ['username'=>$validation['username'],'password'=>$validation['password']];
 }
 
-private function _sendResetEmail($request){
+public function _sendResetEmail($request){
     $validation = $this->_validation->validateResetMail($request);
     if(isset($validation['message'])){
         return ['message'=>$validation['message'],['email'=>$request['email']]];
@@ -59,7 +59,7 @@ private function _sendResetEmail($request){
         return ['email'=>$validation['email'],'storedToken'=>$storedToken,'token'=>$token,'id'=>$result[2]['memberID']];
 }
 
-private function _reset($request){
+public function _reset($request){
     $validation = $this->_validation->validateReset($request);
     if(isset($validation['message'])){
         return ['message'=>$validation['message']];
@@ -70,7 +70,7 @@ private function _reset($request){
         return ['resetToken'=>$result['resetToken'],'resetComplete'=>$result['resetComplete'],'hashedpassword'=>$hashedpassword];
 }
 
-private function _resetUpdate($subReset){
+public function _resetUpdate($subReset){
      //update reset DB
      $set = ['password'=>$subReset['hashedpassword'],'resetComplete'=>$subReset['resetComplete']];
      $stmt = $this->_db->update('members')->set($set)->where('memberID',$subReset['id']);
@@ -79,18 +79,18 @@ private function _resetUpdate($subReset){
         return $result;
 }
 
-private function _kontakt($request){
+public function _kontakt($request){
     #validation
 }
 
 public function submitRegister($request){
     $register = $this->_register($request);
-    if(\in_array('message',$register)){
+    if(\array_key_exists('message',$register)){
         $this->_selector->getMessages($register['message']);
         $this->_selector->oldData($register[0]);
             return $this;
     }
-    if(!\in_array('message',$register)){
+    else{
         $subject = "Potvrzení registrace";
         $build = ['body'=>$this->_mail->template('register-email',['id'=>$register['id'],'activasion'=>$register['activasion'],'username'=>$register['username']]),'subject'=>$subject,'to'=>$register['to']];
         $this->_mail->builder($build);

@@ -5,5 +5,5 @@
 	{{	 $message->_getAction($selector->queryAction)	}}
 @endif
 @isset($selector->message)
-	{{	$selector->message	}}
+	{!!	$selector->message	!!}
 @endisset
