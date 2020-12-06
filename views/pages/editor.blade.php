@@ -15,7 +15,7 @@
                 @endforeach
             </ol>
             @include('extras.messages')
-            {!! $hform->create(['target'=>['app.ArticleHandler',['articlesController'=>$articlesController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])->run($blade)!!}
+            <form action="" method="post">
             <input type="text" name="chapter" placeholder="Nadpis">
             <input type="text" name="nadpisH1" placeholder="Nadpis_H1">
             <input type="text" name="smallH2" placeholder="Nadpis_small_H2">
@@ -32,7 +32,7 @@
             <hr/>
             <button class="btn btn-success btn-block" name="submit" type="submit" value="submit">Odeslat na server</button>
             <p> * Pro vykonání jakékoliv akce je nutné klinout na Odeslat na server nestačí pouze změnit url a dát ENTRER !!!!!</p>
-            {!! $hform->close() !!}
+            </form>
         </div>
     </div>
 </body>

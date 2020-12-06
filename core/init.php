@@ -2,7 +2,6 @@
 
 use \eftec\bladeone\BladeOne;
 use \starproject\http\Router;
-use \starproject\tools\Forms;
 use \starproject\tools\Mailer;
 use \starproject\tools\Messages;
 use \starproject\tools\Selector;
@@ -21,7 +20,7 @@ $db = new DataBase;
 $message = new Messages; 
 $mail = new Mailer;
 $router = new Router;
-$hform = new Forms;
+
 $sanitazor  = new Sanitazor;
 
 if($db->con() === null){   
@@ -39,7 +38,7 @@ $requestController = new RequestController($validation,$member,$db,$mail,$select
 $articlesController = new ArticlesController($selector,$member,$message,$db);
 
 // Insert all variables for ALL views here
-$router->data = ['wrapper'=>$wrapper,'router'=>$router,'blade'=>$blade,'request'=>$router->request,'selector'=>$selector,'message'=>$message,'hform'=>$hform,'member'=>$member,'articlesController'=>$articlesController,'requestController'=>$requestController];
+$router->data = ['wrapper'=>$wrapper,'router'=>$router,'blade'=>$blade,'request'=>$router->request,'selector'=>$selector,'message'=>$message,'member'=>$member,'articlesController'=>$articlesController,'requestController'=>$requestController];
 
 //$blade->setAuth($member->getUserName(),)
 

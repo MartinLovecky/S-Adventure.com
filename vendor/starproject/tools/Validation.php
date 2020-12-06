@@ -79,7 +79,6 @@ public function validateLogin($request){
     if($this->_emptyFields([$username,$password]))return ['message'=>$this->_message->message(['error'=>'Všechna pole musí být vyplněna'])];
     if(!$this->_member->isValidUsername($username)) return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno musí obsahovat minimálně 4 - 25 znaku'])];
     if(strlen($password) < 5) return ['message'=>$this->_message->message(['error'=>'Heslo musí být delší jak 5 znaků'])];
-    if(!$this->_member->userExist($username))return['message'=>$this->_message->message(['error'=>'Uživatel nexistuje,<a href="">registrovat ?</a>'])];
     if($this->setSession($username,$password))return ['username'=>$username,'password'=>$password];
 }
 

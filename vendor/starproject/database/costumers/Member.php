@@ -38,6 +38,7 @@ public function isValidUsername($username){
     if (strlen($username) < 4) return false;
     if (strlen($username) > 25) return false;
     if (!ctype_alnum($username)) return false;
+
     return true;
 }
 

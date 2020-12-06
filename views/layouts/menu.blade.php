@@ -27,7 +27,7 @@
                             </li>
                         </ul>@if(!$member->logged)<a class="btn btn-primary bg-danger border rounded-circle" role="button" href="/register" style="color: rgb(255,255,255);">Registrace</a><a class="btn btn-primary bg-success border rounded-circle" role="button" href="http://sadventure.com/login" style="color: rgb(255,255,255);">Přihlášení</a>@endif
                         @if($member->logged)<span class="navbar-text actions" id="imgName"><img class="rounded-circle img-fluid" src="@asset('images/avatars/{!!$member->avatar!!}')" alt="img" width="50px"><span class="text-warning"><a class="text-capitalize" href="http://sadventure.com/member/{{$member->username}}">{{$member->username}}</a></span></span>@endif
-                        @if($articlesController->_SetAllowed()){!! $hform->create(['target'=>['app.RequestHandler',['requestController'=>$requestController,'request'=>$request]],'method'=>'POST','class'=>'form-inline'])->run($blade)!!}<input type="hidden" name="type" value='bookmark'><button class="btn btn-light" name="submit" type="submit"><i class="typcn typcn-bookmark" style="color: #f47c00;"></i><span class="text-lowercase font-size: 16px;">Uložit záložku</span></button>{!! $hform->close() !!}@endif
+                        @if($articlesController->_SetAllowed())<form action="{{$requestController->submitBookmark($request)}}" method="post"><input type="hidden" name="_crf" value='{{$blade->getCsrfToken()}}'> <button class="btn btn-light" name="submit" type="submit"><i class="typcn typcn-bookmark" style="color: #f47c00;"></i><span class="text-lowercase font-size: 16px;">Uložit záložku</span></button></form>@endif
                     </div>
             </div>
             </nav>

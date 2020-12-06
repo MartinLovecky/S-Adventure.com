@@ -84,7 +84,8 @@ public function _kontakt($request){
 }
 
 public function submitRegister($request){
-    $register = $this->_register($request);
+    if(!empty($request)){
+        $register = $this->_register($request);
     if(\array_key_exists('message',$register)){
         $this->_selector->getMessages($register['message']);
         $this->_selector->oldData($register[0]);
@@ -98,17 +99,18 @@ public function submitRegister($request){
             Router::redirect('login?action=joined');
         }
     }
+    }
     return null; 
 }
 
 public function submitLogin($request){
     $login = $this->_login($request);
-    if(\in_array('message',$login)){
+    if(\array_key_exists('message',$login)){
         $this->_selector->getMessages($login['message']);
         $this->_selector->oldData($login[0]);
             return $this;
     }
-    if(!\in_array('message',$login)){
+    else{
         $username = $login['username'];
         $password = $login['password'];
         if($this->_member->login($username,$password)){
@@ -120,19 +122,19 @@ public function submitLogin($request){
 
 public function submitsendReset($request){
     $reset = $this->_sendResetEmail($request);
-    if(\in_array('message',$reset)){
+    if(\array_key_exists('message',$reset)){
         $this->_selector->getMessages($reset['message']);
         $this->_selector->oldData($reset[0]);
             return $this;
     }
-    if(!\in_array('message',$reset)){
+    else{
         $set = ['resetToken'=>$reset['storedToken'],'resetComplete'=>'No'];
         $stmt = $this->_db->update('members')->set($set)->where('memberID',$reset['id']);
         $stmt->execute();
         $subject = "Reset hesla";
         $build = ['body'=>$this->_mail->template('pwd-reset-email',['token'=>$reset['token'],'id'=>$reset['id']]),'to'=>$reset['email'],'subject'=>$subject];
         $this->_mail->builder($build);	
-		if ($this->_mail->send()){
+        if($this->_mail->send()){
             Router::redirect('login?action=reset');
         }
     }
@@ -141,10 +143,10 @@ public function submitsendReset($request){
 
 public function submitReset($request){
     $subReset = $this->_reset($request);
-    if(\in_array('message',$subReset)){
+    if(\array_key_exists('message',$subReset)){
         return $this->_selector->getMessages($reset['message']);
     }
-    if(!\in_array('message',$subReset)){
+    else{
         $resetUpdate = $this->_resetUpdate($subReset);
         // reset null for next reset
         if($resetUpdate['resetComplete'] === 'YES'){
