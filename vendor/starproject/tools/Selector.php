@@ -85,8 +85,9 @@ public function getMessages($message){
 }
 
 public function oldData($data){
-   $this->OldData = $data;
-   return $this->OldData;
+    $this->OldData = $data;
+    return $this->OldData;
+
 }
 
 }

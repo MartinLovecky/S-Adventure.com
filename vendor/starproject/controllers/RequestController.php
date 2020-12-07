@@ -21,79 +21,32 @@ public function __construct(Validation $validation,Member $member, DB $db, Maile
     $this->_db = $db->con();
 }
 
-public function _register($request){
-    $validation = $this->_validation->validateRegister($request);
-    if(isset($validation['message'])){
-        return ['message'=>$validation['message'],['email'=>$request['email'],'username'=>$request['username']]];      
-    }
-    $hashedpassword = password_hash($validation['password'], PASSWORD_DEFAULT);
-    $activation = md5(uniqid(rand(),true));        
-        try{
-            // Insert valid data to db && return data for submit
-            $values = ['username'=>$validation['username'],'password'=>$hashedpassword,'email'=>$validation['email'],'active'=>$activation,'permission'=>'user','avatar'=>'empty_profile.png'];
-            $stmt = $this->_db->insertInto('members')->values($values);
-            $stmt->execute(); 
-            return ['to'=>$validation['email'],'username'=>$validation['username'],'activation'=>$activation];
-        }catch(PDOException $e){
-            return ['message'=>$e->getMessage().(int)$e->getCode()];
-        }
-}
-
-public function _login($request){
-   $validation = $this->_validation->validateLogin($request);
-   if(isset($validation['message'])){
-       return ['message'=>$validation['message'],['username'=>$request['username']]];
-    }
-       return ['username'=>$validation['username'],'password'=>$validation['password']];
-}
-
-public function _sendResetEmail($request){
-    $validation = $this->_validation->validateResetMail($request);
-    if(isset($validation['message'])){
-        return ['message'=>$validation['message'],['email'=>$request['email']]];
-    }
-    $stmt = $this->_db->from('members')->where('email',$request['email']);
-    $result = $stmt->fetchAll('memberID','password');
-    $token = hash_hmac('SHA256', $this->_member->generate_entropy(8), $result[2]['password']);
-    $storedToken = hash('SHA256', ($token));
-        return ['email'=>$validation['email'],'storedToken'=>$storedToken,'token'=>$token,'id'=>$result[2]['memberID']];
-}
-
-public function _reset($request){
-    $validation = $this->_validation->validateReset($request);
-    if(isset($validation['message'])){
-        return ['message'=>$validation['message']];
-    }
-    $hashedpassword = password_hash($validation['password'], PASSWORD_DEFAULT);
-    $stmt = $this->_db->from('members')->select(['resetToken','resetComplete'])->where('resetToken',$validation['token']);
-    $result = $stmt->fetch();
-        return ['resetToken'=>$result['resetToken'],'resetComplete'=>$result['resetComplete'],'hashedpassword'=>$hashedpassword];
-}
-
-public function _resetUpdate($subReset){
-     //update reset DB
-     $set = ['password'=>$subReset['hashedpassword'],'resetComplete'=>$subReset['resetComplete']];
-     $stmt = $this->_db->update('members')->set($set)->where('memberID',$subReset['id']);
+private function _resetUpdate($result){
+     //reset update reset DB
+     $set = ['password'=>$result['hashedpassword'],'resetComplete'=>$result['resetComplete']];
+     $stmt = $this->_db->update('members')->set($set)->where('memberID',$result['id']);
      $stmt->execute();
      $result = $stmt->fetch();
         return $result;
 }
 
-public function _kontakt($request){
-    #validation
-}
-
 public function submitRegister($request){
     if(!empty($request)){
-        $register = $this->_register($request);
+        $register = $this->_validation->validateReghister($request);
     if(\array_key_exists('message',$register)){
         $this->_selector->getMessages($register['message']);
-        $this->_selector->oldData($register[0]);
+        $this->_selector->oldData(['email'=>$request['email'],'username'=>$request['username']]);
             return $this;
     }
     else{
-        $subject = "Potvrzení registrace";
-        $build = ['body'=>$this->_mail->template('register-email',['id'=>$register['id'],'activasion'=>$register['activasion'],'username'=>$register['username']]),'subject'=>$subject,'to'=>$register['to']];
+        $hashedpassword = password_hash($register['password'], PASSWORD_DEFAULT);
+        $activation = md5(uniqid(rand(),true));
+        // INSERT TO DB
+        $values = ['username'=>$register['username'],'password'=>$hashedpassword,'email'=>$register['email'],'active'=>$activation,'permission'=>'user','avatar'=>'empty_profile.png'];
+        $stmt = $this->_db->insertInto('members')->values($values);
+        $stmt->execute(); 
+        // SEND EMAIL
+        $build = ['body'=>$this->_mail->template('register-email',['id'=>$register['id'],'activasion'=>$register['activasion'],'username'=>$register['username']]),'subject'=>'Potvrzení registrace','to'=>$register['to']];
         $this->_mail->builder($build);
         if($this->_mail->send()){
             Router::redirect('login?action=joined');
@@ -104,10 +57,12 @@ public function submitRegister($request){
 }
 
 public function submitLogin($request){
-    $login = $this->_login($request);
+    if(!empty($request)){
+        $login = $this->_validation->validateLogin($request);
+   
     if(\array_key_exists('message',$login)){
         $this->_selector->getMessages($login['message']);
-        $this->_selector->oldData($login[0]);
+        $this->_selector->oldData(['username'=>$request['username']]);
             return $this;
     }
     else{
@@ -117,37 +72,52 @@ public function submitLogin($request){
             Router::redirect('member/'.$username.'?action=logged');
         }
     }
+    }
     return null;
 }
 
 public function submitsendReset($request){
-    $reset = $this->_sendResetEmail($request);
+    if(!empty($request)){
+    $reset = $this->_validation->validateResetMail($request);
     if(\array_key_exists('message',$reset)){
         $this->_selector->getMessages($reset['message']);
-        $this->_selector->oldData($reset[0]);
+        $this->_selector->oldData(['email'=>$request['email']]);
             return $this;
     }
     else{
-        $set = ['resetToken'=>$reset['storedToken'],'resetComplete'=>'No'];
+        // OK
+        $stmt = $this->_db->from('members')->where('email',$request['email']);
+        $result = $stmt->fetchAll('memberID','password');
+        $token = hash_hmac('SHA256', $this->_member->generate_entropy(8), $result[2]['password']);
+        $storedToken = hash('SHA256', ($token));
+        // NOT OK
+        $set = ['resetToken'=>$storedToken,'resetComplete'=>'No'];
         $stmt = $this->_db->update('members')->set($set)->where('memberID',$reset['id']);
         $stmt->execute();
-        $subject = "Reset hesla";
-        $build = ['body'=>$this->_mail->template('pwd-reset-email',['token'=>$reset['token'],'id'=>$reset['id']]),'to'=>$reset['email'],'subject'=>$subject];
+        // Send email
+        $build = ['body'=>$this->_mail->template('pwd-reset-email',['token'=>$reset['token'],'id'=>$reset['id']]),'to'=>$reset['email'],'subject'=>'SA | Reset hesla'];
         $this->_mail->builder($build);	
         if($this->_mail->send()){
             Router::redirect('login?action=reset');
         }
     }
+    }
     return null;
 }
 
 public function submitReset($request){
-    $subReset = $this->_reset($request);
+    if(!empty($request)){
+    $subReset = $this->_validation->validateReset($request);
     if(\array_key_exists('message',$subReset)){
-        return $this->_selector->getMessages($reset['message']);
+        return $this->_selector->getMessages($subReset['message']);
     }
     else{
-        $resetUpdate = $this->_resetUpdate($subReset);
+        // Token for DB
+        $hashedpassword = password_hash($subReset['password'], PASSWORD_DEFAULT);
+        $stmt = $this->_db->from('members')->select(['resetToken','resetComplete'])->where('resetToken',$subReset['token']);
+        $result = $stmt->fetch();
+        //['resetToken'=>$result['resetToken'],'resetComplete'=>$result['resetComplete'],'hashedpassword'=>$hashedpassword];
+        $resetUpdate = $this->_resetUpdate($result);
         // reset null for next reset
         if($resetUpdate['resetComplete'] === 'YES'){
             $set = ['resetToken'=>null,'resetComplete'=>null];
@@ -156,15 +126,18 @@ public function submitReset($request){
                 Router::redirect('login?action=resetAccount');
         }
     }
+    }
     return null;
 }
 
 public function submitBookmark($request){
-    $bookmark = $validation->validtateBookmark($request);
-    $set = ['bookmark'=>'show/'.$this->article.'/'.$this->page];
-    $stmt = $this->_db->update('members')->set($set)->where('memberID',$this->_member->memberID);
-    $stmt->execute();
+    if(!empty($request)){
+        $bookmark = $this->_validation->validtateBookmark($request);
+        $set = ['bookmark'=>'show/'.$this->article.'/'.$this->page];
+        $stmt = $this->_db->update('members')->set($set)->where('memberID',$this->_member->memberID);
+        $stmt->execute();
     return $this->_selector->getMessages($bookmark['message']);
+    }
 }
 
 public function submitKontakt($request){
