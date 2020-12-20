@@ -35,7 +35,7 @@ public function submitRegister($request){
         $register = $this->_validation->validateReghister($request);
     if(\array_key_exists('message',$register)){
         $this->_selector->getMessages($register['message']);
-        $this->_selector->oldData(['email'=>$request['email'],'username'=>$request['username']]);
+        $this->_selector->oldData($register[0]);
             return $this;
     }
     else{
@@ -59,10 +59,9 @@ public function submitRegister($request){
 public function submitLogin($request){
     if(!empty($request)){
         $login = $this->_validation->validateLogin($request);
-   
     if(\array_key_exists('message',$login)){
         $this->_selector->getMessages($login['message']);
-        $this->_selector->oldData(['username'=>$request['username']]);
+        $this->_selector->oldData($login[0]);
             return $this;
     }
     else{
@@ -81,7 +80,7 @@ public function submitsendReset($request){
     $reset = $this->_validation->validateResetMail($request);
     if(\array_key_exists('message',$reset)){
         $this->_selector->getMessages($reset['message']);
-        $this->_selector->oldData(['email'=>$request['email']]);
+        $this->_selector->oldData($reset[0]);
             return $this;
     }
     else{
