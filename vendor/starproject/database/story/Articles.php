@@ -18,17 +18,17 @@ class Articles
             'Demoni'=>['description'=>'Příběh vysvětlující rasu Démonů','img'=>'','Demoni','url'=>'/show/demoni/1']
     ]; 
     
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getArticles(): ?array
+    public function getArticles()
     {
         return $this->Articles;
     }
 
-    public function setArticles(?array $Articles): self
+    public function setArticles(array $Articles)
     {
         $this->Articles = $Articles;
 

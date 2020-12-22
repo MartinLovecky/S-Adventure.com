@@ -8,9 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'starproject\\' => array($vendorDir . '/starproject'),
     'eftec\\bladeone\\' => array($vendorDir . '/eftec/bladeone/lib'),
-    'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
-    'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
-    'Symfony\\Component\\VarDumper\\' => array($vendorDir . '/symfony/var-dumper'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
     'Envms\\FluentPDO\\' => array($vendorDir . '/envms/fluentpdo/src'),
 );

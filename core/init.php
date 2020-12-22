@@ -6,21 +6,21 @@ use \starproject\tools\Mailer;
 use \starproject\tools\Messages;
 use \starproject\tools\Selector;
 use \starproject\tools\Validation;
-use \starproject\database\DB as DataBase;
+use \starproject\database\Datab;
 use \starproject\database\costumers\Member;
 use \starproject\controllers\RequestController;
-use \starproject\controllers\ArticlesController;
+use \starproject\controllers\ArticlesController; 
 use \starproject\tools\Sanitazor;
 use \starproject\tools\html\Wrapper;
 
 require(DIR . '/vendor/autoload.php'); 
 
 $blade = new BladeOne(DIR.'/views',DIR.'/tmp',BladeOne::MODE_AUTO);
-$db = new DataBase;
+//require_once(DIR . '/vendor/starproject/database/Datab')
+$db = new Datab;
 $message = new Messages; 
 $mail = new Mailer;
 $router = new Router;
-
 $sanitazor  = new Sanitazor;
 
 if($db->con() === null){   
@@ -38,7 +38,7 @@ $requestController = new RequestController($validation,$member,$db,$mail,$select
 $articlesController = new ArticlesController($selector,$member,$message,$db);
 
 // Insert all variables for ALL views here
-$router->data = ['wrapper'=>$wrapper,'router'=>$router,'blade'=>$blade,'request'=>$router->request,'selector'=>$selector,'message'=>$message,'member'=>$member,'articlesController'=>$articlesController,'requestController'=>$requestController];
+$router->data = ['articlesController'=>$articlesController,'wrapper'=>$wrapper,'router'=>$router,'blade'=>$blade,'request'=>$router->request,'selector'=>$selector,'message'=>$message,'member'=>$member,'requestController'=>$requestController];
 
 //$blade->setAuth($member->getUserName(),)
 

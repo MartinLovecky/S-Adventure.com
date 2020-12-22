@@ -5,7 +5,7 @@ namespace starproject\controllers;
 use \starproject\http\Router;
 use \starproject\tools\Selector;
 use \starproject\database\story\Articles; 
-use \starproject\database\DB; 
+use \starproject\database\Datab; 
 use \Envms\FluentPDO\Query; 
 use \starproject\database\costumers\Member;
 use \starproject\arraybasics\MDR;
@@ -16,7 +16,7 @@ class ArticlesController extends Articles{
     public $Article;
     private $_selector,$_member,$_message,$_db;
     
-    public function __construct(Selector $selector, Member $member, Messages $message, DB $db){
+    public function __construct(Selector $selector, Member $member, Messages $message, Datab $db){
         $this->_selector = $selector;
         $this->_member = $member;
         $this->_message = $message;
@@ -46,11 +46,11 @@ class ArticlesController extends Articles{
         // view secure permitions (inside Costumer) so we need only check request
         if(isset($request['submit']) && $request['type'] == 'update'){
             # RAW data Posted by trusted member [Admin or Editor];
-            $r_chapter = isset($request['chapter']) ?? '';
-            $r_nadpisH1 = isset($request['nadpisH1']) ?? '';
-            $r_nadpisH2 = isset($request['nadpisH2']) ?? '';
-            $r_smallH2 = isset($request['smallH2']) ?? '';
-            $r_body = isset($request['body']) ?? '';
+            $r_chapter = (isset($request['chapter'])) ? $request['chapter'] : '';
+            $r_nadpisH1 = (isset($request['nadpisH1'])) ? $request['nadpisH1'] : '';
+            $r_nadpisH2 = (isset($request['nadpisH2'])) ? $request['nadpisH2']: '';
+            $r_smallH2 = (isset($request['smallH2'])) ? $request['smallH2'] :'';
+            $r_body = (isset($request['body'])) ? $request['body'] :'';
             // UPDATE
             if($this->_SetAllowed()){
                 $this->_buffer = ['chapter'=>$r_chapter,'nadpisH1'=>$r_nadpisH1,'nadpisH2'=>$r_nadpisH2,'smallH2'=>$r_smallH2,'body'=>$r_body];

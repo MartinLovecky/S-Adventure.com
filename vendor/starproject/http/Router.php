@@ -12,7 +12,7 @@ public $request = [];
 public $viewData = [];
 
 public function __construct(){
-    $this->request = $_POST ?? null;
+    $this->request = (isset($_POST)) ? $_POST : null ;
 }
 
 public function _runApp(BladeOne $blade,Selector $selector){

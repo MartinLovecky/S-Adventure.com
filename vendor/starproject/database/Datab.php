@@ -7,7 +7,7 @@ use \PDOException;
 use \starproject\database\DBcon;
 use \Envms\FluentPDO\Query;
 
-class DB extends DBcon{
+class Datab extends DBcon{
     
     public function con(){
         // INSERT, UPDATE and DELETE queries will only run after you call ->execute()

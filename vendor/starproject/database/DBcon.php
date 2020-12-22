@@ -18,15 +18,15 @@ class DBcon{
         'DB_Host' => 'sql2.webzdarma.cz' 
     ],
     'public' => [
-        'DB_Name' => null,
-        'DB_User'=> null,
-        'DB_Password' => null,
+        'DB_Name' => 'staradventur5548',
+        'DB_User'=> 'staradventur5548',
+        'DB_Password' => 'd0TIkMY',
         'DB_Host' => 'sql2.webzdarma.cz' 
     ],
     'other' => [
         'Mail' => 'sa.suport@seznam.cz',
         'Char_Set' => 'utf8mb4']];
 
-    public $stateMode = 'localhost';
+    public $stateMode = 'public';
     public $version = 'dev';
 }

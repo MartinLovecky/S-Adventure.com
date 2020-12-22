@@ -30,8 +30,8 @@ public function __construct(Member $member,Sanitazor $sanitazor){
     $this->allowedAction = ['editor','roster','login','logout','register','','reset','resetPassword','activate','member','404','terms','vop','index','show','create','update','delete','kontakt'];
     $this->allowedAricles = ['allwin','samuel','isama','isamanh','isamanw','angel','mry','star','terror','demoni','hyperion'];
     $this->allowedPages = [range(1,300)];
-    $this->queryAction = $sanitazor->sanitaze_GET('action') ?? null; 
-    $this->resetPWD = $sanitazor->sanitaze_GET('x') ?? null; 
+    $this->queryAction = $sanitazor->sanitaze_GET('action');
+    $this->resetPWD = $sanitazor->sanitaze_GET('x');
 }
 
 public function title(){

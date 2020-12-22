@@ -2,7 +2,7 @@
 
 namespace starproject\tools;
 
-use \starproject\database\DB;
+use \starproject\database\Datab;
 use \starproject\tools\Messages;
 use \starproject\tools\Sanitazor;
 use \starproject\database\costumers\Member;
@@ -11,7 +11,7 @@ class Validation extends Sanitazor{
 
 private $_db,$_message,$_member;    
     
-public function __construct(DB $db,Messages $message, Member $member){
+public function __construct(Datab $db,Messages $message, Member $member){
     $this->_db = $db->con();
     $this->_message = $message;
     $this->_member = $member;

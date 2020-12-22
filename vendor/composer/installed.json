@@ -1,384 +1,187 @@
-[
-    {
-        "name": "eftec/bladeone",
-        "version": "3.47.3",
-        "version_normalized": "3.47.3.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/EFTEC/BladeOne.git",
-            "reference": "6829b328505bbb0ad4aad8b87b9eb12874e79697"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/EFTEC/BladeOne/zipball/6829b328505bbb0ad4aad8b87b9eb12874e79697",
-            "reference": "6829b328505bbb0ad4aad8b87b9eb12874e79697",
-            "shasum": ""
-        },
-        "require": {
-            "ext-json": "*",
-            "php": ">=5.6"
-        },
-        "require-dev": {
-            "friendsofphp/php-cs-fixer": "^2.16.1",
-            "phpunit/phpunit": "^5.7",
-            "squizlabs/php_codesniffer": "^3.5.4"
-        },
-        "suggest": {
-            "eftec/bladeonehtml": "Extension to create forms",
-            "ext-mbstring": "This extension is used if it's active"
-        },
-        "time": "2020-10-16T22:36:05+00:00",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "eftec\\bladeone\\": "lib/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Jorge Patricio Castro Castillo",
-                "email": "jcastro@eftec.cl"
-            }
-        ],
-        "description": "The standalone version Blade Template Engine from Laravel in a single php file",
-        "homepage": "https://github.com/EFTEC/BladeOne",
-        "keywords": [
-            "blade",
-            "php",
-            "template",
-            "templating",
-            "view"
-        ]
-    },
-    {
-        "name": "envms/fluentpdo",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/envms/fluentpdo.git",
-            "reference": "b7b80dfb338b895860dfe23160a625ec385c6d15"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/envms/fluentpdo/zipball/b7b80dfb338b895860dfe23160a625ec385c6d15",
-            "reference": "b7b80dfb338b895860dfe23160a625ec385c6d15",
-            "shasum": ""
-        },
-        "require-dev": {
-            "envms/fluent-test": "^1.0",
-            "phpunit/phpunit": "^8.0"
-        },
-        "time": "2020-10-07T04:44:37+00:00",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "Envms\\FluentPDO\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Apache-2.0",
-            "GPL-2.0+"
-        ],
-        "authors": [
-            {
-                "name": "envms",
-                "homepage": "https://env.ms"
-            }
-        ],
-        "description": "FluentPDO is a quick and light PHP library for rapid query building. It features a smart join builder, which automatically creates table joins.",
-        "homepage": "https://github.com/envms/fluentpdo",
-        "keywords": [
-            "builder",
-            "database",
-            "db",
-            "dbal",
-            "fluent",
-            "mysql",
-            "oracle",
-            "pdo",
-            "query"
-        ]
-    },
-    {
-        "name": "phpmailer/phpmailer",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/PHPMailer/PHPMailer.git",
-            "reference": "640e68d33218e9886ec700b058613d5552cb31fe"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/640e68d33218e9886ec700b058613d5552cb31fe",
-            "reference": "640e68d33218e9886ec700b058613d5552cb31fe",
-            "shasum": ""
-        },
-        "require": {
-            "ext-ctype": "*",
-            "ext-filter": "*",
-            "ext-hash": "*",
-            "php": ">=5.5.0"
-        },
-        "require-dev": {
-            "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-            "doctrine/annotations": "^1.2",
-            "phpcompatibility/php-compatibility": "^9.3.5",
-            "roave/security-advisories": "dev-latest",
-            "squizlabs/php_codesniffer": "^3.5.6",
-            "yoast/phpunit-polyfills": "^0.2.0"
-        },
-        "suggest": {
-            "ext-mbstring": "Needed to send email in multibyte encoding charset",
-            "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
-            "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
-            "psr/log": "For optional PSR-3 debug logging",
-            "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
-            "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
-        },
-        "time": "2020-12-10T09:29:01+00:00",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "PHPMailer\\PHPMailer\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "LGPL-2.1-only"
-        ],
-        "authors": [
-            {
-                "name": "Marcus Bointon",
-                "email": "phpmailer@synchromedia.co.uk"
+{
+    "packages": [
+        {
+            "name": "eftec/bladeone",
+            "version": "3.47.3",
+            "version_normalized": "3.47.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EFTEC/BladeOne.git",
+                "reference": "6829b328505bbb0ad4aad8b87b9eb12874e79697"
             },
-            {
-                "name": "Jim Jagielski",
-                "email": "jimjag@gmail.com"
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EFTEC/BladeOne/zipball/6829b328505bbb0ad4aad8b87b9eb12874e79697",
+                "reference": "6829b328505bbb0ad4aad8b87b9eb12874e79697",
+                "shasum": ""
             },
-            {
-                "name": "Andy Prevost",
-                "email": "codeworxtech@users.sourceforge.net"
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.6"
             },
-            {
-                "name": "Brent R. Matzelle"
-            }
-        ],
-        "description": "PHPMailer is a full-featured email creation and transfer class for PHP"
-    },
-    {
-        "name": "symfony/polyfill-mbstring",
-        "version": "dev-main",
-        "version_normalized": "dev-main",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/polyfill-mbstring.git",
-            "reference": "401c9d9d3400c53a8f1a39425f0543406c137a43"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/401c9d9d3400c53a8f1a39425f0543406c137a43",
-            "reference": "401c9d9d3400c53a8f1a39425f0543406c137a43",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=7.1"
-        },
-        "suggest": {
-            "ext-mbstring": "For best performance"
-        },
-        "time": "2020-10-26T13:35:45+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-main": "1.21-dev"
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16.1",
+                "phpunit/phpunit": "^5.7",
+                "squizlabs/php_codesniffer": "^3.5.4"
             },
-            "thanks": {
-                "name": "symfony/polyfill",
-                "url": "https://github.com/symfony/polyfill"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Mbstring\\": ""
+            "suggest": {
+                "eftec/bladeonehtml": "Extension to create forms",
+                "ext-mbstring": "This extension is used if it's active"
             },
-            "files": [
-                "bootstrap.php"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com"
+            "time": "2020-10-16T22:36:05+00:00",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-4": {
+                    "eftec\\bladeone\\": "lib/"
+                }
             },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony polyfill for the Mbstring extension",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "compatibility",
-            "mbstring",
-            "polyfill",
-            "portable",
-            "shim"
-        ]
-    },
-    {
-        "name": "symfony/polyfill-php80",
-        "version": "dev-main",
-        "version_normalized": "dev-main",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/polyfill-php80.git",
-            "reference": "3a11f3dfb34ad50f978cb2b8cf936933b87739aa"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/3a11f3dfb34ad50f978cb2b8cf936933b87739aa",
-            "reference": "3a11f3dfb34ad50f978cb2b8cf936933b87739aa",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=7.1"
-        },
-        "time": "2020-10-26T13:35:45+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-main": "1.21-dev"
-            },
-            "thanks": {
-                "name": "symfony/polyfill",
-                "url": "https://github.com/symfony/polyfill"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Php80\\": ""
-            },
-            "files": [
-                "bootstrap.php"
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
             ],
-            "classmap": [
-                "Resources/stubs"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Ion Bazan",
-                "email": "ion.bazan@gmail.com"
-            },
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony polyfill backporting some PHP 8.0+ features to lower PHP versions",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "compatibility",
-            "polyfill",
-            "portable",
-            "shim"
-        ]
-    },
-    {
-        "name": "symfony/var-dumper",
-        "version": "5.x-dev",
-        "version_normalized": "5.9999999.9999999.9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/var-dumper.git",
-            "reference": "13e7e882eaa55863faa7c4ad7c60f12f1a8b5089"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/var-dumper/zipball/13e7e882eaa55863faa7c4ad7c60f12f1a8b5089",
-            "reference": "13e7e882eaa55863faa7c4ad7c60f12f1a8b5089",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=7.2.5",
-            "symfony/polyfill-mbstring": "~1.0",
-            "symfony/polyfill-php80": "^1.15"
-        },
-        "conflict": {
-            "phpunit/phpunit": "<5.4.3",
-            "symfony/console": "<4.4"
-        },
-        "require-dev": {
-            "ext-iconv": "*",
-            "symfony/console": "^4.4|^5.0",
-            "symfony/process": "^4.4|^5.0",
-            "twig/twig": "^2.4|^3.0"
-        },
-        "suggest": {
-            "ext-iconv": "To convert non-UTF-8 strings to UTF-8 (or symfony/polyfill-iconv in case ext-iconv cannot be used).",
-            "ext-intl": "To show region name in time zone dump",
-            "symfony/console": "To use the ServerDumpCommand and/or the bin/var-dump-server script"
-        },
-        "time": "2020-12-16T17:02:19+00:00",
-        "bin": [
-            "Resources/bin/var-dump-server"
-        ],
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "files": [
-                "Resources/functions/dump.php"
+            "authors": [
+                {
+                    "name": "Jorge Patricio Castro Castillo",
+                    "email": "jcastro@eftec.cl"
+                }
             ],
-            "psr-4": {
-                "Symfony\\Component\\VarDumper\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
+            "description": "The standalone version Blade Template Engine from Laravel in a single php file",
+            "homepage": "https://github.com/EFTEC/BladeOne",
+            "keywords": [
+                "blade",
+                "php",
+                "template",
+                "templating",
+                "view"
+            ],
+            "install-path": "../eftec/bladeone"
         },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com"
+        {
+            "name": "envms/fluentpdo",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/envms/fluentpdo.git",
+                "reference": "b7b80dfb338b895860dfe23160a625ec385c6d15"
             },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony mechanism for exploring and dumping PHP variables",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "debug",
-            "dump"
-        ]
-    }
-]
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/envms/fluentpdo/zipball/b7b80dfb338b895860dfe23160a625ec385c6d15",
+                "reference": "b7b80dfb338b895860dfe23160a625ec385c6d15",
+                "shasum": ""
+            },
+            "require-dev": {
+                "envms/fluent-test": "^1.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "time": "2020-10-07T04:44:37+00:00",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-4": {
+                    "Envms\\FluentPDO\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0",
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "envms",
+                    "homepage": "https://env.ms"
+                }
+            ],
+            "description": "FluentPDO is a quick and light PHP library for rapid query building. It features a smart join builder, which automatically creates table joins.",
+            "homepage": "https://github.com/envms/fluentpdo",
+            "keywords": [
+                "builder",
+                "database",
+                "db",
+                "dbal",
+                "fluent",
+                "mysql",
+                "oracle",
+                "pdo",
+                "query"
+            ],
+            "install-path": "../envms/fluentpdo"
+        },
+        {
+            "name": "phpmailer/phpmailer",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPMailer/PHPMailer.git",
+                "reference": "640e68d33218e9886ec700b058613d5552cb31fe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/640e68d33218e9886ec700b058613d5552cb31fe",
+                "reference": "640e68d33218e9886ec700b058613d5552cb31fe",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-filter": "*",
+                "ext-hash": "*",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+                "doctrine/annotations": "^1.2",
+                "phpcompatibility/php-compatibility": "^9.3.5",
+                "roave/security-advisories": "dev-latest",
+                "squizlabs/php_codesniffer": "^3.5.6",
+                "yoast/phpunit-polyfills": "^0.2.0"
+            },
+            "suggest": {
+                "ext-mbstring": "Needed to send email in multibyte encoding charset",
+                "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
+                "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
+                "psr/log": "For optional PSR-3 debug logging",
+                "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
+                "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
+            },
+            "time": "2020-12-10T09:29:01+00:00",
+            "type": "library",
+            "installation-source": "source",
+            "autoload": {
+                "psr-4": {
+                    "PHPMailer\\PHPMailer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-only"
+            ],
+            "authors": [
+                {
+                    "name": "Marcus Bointon",
+                    "email": "phpmailer@synchromedia.co.uk"
+                },
+                {
+                    "name": "Jim Jagielski",
+                    "email": "jimjag@gmail.com"
+                },
+                {
+                    "name": "Andy Prevost",
+                    "email": "codeworxtech@users.sourceforge.net"
+                },
+                {
+                    "name": "Brent R. Matzelle"
+                }
+            ],
+            "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
+            "install-path": "../phpmailer/phpmailer"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": [
+        "phpmailer/phpmailer"
+    ]
+}

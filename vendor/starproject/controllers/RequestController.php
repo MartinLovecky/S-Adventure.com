@@ -4,7 +4,7 @@ namespace starproject\controllers;
 
 use \starproject\tools\Validation;
 use \starproject\database\costumers\Member;
-use \starproject\database\DB;
+use \starproject\database\Datab;
 use \starproject\tools\Mailer;
 use \starproject\http\Router;
 use \starproject\tools\Selector;
@@ -13,7 +13,7 @@ class RequestController{
 
 private $_validation,$_member,$_db,$_mail,$_selector;
 
-public function __construct(Validation $validation,Member $member, DB $db, Mailer $mail,Selector $selector){
+public function __construct(Validation $validation,Member $member, Datab $db, Mailer $mail,Selector $selector){
     $this->_validation = $validation;
     $this->_member = $member;
     $this->_mail = $mail;

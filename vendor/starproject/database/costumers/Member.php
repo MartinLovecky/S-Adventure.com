@@ -2,36 +2,25 @@
 
 namespace starproject\database\costumers;
 
-use \starproject\database\DB as Database;
+use \starproject\database\Datab;
 use \starproject\database\costumers\Password;
 use \starproject\http\Router;
 
 class Member extends Password{
 
     private $_db,$_query;
-    public $username,$role,$permission,$email,$memberID,$logged;
-    public $memberName,$surname,$avatar,$age,$location,$resetToken,$resetComplete,$bookmark,$remeber;
+    public $username,$permission,$email,$memberID,$logged;
+   
 
-public function __construct(Database $db){
+public function __construct(Datab $db){
     // Data dont need be sanitazed they are from Register
-    $this->username = $_SESSION['username'] ?? 'visitor';
-    $this->role =  $_SESSION['role'] ??  null;
-    $this->permission = $_SESSION['permission'] ?? 'visit';
-    $this->email = $_SESSION['email'] ?? null;
-    $this->memberID = $_SESSION['memberID'] ??  rand(1,9999);
-    $this->_query = $_GET['action'] ?? null;
-    $this->logged = $_SESSION['loggedin'] ?? false;
-    // member INFO
-    $this->memberName = $_SESSION['name'] ?? null;
-    $this->surname = $_SESSION['surname'] ?? null;
-    $this->avatar = $_SESSION['avatar'] ?? null;
-    $this->age = $_SESSION['age'] ?? null;
-    $this->location = $_SESSION['location'] ?? null;
-    $this->resetToken = $_SESSION['resetToken'] ?? null;
-    $this->resetComplete = $_SESSION['resetComplete'] ?? null;
-    $this->bookmark = $_SESSION['bookmark'] ?? null;
+    $this->username = (isset($_SESSION['username'])) ? $_SESSION['username'] : 'visitor' ;
+    $this->permission = (isset($_SESSION['permission'])) ? $_SESSION['permission'] : 'visit' ;
+    $this->memberID = (isset($_SESSION['memberID'])) ? $_SESSION['memberID'] : rand(1,9999) ;
+    //$this->_query = (isset($_GET['action'])) ? $_GET['action'] : null ;
+    $this->logged = (isset($_SESSION['loggedin'])) ? $_SESSION['loggedin'] : false ;
     $this->_db = $db->con();
-    // remeber = $row['rember'] => checkbox to stay logged  
+ 
 }
 
 public function isValidUsername($username){

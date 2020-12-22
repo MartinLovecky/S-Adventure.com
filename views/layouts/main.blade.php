@@ -9,7 +9,7 @@
             <div class="col-md-6 col-xl-7 offset-xl-0 index_list">
                 <h4>Všechny příběhy</h4>
                 <ul class="index_list-style">
-                    @foreach ($articlesController->all as $article)
+                    @foreach ($articlesController->Articles as $article)
                     <li><a href="{{$article['url']}}">{{$article[0]}}</a>&nbsp;→&nbsp; {{$article['description']}}.</li>
                     @endforeach
                 </ul>
