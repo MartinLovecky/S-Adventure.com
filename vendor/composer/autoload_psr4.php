@@ -7,23 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'starproject\\' => array($vendorDir . '/starproject'),
-    'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
     'eftec\\bladeone\\' => array($vendorDir . '/eftec/bladeone/lib'),
-    'Webmozart\\PathUtil\\' => array($vendorDir . '/webmozart/path-util/src'),
-    'Webmozart\\Glob\\' => array($vendorDir . '/webmozart/glob/src'),
-    'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
-    'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Symfony\\Component\\VarDumper\\' => array($vendorDir . '/symfony/var-dumper'),
-    'Sabre\\Uri\\' => array($vendorDir . '/sabre/uri/lib'),
-    'Sabre\\Event\\' => array($vendorDir . '/sabre/event/lib'),
-    'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
-    'Microsoft\\PhpParser\\' => array($vendorDir . '/microsoft/tolerant-php-parser/src'),
-    'LanguageServer\\' => array($vendorDir . '/felixfbecker/language-server/src'),
-    'LanguageServerProtocol\\' => array($vendorDir . '/felixfbecker/language-server-protocol/src'),
     'Envms\\FluentPDO\\' => array($vendorDir . '/envms/fluentpdo/src'),
-    'Composer\\XdebugHandler\\' => array($vendorDir . '/composer/xdebug-handler/src'),
-    'AdvancedJsonRpc\\' => array($vendorDir . '/felixfbecker/advanced-json-rpc/lib'),
 );
