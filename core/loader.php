@@ -1,9 +1,11 @@
 <?php
+
     //start app
     ob_start();
     session_start();
     define('DIR',$_SERVER['DOCUMENT_ROOT']); 
 
+ 
     // INIT classes
     require(DIR . '/core/init.php');
 
@@ -17,5 +19,7 @@
 
     // run APP
     echo $router->_runApp($blade,$selector);
+  
+   
 ?>
 

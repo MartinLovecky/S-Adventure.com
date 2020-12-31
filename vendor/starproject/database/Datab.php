@@ -8,6 +8,9 @@ use \starproject\database\DBcon;
 use \Envms\FluentPDO\Query;
 
 class Datab extends DBcon{
+
+    public $stateMode;
+    public $version = 'dev';
     
     public function con(){
         // INSERT, UPDATE and DELETE queries will only run after you call ->execute()
@@ -23,11 +26,11 @@ class Datab extends DBcon{
         return $fpdo;
             }catch(PDOException $Exception){
                 if($Exception->getCode() == 2002){
-                   return null;
+                    echo '<b>Please send email to sadventure534@gmail.com with Subject: SA-2002 and Message: <span style="color:red;"> Database conection doesnt exits </span></b>';
+                    die;
                 }
                 $err = $Exception->getMessage() . (int)$Exception->getCode();
                 throw new PDOException($err); 
-                
             }
     }
 }

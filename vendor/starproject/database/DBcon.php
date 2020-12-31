@@ -4,7 +4,7 @@ namespace starproject\database;
 
 class DBcon{
 
-    public $config =[
+public $config =[
     'localhost' =>[
         'DB_Name' => 'test',
         'DB_User'=> 'root',
@@ -26,7 +26,4 @@ class DBcon{
     'other' => [
         'Mail' => 'sa.suport@seznam.cz',
         'Char_Set' => 'utf8mb4']];
-
-    public $stateMode = 'public';
-    public $version = 'dev';
 }

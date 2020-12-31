@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "eftec/bladeone": "^3.36@dev",
-        "envms/fluentpdo": "dev-master"
+        "envms/fluentpdo": "dev-master",
+        "symfony/var-dumper": "5.x-dev"
     },
     "require-dev": {
         "phpmailer/phpmailer": "dev-master"

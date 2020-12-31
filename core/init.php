@@ -16,19 +16,14 @@ use \starproject\tools\html\Wrapper;
 require(DIR . '/vendor/autoload.php'); 
 
 $blade = new BladeOne(DIR.'/views',DIR.'/tmp',BladeOne::MODE_AUTO);
-//require_once(DIR . '/vendor/starproject/database/Datab')
 $db = new Datab;
 $message = new Messages; 
 $mail = new Mailer;
 $router = new Router;
 $sanitazor  = new Sanitazor;
 
-if($db->con() === null){   
-    echo $blade
-            ->setView('pages.kontakt')
-            ->share(['message'=>$message->message(['error'=>'Please write email to '.$mail->_email.' with Subject: SA-2002 and Message: Database conection fail'])])
-            ->run();
-}
+//? Be sure to use correct connect info for your DB  inside DBcon 
+$db->stateMode = 'localhost';
 
 $member = new Member($db);
 $selector = new Selector($member,$sanitazor);

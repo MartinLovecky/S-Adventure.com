@@ -8,7 +8,7 @@ use \PHPMailer\PHPMailer\SMTP;
 
 class Mailer extends PHPMailer{
 
-    protected $_password = 'e48cf3bac0900b695dd25e3c64ab417b',$_email = 'sadventure534@gmail.com';
+    public $_password = 'e48cf3bac0900b695dd25e3c64ab417b',$_email = 'sadventure534@gmail.com';
 
     public function subject($subject){
       $this->Subject = $subject;
