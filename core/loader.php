@@ -4,7 +4,6 @@
     ob_start();
     session_start();
     define('DIR',$_SERVER['DOCUMENT_ROOT']); 
-
  
     // INIT classes
     require(DIR . '/core/init.php');

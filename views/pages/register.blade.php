@@ -2,10 +2,10 @@
 @section('register')
 @if (!$member->logged)
 <div class="login-dark">
-<form action="{{$requestController->submitRegister($request)}}" method="POST">
+<form action="{{$requestController->submitRegister($request)}}" method="POST" target="_self">
 @include('extras.messages',['selector'=>$selector,'message'=>$message])
-	<div class="form-group"><input type="text" name="username" value="@isset($selector->OldData['username']){{$selector->OldData['username']}}@endisset" placeholder="Uživatel" class="form-control" required/></div>
-	<div class="form-group"><input type="email" name="email" value="@isset($selector->OldData['email']){{$selector->OldData['email']}}@endisset" placeholder="Email" class="form-control" required/></div>
+	<div class="form-group"><input type="text" name="username" value="@isset($selector->oldData['username']){{$selector->oldData['username']}}@endisset" placeholder="Uživatel" class="form-control" required/></div>
+	<div class="form-group"><input type="email" name="email" value="@isset($selector->oldData['email']){{$selector->oldData['email']}}@endisset" placeholder="Email" class="form-control" required/></div>
 	<div class="form-group"><input type="password" name="password" placeholder="Heslo" class="form-control" required/></div>
 	<div class="form-group"><input type="password" placeholder="Heslo (znovu)" name="password_again" class="form-control" required/></div>
 	<div class="form-check text-left"><input type="checkbox" name="persistent_register" value="yes" class="form-check-input" id="formCheck-1" required/><label class="form-check-label text-left" for="formCheck-1">Souhlasím :<a href="http://sadventure.com/terms" class="forgot">Smluvní podmínky</a><a href="http://sadventure.com/vop" class="forgot">Ochrana soukromí</a></label></div><br/>

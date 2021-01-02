@@ -32,26 +32,29 @@ private function _resetUpdate($result){
 
 public function submitRegister($request){
     if(!empty($request)){
-        $register = $this->_validation->validateReghister($request);
+        $register = $this->_validation->validateRegister($request);
     if(\array_key_exists('message',$register)){
         $this->_selector->getMessages($register['message']);
-        $this->_selector->oldData($register[0]);
+        $this->_selector->oldData = $request;
             return $this;
+        
     }
     else{
         $hashedpassword = password_hash($register['password'], PASSWORD_DEFAULT);
-        $activation = md5(uniqid(rand(),true));
+        $activate = md5(uniqid(rand(),true));
         // INSERT TO DB
-        $values = ['username'=>$register['username'],'password'=>$hashedpassword,'email'=>$register['email'],'active'=>$activation,'permission'=>'user','avatar'=>'empty_profile.png'];
+        $values = ['username'=>$register['username'],'password'=>$hashedpassword,'email'=>$register['email'],'active'=>$activate,'permission'=>'user','avatar'=>'empty_profile.png'];
         $stmt = $this->_db->insertInto('members')->values($values);
-        $stmt->execute(); 
-        // SEND EMAIL
-        $build = ['body'=>$this->_mail->template('register-email',['id'=>$register['id'],'activasion'=>$register['activasion'],'username'=>$register['username']]),'subject'=>'Potvrzení registrace','to'=>$register['to']];
+        $stmt->execute();
+        $id = $this->_db->lastInsertId();
+        $stmt->close(); 
+        // SEND EMAIL need user ID
+        $build = ['body'=>$this->_mail->template('register-email',['id'=>$id,'activasion'=>$activate,'username'=>$register['username']]),'subject'=>'Potvrzení registrace','to'=>$register['to']];
         $this->_mail->builder($build);
         if($this->_mail->send()){
-            Router::redirect('login?action=joined');
+            return '<script>window.location = "http://sadventure.com/login?action=joined"</script>';
         }
-    }
+     }
     }
     return null; 
 }
@@ -61,7 +64,7 @@ public function submitLogin($request){
         $login = $this->_validation->validateLogin($request);
     if(\array_key_exists('message',$login)){
         $this->_selector->getMessages($login['message']);
-        $this->_selector->oldData($login[0]);
+        $this->_selector->oldData = $request;
             return $this;
     }
     else{
@@ -80,7 +83,7 @@ public function submitsendReset($request){
     $reset = $this->_validation->validateResetMail($request);
     if(\array_key_exists('message',$reset)){
         $this->_selector->getMessages($reset['message']);
-        $this->_selector->oldData($reset[0]);
+        $this->_selector->oldData = $request;
             return $this;
     }
     else{

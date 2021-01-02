@@ -9,7 +9,7 @@ class Selector {
 
 private $_member,$_sanitazor;
 public $message,
-    $OldData, 
+    $oldData, 
     $action,
     $article,
     $page = null,
@@ -82,12 +82,6 @@ public function viewName(){
 public function getMessages($message){
     $this->message = $message;
     return $this->message;
-}
-
-public function oldData($data){
-    $this->OldData = $data;
-    return $this->OldData;
-
 }
 
 }
