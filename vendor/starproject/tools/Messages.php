@@ -61,7 +61,7 @@ public function _getAction($action){
             return $this->message(['error'=>'Zpráva odeslána']);
                 break;
         case 'joined':
-            return $this->message(['error'=>'Registrace úspěšná, pro aktivovaní účtu zkotrolujte email']);
+            return $this->message(['success'=>'Registrace úspěšná, pro aktivovaní účtu zkotrolujte email']);
                 break;
         case 'logged':
             return $this->message(['success'=>'Přihlášení úspěšné']);

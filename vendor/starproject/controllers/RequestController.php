@@ -31,15 +31,13 @@ private function _resetUpdate($result){
 }
 
 public function submitRegister($request){
-    if(!empty($request)){
+    if(isset($request)){
         $register = $this->_validation->validateRegister($request);
     if(\array_key_exists('message',$register)){
-        $this->_selector->getMessages($register['message']);
+        $this->_selector->message = $register['message'];
         $this->_selector->oldData = $request;
-            return $this;
-        
+           return $this;
     }
-    else{
         $hashedpassword = password_hash($register['password'], PASSWORD_DEFAULT);
         $activate = md5(uniqid(rand(),true));
         // INSERT TO DB
@@ -47,14 +45,15 @@ public function submitRegister($request){
         $stmt = $this->_db->insertInto('members')->values($values);
         $stmt->execute();
         $id = $this->_db->lastInsertId();
-        $stmt->close(); 
-        // SEND EMAIL need user ID
-        $build = ['body'=>$this->_mail->template('register-email',['id'=>$id,'activasion'=>$activate,'username'=>$register['username']]),'subject'=>'Potvrzení registrace','to'=>$register['to']];
+        $this->_db->close(); 
+        // SEND EMAIL need user ID 
+        //! FIX Body
+        $build = ['body'=>$this->_mail->template('register-email',['id'=>$id,'activasion'=>$activate,'username'=>$register['username']]),'subject'=>'Potvrzení registrace','to'=>$register['email']];
         $this->_mail->builder($build);
         if($this->_mail->send()){
-            return '<script>window.location = "http://sadventure.com/login?action=joined"</script>';
+            Router::redirect('login?action=joined');
         }
-     }
+     
     }
     return null; 
 }

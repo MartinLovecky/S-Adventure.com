@@ -2,13 +2,13 @@
 
 namespace starproject\tools;
 
-use \PHPMailer\PHPMailer\PHPMailer;
-use \PHPMailer\PHPMailer\Exception;
 use \PHPMailer\PHPMailer\SMTP;
+use \PHPMailer\PHPMailer\Exception;
+use \PHPMailer\PHPMailer\PHPMailer;
 
 class Mailer extends PHPMailer{
 
-    public $_password = 'e48cf3bac0900b695dd25e3c64ab417b',$_email = 'sadventure534@gmail.com';
+    public $_password = 'vayudu48',$_email = 'staradvanture.suport@email.cz';
 
     public function subject($subject){
       $this->Subject = $subject;
@@ -25,32 +25,25 @@ class Mailer extends PHPMailer{
     }
 
     public function template(string $string,array $data){
-      //!DONT FORGET insert $data inside template 
-      if($string === 'register-email'){
-        require(DIR.'/views/extras/'.$string.'.php');
-          return $body;
-      }
-      if($string === 'pwd-reset-email'){
-        require(DIR.'/views/extras/'.$string.'.php'); 
-          return $body;
-      }
+      $body = include(DIR.'/views/extras/'.$string.'.php');
+        return $body;
     }
 
     public function builder(array $build){
       // all $build need be setup !!!!
       $this->IsSMTP();
       $this->Body = $build['body'];
-      $this->Host = 'smtp.gmail.com';
-      $this->SMTPDebug = 2;
+      $this->Host = 'smtp.seznam.cz';
+      $this->SMTPDebug = false;
       $this->CharSet = 'UTF-8';
       $this->SMTPAuth = true;
       $this->Username = $this->_email; 
       $this->Password = $this->_password; 
-      $this->SMTPSecure = "tls";
-      $this->Port = 587;
+      $this->SMTPSecure = "ssl";
+      $this->Port = 465;
       $this->subject($build['subject']);
       $this->isHTML(true);
-      $this->setFrom("noreply@sadventure.com","sadventure.com");
+      $this->setFrom("staradvanture.suport@email.cz","sadventure.com");
       $this->addAddress($build['to']);
       $this->addAttachment("public/images/attachment/help.png");
         return $this;

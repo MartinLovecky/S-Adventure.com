@@ -79,9 +79,4 @@ public function viewName(){
     return '404';
 }
 
-public function getMessages($message){
-    $this->message = $message;
-    return $this->message;
-}
-
 }

@@ -7,12 +7,11 @@ use starproject\tools\Selector;
 
 class Router {
 
-public $urlName = 'http://sadventure.com/';
 public $request = [];
 public $viewData = [];
 
 public function __construct(){
-    $this->request = (isset($_POST)) ? $_POST : null ;
+    $this->request = (isset($_POST['submit'])) ? $_POST : null ;
 }
 
 public function _runApp(BladeOne $blade,Selector $selector){
