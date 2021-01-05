@@ -12,11 +12,11 @@
     $title = 'SA | '.$selector->title();
 
     // IF you want use files from public directory (images,css... ) you need set base url
+    //? online storage: $blade->addAssetDict('css.Form-Dark.css','LINK'); ETC ..
     $blade->setBaseUrl('/public/'); //-> @asset('folder.fileName.css/jpg/etc..')
     
-    //? online storage: $blade->addAssetDict('css.Form-Dark.css','LINK'); ETC ..
     // run APP
-    echo $router->_runApp($blade,$selector);
+    echo $router->runApp($blade);
   
    
 ?>

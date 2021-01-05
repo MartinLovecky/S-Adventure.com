@@ -3,19 +3,19 @@
 namespace starproject\http;
 
 use eftec\bladeone\BladeOne;
-use starproject\tools\Selector;
 
 class Router {
 
-public $request = [];
-public $viewData = [];
+public $request;
+public $data;
 
 public function __construct(){
     $this->request = (isset($_POST['submit'])) ? $_POST : null ;
 }
 
-public function _runApp(BladeOne $blade,Selector $selector){
+public function runApp(BladeOne $blade){
     //Check allowed viewNames
+    $selector = $this->data['selector'];
     if($selector->allowedView()){
         return $blade->run('pages.'.$selector->viewName(),$this->data);
         //return $blade->run('layouts.app',$this->data);

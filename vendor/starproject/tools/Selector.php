@@ -27,7 +27,7 @@ public function __construct(Member $member,Sanitazor $sanitazor){
     $this->action = lcfirst($this->url[1]); // this is set all time
     $this->article = (isset($this->url[2])) ? lcfirst($this->url[2]) : 'empty'; 
     $this->page = (isset($this->url[3])) ? (int)$this->url[3] : 'empty'; //? if set xxx.com/ccc/cccc/{page} allways INT for articles
-    $this->allowedAction = ['editor','roster','login','logout','register','','reset','resetPassword','activate','member','404','terms','vop','index','show','create','update','delete','kontakt'];
+    $this->allowedAction = include(DIR . '/core/app/alloweAction.php');
     $this->allowedAricles = ['allwin','samuel','isama','isamanh','isamanw','angel','mry','star','terror','demoni','hyperion'];
     $this->allowedPages = [range(1,300)];
     $this->queryAction = $sanitazor->sanitaze_GET('action');
