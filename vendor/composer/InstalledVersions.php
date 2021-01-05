@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '1c7d21ecce73780cf6ecf330ef191315af4c79b9',
+    'reference' => '897b1a6b735b45ec120ed080642776099f177c1b',
     'name' => 'marthas-lovecky/star-advanture',
   ),
   'versions' => 
@@ -60,7 +60,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '1c7d21ecce73780cf6ecf330ef191315af4c79b9',
+      'reference' => '897b1a6b735b45ec120ed080642776099f177c1b',
     ),
     'phpmailer/phpmailer' => 
     array (
@@ -100,7 +100,7 @@ private static $installed = array (
       array (
         0 => '9999999-dev',
       ),
-      'reference' => 'd9e51a81aaded42fa887f5b1caac22ed4061ad22',
+      'reference' => 'c1f6cca46f45ee8ce8c802e245f2807b12993a87',
     ),
   ),
 );
