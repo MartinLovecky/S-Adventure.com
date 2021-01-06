@@ -49,43 +49,43 @@ public function validateRegister($request){
     }
 }
 
-public function setSession($username,$password){
-    $stmt = $this->_db->from('members')->where('username',$username);
-    $row = $stmt->fetch();
-    if($row['active'] !== 'YES');
-        return false;
-    if($this->_member->password_verify($password,$row['password']) == 1){
+public function setSession($password,$result){
+    if($this->_member->password_verify($password,$result['password']) == 1){
         $_SESSION['loggedin'] = true;
-        $_SESSION['username'] = $row['username'];
-        $_SESSION['memberID'] = $row['memberID'];
-        $_SESSION['email'] = $row['email'];
-        $_SESSION['active'] = $row['active'];
-        $_SESSION['name'] = $row['name'];
-        $_SESSION['surname'] = $row['surname'];
-        $_SESSION['avatar'] = $row['avatar'];
-        $_SESSION['age'] = $row['age'];
-        $_SESSION['location'] = $row['location'];
-        $_SESSION['resetToken'] = $row['resetToken'];
-        $_SESSION['resetComplete'] = $row['resetComplete'];
-        $_SESSION['bookmark'] = $row['bookmark'];
-        $_SESSION['remeber'] = $row['remeber'];
-        // not setup inside db $_SESSION['role'] = $row['role']
-        return true;
+        $_SESSION['username'] = $result['username'];
+        $_SESSION['memberID'] = $result['memberID'];
+        $_SESSION['email'] = $result['email'];
+        $_SESSION['active'] = $result['active'];
+        $_SESSION['name'] = $result['name'];
+        $_SESSION['surname'] = $result['surname'];
+        $_SESSION['avatar'] = $result['avatar'];
+        $_SESSION['age'] = $result['age'];
+        $_SESSION['location'] = $result['location'];
+        $_SESSION['resetToken'] = $result['resetToken'];
+        $_SESSION['resetComplete'] = $result['resetComplete'];
+        $_SESSION['bookmark'] = $result['bookmark'];
+        $_SESSION['remeber'] = $result['remeber'];
+        // not setup inside db $_SESSION['role'] = $result['role']
+        return $_SESSION;
+        //return $result;
     }
     return false;
 }
 
 public function validateLogin($request){
-    
     $username = $this->sanitaze($request['username']);
     $password = $this->sanitaze($request['password']);
-    
+    $stmt = $this->_db->from('members')->where('username',$username);
+    $result = $stmt->fetch();
+    $active = $result['active'];
+    $id = $result['memberID'];
+    $this->_db->close();
+    if($active != 'YES')return['message'=>$this->_message->message(['error'=>'Uživatel není aktivní <a href="/activate?x='.$id.'&y='.$active.'" style="color:#85202a;text-decoration:underline;">Aktivovat zde</a>'])];
     if($this->_emptyFields([$username,$password]))return ['message'=>$this->_message->message(['error'=>'Všechna pole musí být vyplněna'])];
     if(!$this->_member->isValidUsername($username)) return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno musí obsahovat minimálně 4 - 25 znaku'])];
     if(strlen($password) < 5) return ['message'=>$this->_message->message(['error'=>'Heslo musí být delší jak 5 znaků'])];
-    if(!$this->setSession($username,$password))return ['message'=>$this->_message->message(['error'=>'Nesprávné heslo / neaktivní uživatel'])];
-
-    return ['username'=>$username,'password'=>$password];
+    if(!$this->setSession($password,$result))return ['message'=>$this->_message->message(['error'=>'Nesprávné heslo'])];
+        return $this->setSession($password,$result);
 }
 
 public function validateReset($request){

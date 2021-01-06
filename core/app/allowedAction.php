@@ -19,5 +19,6 @@ return [
     'create',
     'update',
     'delete',
-    'kontakt'
+    'kontakt',
+    'verify'
 ];

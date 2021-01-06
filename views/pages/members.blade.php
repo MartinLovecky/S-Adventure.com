@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('members')
-@if ($member->role === 'admin')
+
 <body>
     <div class="table-responsive table-bordered text-center">
         <table class="table table-bordered">
@@ -51,7 +51,7 @@
         </table>
     </div>
 </body>
-@else
+
 <body>
     <div class="table-responsive table-bordered text-center">
         <table class="table table-bordered">
@@ -75,5 +75,5 @@
         </table>
     </div>
 </body>        
-@endif
+
 @endsection

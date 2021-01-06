@@ -2,13 +2,14 @@
 
 namespace starproject\database\costumers;
 
+use PDOStatement;
+use \starproject\http\Router;
 use \starproject\database\Datab;
 use \starproject\database\costumers\Password;
-use \starproject\http\Router;
 
 class Member extends Password{
 
-    private $_db,$_query;
+    private $_db;
     public $username,$permission,$email,$memberID,$logged;
    
 
@@ -17,7 +18,6 @@ public function __construct(Datab $db){
     $this->username = (isset($_SESSION['username'])) ? $_SESSION['username'] : 'visitor' ;
     $this->permission = (isset($_SESSION['permission'])) ? $_SESSION['permission'] : 'visit' ;
     $this->memberID = (isset($_SESSION['memberID'])) ? $_SESSION['memberID'] : rand(1,9999) ;
-    //$this->_query = (isset($_GET['action'])) ? $_GET['action'] : null ;
     $this->logged = (isset($_SESSION['loggedin'])) ? $_SESSION['loggedin'] : false ;
     $this->_db = $db->con();
  
@@ -34,7 +34,7 @@ public function isValidUsername($username){
 public function login($username,$password){
     if (!$this->isValidUsername($username)) return false;
     if (strlen($password) < 5) return false;
-    // only for existing user -> inside requestcontroller->validation->userExist
+    
     $stmt = $this->_db->from('members')->where('username',$username);
     $hash = $stmt->fetch('password');
 
@@ -48,19 +48,15 @@ public function logout(){
     Router::redirect('index');
 }
 
-public function activate(){
-    if(!empty($this->_query) && isset($this->_query['x']) && isset($this->_query['y'])){
-        $memberID = $this->_query['x'];
-        $active = $this->_query['y'];
+public function activate($REQUEST){
+      //! unsecure only for testing
+        $memberID = $REQUEST['x'];
+        $active = $REQUEST['y'];
         $set = ['active'=>'YES'];
-        $stmt = $this->_db->update('members',$set,$memberID);
+        $stmt = $this->_db->update('members',$set)->where('memberID',$memberID);
         $stmt->execute();
-        if($stmt->rowCount() == 1){
-            Router::redirect('login?action=active');
-        }
-    }
-    //fail 
-    Router::redirect('login?action=failActive');
+    Router::redirect('login?action=active');
+ 
 }
 
 public function userExist($username,$email){   

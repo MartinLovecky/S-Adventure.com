@@ -35,7 +35,7 @@ $requestController = new RequestController($validation,$member,$db,$mail,$select
 $articlesController = new ArticlesController($selector,$member,$message,$db);
 
 // Insert all variables for views 
-$router->data = include(DIR . '/core/app.routerData.php');
+$router->data = include(DIR . '/core/app/routerData.php');
 
 //$blade->setAuth($member->getUserName(),)
 
