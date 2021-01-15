@@ -2,6 +2,7 @@
 
 namespace starproject\tools;
 
+use starproject\http\Router;
 use starproject\tools\Sanitazor;
 use starproject\database\costumers\Member;
 
@@ -24,14 +25,27 @@ public function __construct(Member $member,Sanitazor $sanitazor){
     $this->_member = $member;
     $this->_sanitazor = $sanitazor;
     $this->url = explode('/',trim(str_replace(['-','_','#','<','(','{','!',','],' ',urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)))));
-    $this->action = lcfirst($this->url[1]); // this is set all time
-    $this->article = (isset($this->url[2])) ? lcfirst($this->url[2]) : 'empty'; 
-    $this->page = (isset($this->url[3])) ? (int)$this->url[3] : 'empty'; //? if set xxx.com/ccc/cccc/{page} allways INT for articles
+    // this is set all time
+    $this->action = lcfirst($sanitazor->sanitaze($this->url[1])); 
+    $this->article = (isset($this->url[2])) ? lcfirst($sanitazor->sanitaze($this->url[2])) : null;
+    //! should be allways INT for articles 
+    $this->page = (isset($this->url[3])) ? $this->url[3]: null;
     $this->allowedAction = include(DIR . '/core/app/allowedAction.php');
     $this->allowedAricles = ['allwin','samuel','isama','isamanh','isamanw','angel','mry','star','terror','demoni','hyperion'];
     $this->allowedPages = [range(1,300)];
     $this->queryAction = $sanitazor->sanitaze_GET('action');
     $this->resetPWD = $sanitazor->sanitaze_GET('x');
+}
+
+public function extraRule(){
+    // member url rules
+    if ($this->action == 'member' && isset($this->_member->username)){
+        if ($this->article != $this->_member->username){
+            return Router::redirect('member/'.$this->_member->username.'');
+        }
+    }
+    //if()
+    return null;
 }
 
 public function title(){

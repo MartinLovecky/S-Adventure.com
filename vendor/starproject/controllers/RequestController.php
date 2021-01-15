@@ -66,7 +66,7 @@ public function submitLogin($request){
             return $this;
     }
     if($login){
-        $username = $this->_member->username;
+        $username = $_SESSION['username'];
         Router::redirect('member/'.$username.'?action=logged');
     }
     }

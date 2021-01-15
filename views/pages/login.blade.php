@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('login')
-@if (!$member->logged)
+@if (!$member->loggedin)
 <div class="login-dark">
 {!! $form->create(['target'=>['extras.RequestHandler',['requestController'=>$requestController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])->run($blade)!!}    
 @include('extras.messages',['selector'=>$selector,'message'=>$message,'requestController'=>$requestController])

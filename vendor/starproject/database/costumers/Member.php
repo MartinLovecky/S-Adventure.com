@@ -10,15 +10,17 @@ use \starproject\database\costumers\Password;
 class Member extends Password{
 
     private $_db;
-    public $username,$permission,$email,$memberID,$logged;
+    public $username,$permission,$email,$memberID,$loggedin,$avatar;
    
 
 public function __construct(Datab $db){
     // Data dont need be sanitazed they are from Register
-    $this->username = (isset($_SESSION['username'])) ? $_SESSION['username'] : 'visitor' ;
+    $this->username = (isset($_SESSION['username'])) ? $_SESSION['username'] : null;
     $this->permission = (isset($_SESSION['permission'])) ? $_SESSION['permission'] : 'visit' ;
     $this->memberID = (isset($_SESSION['memberID'])) ? $_SESSION['memberID'] : rand(1,9999) ;
-    $this->logged = (isset($_SESSION['loggedin'])) ? $_SESSION['loggedin'] : false ;
+    $this->loggedin = (isset($_SESSION['loggedin'])) ? $_SESSION['loggedin'] : false ;
+    $this->avatar = (isset($_SESSION['avatar'])) ? $_SESSION['avatar'] : 'empty_profile.png';
+    $this->email = (isset($_SESSION['email'])) ? $_SESSION['email']  : null; 
     $this->_db = $db->con();
  
 }

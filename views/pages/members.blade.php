@@ -1,79 +1,48 @@
 @extends('layouts.app')
+
 @section('members')
 
-<body>
-    <div class="table-responsive table-bordered text-center">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Permission</th>
-                    <th>Action</th>
-                    <th>Admin Tab</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="table-secondary">
-                    {{-- get all users from db --}}
-                    <td>{username}</td>
-                    <td>{permission}</td>
-                    <td>
-                        <form method="GET" target="_self">
-                            <select name="action">
-                                <option value="">Akce...</option>
-                                <option value="update">Upravit</option>
-                                <option value="delete">Odstranit</option>
-                              </select>
-                              <select name="story">
-                                <option value="">Příběh...</option>
-                                <option value="1">Allwin </option>
-                                <option value="2">Samuel </option>
-                                <option value="3">Isama </option>
-                                <option value="4">Isama - NH </option>
-                                <option value="5">Angel & Eklips </option>
-                                <option value="6">Mr. Y </option>
-                                <option value="7">White Star </option>
-                                <option value="8">Hyperion </option>
-                                <option value="9">Lord Teror </option>
-                                <option value="10">Démoni </option>
-                              </select>
-                              <input type="submit" value="Zvolit">
-                        </form>    
-                    <td>
-                        <form method="post">
-                            <button class="btn btn-primary btn-sm" type="submit" style="margin-right: 2px;">Button</button>
-                            <button class="btn btn-primary btn-sm" type="submit" style="margin-right: 2px;">Button</button>
-                            <button class="btn btn-primary btn-sm" type="submit">Button</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</body>
+@include('layouts.menu')
 
-<body>
-    <div class="table-responsive table-bordered text-center">
-        <table class="table table-bordered">
-            
-            <tbody>
-                {{-- If status is not public dont provide link to profile & hide user info inside profile --}}
-                @foreach ($member->allMembers() as $items)
-                <tr class="table-secondary">
-                    @if ($member->visible())
-                    <td><a href="">{{$member['username']}}</a></td>
-                    <td>{{$member['permission']}}</td>
-                    <td>{{status}}</td>
-                    @else    
-                    <td></td>
-                    <td></td>
-                    <td>{status}</td>
+    <div class="article-list">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/#">Permission: {{  $member->permission  }}</a></li>
+                        <li class="breadcrumb-item"><a href="/#">Záložka</a></li>
+                        <li class="breadcrumb-item"><a href="/member/{{$member->username}}?action=edituser">Upravit účet</a></li>
+                        <li class="breadcrumb-item"><a href="/logout">Odhlášení</a></li>
+                        @if ($member->permission == 'admin' || $member->permission == 'rewriter')
+                        <li class="breadcrumb-item"><a><a href="/update">Editor</a></li>
+                        <li class="breadcrumb-item"><a href="/member/{{$member->username}}?action=listofusers">Uživatelé</a></li>    
+                        @endif
+                    </ol>
+                    @include('extras.messages')
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-xl-3 offset-xl-0">
+                    <img class="img-fluid" src="/public/images/avatars/{{$member->avatar}}" />
+                </div>
+                <div class="col-xl-3 member_page_info">
+                    <p>Uživatel: <a href="/member/{{$member->username}}">{{  $member->username }}<a></p>
+                </div>
+                <div class="col-md-6">
+                    @if ($selector->queryAction == 'edituser')
+                    <form>
+                        <div class="form-group"><input type="text" name="name" class="form-control" placeholder="Jméno"/></div>
+                        <div class="form-group"><input type="text" name="surname" class="form-control" placeholder="Příjmení"/></div>
+                        <div class="form-group"><input type="date" name="age" class="form-control" min="1979-12-31" max="2015-01-02" /></div>
+                        <div class="form-group"><input type="text" name="location" placeholder="Město" class="form-control" /></div>
+                        <div class="form-group"><label style="color:#ffff;">Avatar:</label><input type="file" name="avatar" required/></div>
+                        <div class="form-group"><button class="btn btn-success btn-block" name ="submit" type="submit" value="sumbit">Upravit</button></div>
+                        <p style="color:#ffff;">*Pro úpravu účtu je nutné zadat Avatar</p>
+                    </form>
                     @endif
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </div>
+            </div>
+        </div>
     </div>
-</body>        
-
+@include('layouts.footer')
 @endsection

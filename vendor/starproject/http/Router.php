@@ -30,7 +30,7 @@ public static function redirect($location = null){
                 case 404:
                     header('HTTP/1.0 404 Not Found');
                     include(DIR.'/views/pages/404.balde.php');
-                    exit();
+                    die();
                 break;
             }
         }
