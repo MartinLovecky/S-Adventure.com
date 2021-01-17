@@ -116,5 +116,7 @@ public function validateBookmark($request){
     */
     return ['message'=>$this->_message->message(['succes'=>'Záložka úspěšně uložena'])];
 }
-
+public function validateUpdateMember($request){
+    return null;
+}
 }

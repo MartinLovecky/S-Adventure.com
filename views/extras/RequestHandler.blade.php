@@ -17,6 +17,9 @@
         @break    
     @case('kontakt'):
         {{ $requestController->submitKontakt($request) }}
+        @break
+    @case('update_member')
+        {{ $requestController->updateMember($request) }}
         @break   
 @endswitch 
 @endif 

@@ -37,24 +37,13 @@ public function __construct(Member $member,Sanitazor $sanitazor){
     $this->resetPWD = $sanitazor->sanitaze_GET('x');
 }
 
-public function extraRule(){
-    // member url rules
-    if ($this->action == 'member' && isset($this->_member->username)){
-        if ($this->article != $this->_member->username){
-            return Router::redirect('member/'.$this->_member->username.'');
-        }
-    }
-    //if()
-    return null;
-}
-
 public function title(){
     if($this->action === '' || $this->action === 'index'){
         return 'SA | Home';
     }elseif($this->action === 'show') {
         return $this->article.'-'.$this->page;
     }
-        return $this->action;
+        return 'SA | '.ucfirst($this->action);
 }
 
 public function allowedView(){

@@ -1,5 +1,3 @@
-
-
 <nav class="navbar navbar-light navbar-expand-lg navigation-clean-button" style="height: 80px; font-size: 16px;">
         <div class="container"><a class="navbar-brand" href="/index"><img class="img-fluid" src='@asset('images/android-chrome-256x256.png')' alt="brand" width="80px"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
@@ -30,11 +28,11 @@
                 <a class="btn btn-primary bg-danger border rounded-circle" role="button" href="/register" style="color: rgb(255,255,255);">Registrace</a>
             @endif    
             @if($member->loggedin)
-                <span class="navbar-text actions" id="imgName"><img class="rounded-circle img-fluid" src="@asset('images/avatars/{!!$member->avatar!!}')" alt="img" width="50px"><span class="text-warning"><a class="text-capitalize" href="http://sadventure.com/member/{{$member->username}}">{{$member->username}}</a></span></span>
+                <span class="navbar-text actions" id="imgName"><img class="rounded-circle img-fluid" src="/public/images/avatars/{{$member->avatar}}" alt="img" width="50px"><span class="text-warning"><a class="text-capitalize" href="http://sadventure.com/member/{{$member->username}}">{{$member->username}}</a></span></span>
             @endif
             {{-- make better function for bookmark --}}            
             @if($articlesController->_SetAllowed())
-                <form action="" method="post">
+                {!! $form->create(['target'=>['extras.RequestHandler',['requestController'=>$requestController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])->run($blade)!!}
                     <button class="btn btn-light" name="submit" type="submit"><i class="typcn typcn-bookmark" style="color: #f47c00;"></i><span class="text-lowercase font-size: 16px;">Uložit záložku</span></button>
                     <input type="hidden" name="_crf" value='{{$blade->getCsrfToken()}}'> 
                 </form>

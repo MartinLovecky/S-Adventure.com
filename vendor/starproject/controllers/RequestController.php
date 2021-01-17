@@ -134,14 +134,33 @@ public function submitReset($request){
 public function submitBookmark($request){
     if(!empty($request)){
         $bookmark = $this->_validation->validtateBookmark($request);
+    if(\array_key_exists('message',$bookmark)){
+        $this->_selector->message = $bookmark['message'];
+            return $this->_selector->message;
+    }    
         $set = ['bookmark'=>'show/'.$this->article.'/'.$this->page];
         $stmt = $this->_db->update('members')->set($set)->where('memberID',$this->_member->memberID);
         $stmt->execute();
-    return $this->_selector->message =$bookmark['message'];
+        $this->_db->close();
+            Router::redirect('member/'.$this->_member->username.'?action=savedBookmark');
     }
 }
 
 public function submitKontakt($request){
+    return null;
+}
+
+public function updateMember($request){
+    if(!empty($request)){
+        $updateMember = $this->_validation->validateUpdateMember($request);
+    if(\array_key_exists('message',$updateMember)){
+            $this->_selector->message = $updateMember['message'];
+            $this->_selector->oldData = $request;
+               return $this;
+    }
+        $set = null;//code
+        return null;
+    }
     return null;
 }
 

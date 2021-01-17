@@ -31,7 +31,7 @@ public function _getAction($action){
         case 'deleted':
             return $this->message(['success'=>'Stránka úspěšně smazána']);
                 break;
-        case 'saved':
+        case 'savedBookmark':
             return $this->message(['success'=>'Záložka uložena']);
                 break;
         case 'check':

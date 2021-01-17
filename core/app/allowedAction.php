@@ -20,5 +20,6 @@ return [
     'update',
     'delete',
     'kontakt',
-    'verify'
+    'verify',
+    'updateMember'
 ];

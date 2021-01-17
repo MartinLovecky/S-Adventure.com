@@ -10,7 +10,7 @@ use \starproject\database\costumers\Password;
 class Member extends Password{
 
     private $_db;
-    public $username,$permission,$email,$memberID,$loggedin,$avatar;
+    public $username,$permission,$email,$memberID,$loggedin,$avatar,$bookmark;
    
 
 public function __construct(Datab $db){
@@ -20,7 +20,8 @@ public function __construct(Datab $db){
     $this->memberID = (isset($_SESSION['memberID'])) ? $_SESSION['memberID'] : rand(1,9999) ;
     $this->loggedin = (isset($_SESSION['loggedin'])) ? $_SESSION['loggedin'] : false ;
     $this->avatar = (isset($_SESSION['avatar'])) ? $_SESSION['avatar'] : 'empty_profile.png';
-    $this->email = (isset($_SESSION['email'])) ? $_SESSION['email']  : null; 
+    $this->email = (isset($_SESSION['email'])) ? $_SESSION['email']  : null;
+    $this->bookmark = (isset($_SESSION['bookmark'])) ? $_SESSION['bookmark']  : null;
     $this->_db = $db->con();
  
 }
