@@ -1,5 +1,5 @@
-<nav class="navbar navbar-light navbar-expand-lg navigation-clean-button" style="height: 80px; font-size: 16px;">
-        <div class="container"><a class="navbar-brand" href="/index"><img class="img-fluid" src='@asset('images/android-chrome-256x256.png')' alt="brand" width="80px"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+<nav class="navbar navbar-light navbar-expand-lg navigation-clean" style="font-family: Aldrich, sans-serif; font-size: 16px;">
+        <div class="container"><a class="navbar-brand" href="/index"><img class="img-fluid" src='@asset('images/android-chrome-256x256.png')' alt="brand" style="width: 60px;height: 60px;"></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="nav navbar-nav text-center mx-auto">
                     <li class="nav-item" role="presentation"><a class="nav-link text-capitalize text-center>" href="/show/allwin/1"><strong>Allwin</strong></a></li>
@@ -22,24 +22,19 @@
                             <a class="dropdown-item text-center" role="presentation" href="/show/terror/1"><strong>Terror</strong></a>
                         </li>
                     </div>
-                </ul>
-            @if(!$member->loggedin)    
-                <a class="btn btn-primary bg-success border rounded-circle" role="button" href="http://sadventure.com/login" style="color: rgb(255,255,255);">Přihlášení</a>
-                <a class="btn btn-primary bg-danger border rounded-circle" role="button" href="/register" style="color: rgb(255,255,255);">Registrace</a>
-            @endif    
+                </ul>  
             @if($member->loggedin)
-                <span class="navbar-text actions" id="imgName"><img class="rounded-circle img-fluid" src="/public/images/avatars/{{$member->avatar}}" alt="img" width="50px"><span class="text-warning"><a class="text-capitalize" href="http://sadventure.com/member/{{$member->username}}">{{$member->username}}</a></span></span>
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item dropdown"><a data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle nav-link" href="#"><img src="/public/images/avatars/{{$member->avatar}}" alt="img" height="60px" style="padding-right: 10px;" />{{$member->username}} </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="/member/{{$member->username}}">Profil</a>
+                        <a class="dropdown-item" href="#">#</a>
+                        <a class="dropdown-item" href="/saveBookmark?article=x&page=x">Uložit záložku</a>
+                        <a class="dropdown-item" href="/logout">Odhlášení</a>
+                    </div>
+                </li>
+            </ul>
             @endif
-            {{-- make better function for bookmark --}}            
-            @if($articlesController->_SetAllowed())
-                {!! $form->create(['target'=>['extras.RequestHandler',['requestController'=>$requestController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])->run($blade)!!}
-                    <button class="btn btn-light" name="submit" type="submit"><i class="typcn typcn-bookmark" style="color: #f47c00;"></i><span class="text-lowercase font-size: 16px;">Uložit záložku</span></button>
-                    <input type="hidden" name="_crf" value='{{$blade->getCsrfToken()}}'> 
-                </form>
-            @endif    
         </div>
 </nav>
-
-
-
 
