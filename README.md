@@ -1,5 +1,6 @@
 # S-ADVENTURE
-![](http://staradventure.xf.cz/views/includes/assets/img/apple-touch-icon.png)
+
+!;[](http://staradventure.xf.cz/views/includes/assets/img/apple-touch-icon.png)
 
 Localhost test website using Blade engine
 

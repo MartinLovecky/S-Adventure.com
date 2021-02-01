@@ -1,4 +1,6 @@
-@include('layouts.app')
+@extends('layouts.app')
+
+@section('updateMember')
 
 <div class="login-dark">
 {!! $form->create(['target'=>['extras.RequestHandler',['requestController'=>$requestController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])->run($blade)!!}
@@ -14,3 +16,4 @@
     <p style="color:#ffff;">*Pro úpravu účtu je nutné zadat Avatar</p>
 </form>
 </div>
+@endsection

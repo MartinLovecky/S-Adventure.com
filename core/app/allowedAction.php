@@ -21,5 +21,6 @@ return [
     'delete',
     'kontakt',
     'verify',
-    'updateMember'
+    'updateMember',
+    'postavy'
 ];

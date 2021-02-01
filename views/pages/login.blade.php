@@ -16,6 +16,6 @@
 
 </html>
 @else 
-	{{ header('Location: http://sadventure.com/member/'.$member->username.'?action=logged') }}
+	{{ header('Location: http://sadventure.com/member/'.$member->username.'') }}
 @endif
 @endsection
