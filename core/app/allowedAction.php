@@ -22,5 +22,6 @@ return [
     'kontakt',
     'verify',
     'updateMember',
-    'postavy'
+    'postavy',
+    'saveBookmark'
 ];

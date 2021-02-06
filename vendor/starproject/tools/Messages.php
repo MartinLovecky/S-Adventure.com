@@ -40,9 +40,6 @@ public function _getAction($action){
         case 'profilUpdate':
             return $this->message(['success'=>'Profil aktualizován']);
                 break;
-        case 'emptyBookmark':
-            return $this->message(['error'=>'Žádná uložená záložka']);
-                break;
         case 'active':
             return $this->message(['success'=>'Váš účet je aktivní můžete se přihlásit']);
                 break;

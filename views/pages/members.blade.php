@@ -20,18 +20,25 @@
                 <img class="img-fluid" src="/public/images/avatars/{{$member->avatar}}" />
             </div>
             <div class="col-xl-6 offset-xl-0 member_page_info">
-                <h3 style="color:#fff">Informace o vás</h3>
+                <h3 style="color:rgb(255, 255, 255)">Informace o vás</h3>
                 <p>Uživatel: <a href="/member/{{$member->username}}">{{  $member->username }}<a></p>
                 <p>Jméno:</p>
                 <p>Příjmení:</p>
                 <p>Datum narození:</p>
                 <p>Město:</p>
             </div>
-            {{-- foreach() --}}
-            
             <div class="col-xl-9 offset-xl-1">
-                <h2 style="color:#fff">Uložené záložky</h2>
-                <div class="row justify-content-center features">
+                <h2 style="color:rgb(255, 255, 255);margin-top:10vh;">Uložené záložky</h2>
+                <p style="color:rgb(255, 1, 1)">* Maximální počet záložek je 12.
+                <div class="row justify-content-center features" id="bookmarks">
+                    @if (!isset($member->bookmark))
+                    <div class="col-sm-6 col-md-5 col-lg-4 item">
+                        <div class="box">
+                            <a class="learn-more" style="pointer-events: none; cursor: default;"> Nemáte žádnou uloženou záložku </a>
+                        </div>
+                    </div>
+                    @else
+                    @foreach ($member->bookmark as $bookmarkName => $bookmarkLink)
                     <div class="col-sm-6 col-md-5 col-lg-4 item">
                         <div class="box">
                             <a class="learn-more" href="#">Záložka »</a>
@@ -39,6 +46,8 @@
                         <a class="learn-more" href="#">Smazat</a>
                         </div>
                     </div>
+                    @endforeach
+                    @endif
                 </div>
             </div>
         </div>
@@ -48,15 +57,3 @@
 @include('layouts.footer')
 
 @endsection
-
-{{-- <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/#" onclick = "javascript: return false;">Permission: {{  $member->permission  }}</a></li>
-                        <li class="breadcrumb-item"><a href="/{{$member->bookmark()}}">Záložka</a></li>
-                        <li class="breadcrumb-item"><a href="/member/{{$member->username}}?action=edituser">Upravit účet</a></li>
-                        <li class="breadcrumb-item"><a href="/logout">Odhlášení</a></li>
-                        @if ($member->permission == 'admin' || $member->permission == 'rewriter')
-                        <li class="breadcrumb-item"><a><a href="/update">Editor</a></li>
-                        <li class="breadcrumb-item"><a href="/member/{{$member->username}}?action=listofusers">Uživatelé</a></li>    
-                        @endif
-                    </ol> 
---}}

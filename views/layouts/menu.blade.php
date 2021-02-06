@@ -28,8 +28,15 @@
                 <li class="nav-item dropdown"><a data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle nav-link" href="#"><img src="/public/images/avatars/{{$member->avatar}}" alt="img" height="60px" style="padding-right: 10px;" />{{$member->username}} </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="/member/{{$member->username}}">Profil</a>
-                        <a class="dropdown-item" href="#">#</a>
-                        <a class="dropdown-item" href="/saveBookmark?article=x&page=x">Uložit záložku</a>
+                        <a class="dropdown-item" href="/updateMember/{{$member->username}}">Upravit Profil</a>
+                        @if ($selector->action == 'show')
+                        <a class="dropdown-item" href="/saveBookmark?article={{$selector->article}}&page={{$selector->page}}">Uložit záložku</a>
+                        @endif
+                        <a class="dropdown-item" href="/member/{{$member->username}}#bookmarks">Uložené záložky</a>
+                        @if ($member->permission == 'admin' || $member->permission == 'rewriter')
+                        <li class="breadcrumb-item"><a><a href="/update">Editor</a></li>
+                        <li class="breadcrumb-item"><a href="#">Uživatelé</a></li>    
+                        @endif
                         <a class="dropdown-item" href="/logout">Odhlášení</a>
                     </div>
                 </li>

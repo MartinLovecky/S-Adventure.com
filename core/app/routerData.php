@@ -10,5 +10,6 @@ return [
     'selector'=>$selector,
     'message'=>$message,
     'member'=>$member,
+    'sanizator'=>$sanitazor,
     'requestController'=>$requestController
 ];
