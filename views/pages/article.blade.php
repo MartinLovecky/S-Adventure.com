@@ -4,7 +4,6 @@
 <div class="col-lg-10 col-lg-offset-1 col-md-12">
 <div class="text">
     {{-- !permission check -> redirect with msg --}}
-
 @if (!empty($articlesController->Article['chapter']))
     <h1 class="text-center">{{$articlesController->Article['chapter']}}</h1>
 @endif

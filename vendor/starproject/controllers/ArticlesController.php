@@ -21,7 +21,10 @@ class ArticlesController extends Articles{
         $this->_member = $member;
         $this->_message = $message;
         $this->_db = $db->con();
+        // only for /show/article/PAGE
         $this->Article = $this->_GetArticle();
+        
+        
     } 
     public function _SetAllowed(){
         if($this->_selector->article != 'empty' && $this->_selector->page != 'empty'){
@@ -40,7 +43,7 @@ class ArticlesController extends Articles{
             // [page=>int,chapter=> null/string,body=>longtext]
             return $result;
         }
-        return null; // 
+        return null; // error
     }
     public function updatePage($request){
         // view secure permitions (inside Costumer) so we need only check request

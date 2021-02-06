@@ -158,7 +158,11 @@ public function updateMember($request){
             $this->_selector->oldData = $request;
                return $this;
     }
-        $set = null;//code
+        /*
+        $avatarx = (isset($_FILES['avatar']['name'])) ? $_FILES['avatar']['name'] : 'empty';
+        $temp = (isset($_FILES['avatar']['tmp_name'])) ? $_FILES['avatar']['tmp_name'] : 'empty';
+        */
+        $set = null;
         return null;
     }
     return null;

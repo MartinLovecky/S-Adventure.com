@@ -60,10 +60,10 @@ public function viewName(){
     if($this->action == ''){
         return 'index';
     }
-    if($this->action == 'show' && $this->article != 'empty'){
+    if($this->action == 'show' && isset($this->article)){
             return 'article';
         }
-    if($this->action == 'show' && $this->article == 'empty'){
+    if($this->action == 'show' && !isset($this->article)){
         return 'roster';
     }
     if($this->action == 'create' || $this->action == 'update' || $this->action == 'delete'){

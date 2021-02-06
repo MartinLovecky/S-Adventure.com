@@ -17,7 +17,7 @@
                 <ul class="index_list-style">
                     <li>"Text"&nbsp;→&nbsp;Jedná se o myšlenky postav.</li>
                     <li>???? →&nbsp;Jedná se o myšlenky postav.</li>
-                    <li><span style="color: #d81e05;">Text</span>&nbsp;→&nbsp;Důležitá informace/událost.</li>
+                    <li><span style="color: #ff4c34;">Text</span>&nbsp;→&nbsp;Důležitá informace/událost.</li>
                     <li>'Text' → označuje přibližný popis př. Budova vypadala jako 'klášter'.</li>
                 </ul>
             </div>
