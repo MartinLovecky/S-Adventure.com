@@ -51,9 +51,6 @@ public function _getAction($action){
         case 'resetAccount':
             return $this->message(['success'=>'Heslo změněno, můžete se přihlásit']);
                 break;
-        case 'show':
-            return $this->message(['error'=>'Pro prohlížení příspěvků se musíte přihlásit/registrovat']);
-                break;
         case 'send':
             return $this->message(['error'=>'Zpráva odeslána']);
                 break;

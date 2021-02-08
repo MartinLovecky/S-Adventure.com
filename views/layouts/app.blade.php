@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="Description" content="Author: M.L. Author, Příběh SCI - FI">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#ffff">
     <title>{{$selector->title()}}</title>
     <link rel="stylesheet" href="@asset('css/bootstrap.min.css')">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
