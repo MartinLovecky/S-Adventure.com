@@ -29,19 +29,19 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '897b1a6b735b45ec120ed080642776099f177c1b',
+    'reference' => '3d5ac793eb86556350580f16ed55566fd2959486',
     'name' => 'marthas-lovecky/star-advanture',
   ),
   'versions' => 
   array (
     'eftec/bladeone' => 
     array (
-      'pretty_version' => '3.47.3',
-      'version' => '3.47.3.0',
+      'pretty_version' => '3.49.1',
+      'version' => '3.49.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6829b328505bbb0ad4aad8b87b9eb12874e79697',
+      'reference' => 'b30021e41d0182e8bcce495484024643f18b9d2e',
     ),
     'envms/fluentpdo' => 
     array (
@@ -60,7 +60,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '897b1a6b735b45ec120ed080642776099f177c1b',
+      'reference' => '3d5ac793eb86556350580f16ed55566fd2959486',
     ),
     'phpmailer/phpmailer' => 
     array (
@@ -70,7 +70,7 @@ private static $installed = array (
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '640e68d33218e9886ec700b058613d5552cb31fe',
+      'reference' => 'c2c5a3b9af8887f2d4d71e62cd83f4c735c30436',
     ),
     'symfony/polyfill-mbstring' => 
     array (
@@ -78,9 +78,9 @@ private static $installed = array (
       'version' => 'dev-main',
       'aliases' => 
       array (
-        0 => '1.21.x-dev',
+        0 => '1.22.x-dev',
       ),
-      'reference' => 'de14691dc88bbbc5535de7f0e32080977dc1d23f',
+      'reference' => 'f377a3dd1fde44d37b9831d68dc8dea3ffd28e13',
     ),
     'symfony/polyfill-php80' => 
     array (
@@ -88,9 +88,9 @@ private static $installed = array (
       'version' => 'dev-main',
       'aliases' => 
       array (
-        0 => '1.21.x-dev',
+        0 => '1.22.x-dev',
       ),
-      'reference' => '54cc82c30ba7ed02bc64f5d010488c159b5f1706',
+      'reference' => 'dc3063ba22c2a1fd2f45ed856374d79114998f91',
     ),
     'symfony/var-dumper' => 
     array (
@@ -100,7 +100,7 @@ private static $installed = array (
       array (
         0 => '9999999-dev',
       ),
-      'reference' => 'c1f6cca46f45ee8ce8c802e245f2807b12993a87',
+      'reference' => '93c1914af9c0619294d867a0fa346d5ea6b7d707',
     ),
   ),
 );

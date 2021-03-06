@@ -1,1 +1,1 @@
-<?php $member->activate($_REQUEST); ?>
+@php    $requestController->activate(); @endphp

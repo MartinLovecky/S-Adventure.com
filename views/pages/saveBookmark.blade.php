@@ -1,15 +1,16 @@
 @if ($member->loggedin)
 @php
-    // /saveBookmark?article=x&page=x => /sBookmark/allwin/1 => {{ $requestconroller->submitBookmark() }} needs a lot of 'magic'
-    $article = $sanitazor->sanitaze_GET('article');
-    $page = $sanitazor->sanitaze_GET('page');
-    if(!in_array($article,$selector->allowedAricles)){
-        \header('Location: http://sadventure.com/404/')
-    }
-    $link = '/show/$article/$page';
-    // save to db or $_COOCKIE
-    setcookie( $bookmark ,  $value = $link ,$expires = 0 ,  $path = "/",$domain = '.sadventure.com'); 
-    \header('Location: http://sadventure.com/member/'.$member->username.'?action=savedBookmark')
+
+$article = \filter_input(INPUT_GET,'article',522,32);
+$page = \filter_input(INPUT_GET,'page',522,32);
+
+$savedbookmark = $requestController->saveBookmark($article,$page);
+
+$_SESSION['bookmark'] = $savedbookmark;
+setcookie('bookmark',$_SESSION['bookmark'],time() + (10 * 365 * 24 * 60 * 60));
+
+echo header('Location: http://sadventure.com/member/'.$member->username.'?action=savedBookmark');
+
 @endphp
 @else
 {{ \header('Location: http://sadventure.com/404/')}}    

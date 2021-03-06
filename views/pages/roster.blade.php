@@ -13,6 +13,7 @@
                         <p class="text-left description">{{$articles['description']}}</p>
                         <a class="btn btn-outline-link" role="button" href="{{$articles['url']}}" style>Čti zde<i class="fa fa-play"></i></a></div>
                 </div>
+                
             </div>
             @endforeach
             </div>

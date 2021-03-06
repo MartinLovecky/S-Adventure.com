@@ -18,7 +18,7 @@
     <p class="forgot" style="color:#ff9494;">** Zvolením <b>Privite</b> se Vaše infromace zobrazí pouze Vám.</p>
     <p class="forgot" style="color:#ff9494;">*** Informace o Vás není nutné vyplňovat, při zadání osobních údajů uživatel souhlasí se zpracováním osobních údajů.</p>
     <hr/>
-    <a href="http://sadventure.com/member/{{$member->username}}" class="forgot">Zpět na profil</a>
+    <a href="/member/{{$member->username}}" class="forgot">Zpět na profil</a>
 </form>
 </div>
 @endsection

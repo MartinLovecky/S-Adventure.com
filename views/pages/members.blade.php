@@ -5,7 +5,7 @@
 @include('layouts.menu')
 
 @if ($selector->queryAction == 'edituser')
-{{ \header('Location: /updateMember/'.$member->username.'') }}
+{{ \header('Location: http://sadventure.com/updateMember/'.$member->username.'') }}
 @endif
 
 <div class="article-list">
@@ -28,17 +28,17 @@
                 <p>Město:</p>
             </div>
             <div class="col-xl-9 offset-xl-1">
-                <h2 style="color:#ffffff;margin-top:10vh;">Uložené záložky</h2>
-                <p style="color:#ff9292">* Maximální počet záložek je 12. Uložit záložku lze pouze při čtení příběhu v menu uživatele.
+                <h2 style="color:#ffffff;margin-top:10vh;">Uložené záložky </h2>
+                <p style="color:#ff9292">* Maximální počet záložek je 12. Uložit záložku lze pouze při čtení příběhu v menu uživatele. 
                 <div class="row justify-content-center features" id="bookmarks">
-                    @if (!isset($member->bookmark))
+                    @if(empty($member->bookmarks))
                     <div class="col-sm-6 col-md-5 col-lg-4 item">
                         <div class="box">
                             <a class="learn-more" style="pointer-events: none; cursor: default;"> Nemáte žádnou uloženou záložku </a>
                         </div>
                     </div>
                     @else
-                    @foreach ($member->bookmark as $bookmarkName => $bookmarkLink)
+                    @foreach ($member->bookmarks as $bookmarkName => $bookmarkLink)
                     <div class="col-sm-6 col-md-5 col-lg-4 item">
                         <div class="box">
                             <a class="learn-more" href="#">Záložka »</a>

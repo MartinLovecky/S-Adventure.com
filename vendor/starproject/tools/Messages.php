@@ -34,6 +34,9 @@ public function _getAction($action){
         case 'savedBookmark':
             return $this->message(['success'=>'Záložka uložena']);
                 break;
+        case 'maxBookmarks':
+            return $this->message(['error'=>'Maximální počet záložek je 12, pokud chcete uložit novou nejprve musíte smazat jednu záložku']);
+                break;
         case 'check':
             return $this->message(['error'=>'Registrací souhlasíte se smluvníma podmínkama a ochranou soukromí']);
                 break;
@@ -45,6 +48,10 @@ public function _getAction($action){
                 break;
         case 'failActive':
             return  $this->message(['error'=>'Aktivace účtu se nezdaržila kotaktujte prosím Admina']);
+                break;
+        case 'failBookmark':
+            return $this->message(['error'=>'Záložka neuložena zkuste to znovu, pokud se tato chyba bude opakovat kontaktujte Admina']);
+                break;
         case 'reset':
             return $this->message(['success'=>'Prosím zkotrolujte si Váš email']);
                 break;
@@ -61,7 +68,7 @@ public function _getAction($action){
             return $this->message(['success'=>'Přihlášení úspěšné']);
                 break;
         case 'permission':
-            return $this->message(['error'=>'Pro zobrazení se musíte <a href="http://sadventure.com/login"></br>Přihlásit</a> / <a href="http://sadventure.com/register">Registovat</a>']); 
+            return $this->message(['error'=>'Pro zobrazení se musíte <a href="/login"></br>Přihlásit</a> / <a href="/register">Registovat</a>']); 
         case 'hash':
             return $this->message(['error'=>'Pro změnu hesla je nutné ověřit e-mail']);     
                 default: null;

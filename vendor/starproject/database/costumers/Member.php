@@ -10,8 +10,8 @@ use \starproject\database\costumers\Password;
 class Member extends Password{
 
     private $_db;
-    public $username,$permission,$email,$memberID,$loggedin,$avatar,$bookmark;
-   
+    public $username,$permission,$email,$memberID,$loggedin,$avatar;
+    public $bookmarks;
 
 public function __construct(Datab $db){
     // Data dont need be sanitazed they are from Register
@@ -21,10 +21,10 @@ public function __construct(Datab $db){
     $this->loggedin = (isset($_SESSION['loggedin'])) ? $_SESSION['loggedin'] : false ;
     $this->avatar = (isset($_SESSION['avatar'])) ? $_SESSION['avatar'] : 'empty_profile.png';
     $this->email = (isset($_SESSION['email'])) ? $_SESSION['email']  : null;
-    $this->bookmark = (isset($_SESSION['bookmark'])) ? $_SESSION['bookmark']  : null;
     $this->_db = $db->con();
  
 }
+
 
 public function isValidUsername($username){
     if (strlen($username) < 4) return false;
@@ -51,17 +51,6 @@ public function logout(){
     Router::redirect('index');
 }
 
-public function activate($REQUEST){
-      //! unsecure only for testing
-        $memberID = $REQUEST['x'];
-        $active = $REQUEST['y'];
-        $set = ['active'=>'YES'];
-        $stmt = $this->_db->update('members',$set)->where('memberID',$memberID);
-        $stmt->execute();
-    Router::redirect('login?action=active');
- 
-}
-
 public function userExist($username,$email){   
     $stmt = $this->_db->from('members');
     $row = $stmt->fetchPairs('username','email');
@@ -69,15 +58,6 @@ public function userExist($username,$email){
         return true;
     }
     return false;
-}
-
-public function bookmark(){
-    if(empty($this->bookmark)){
-        $this->bookmark = 'member/'.$this->username.'?action=emptyBookmark';
-            return $this->bookmark;
-    }
-        return $this->bookmark;
-
 }
 
 public function visible(){

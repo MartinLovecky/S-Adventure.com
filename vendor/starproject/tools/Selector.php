@@ -3,7 +3,7 @@
 namespace starproject\tools;
 
 use starproject\http\Router;
-use starproject\tools\Sanitazor;
+use starproject\tools\Sanitazorx;
 use starproject\database\costumers\Member;
 
 class Selector {
@@ -21,9 +21,10 @@ public $message,
     $allowedAricles = [],
     $resetPWD;  
     
-public function __construct(Member $member,Sanitazor $sanitazor){
+public function __construct(Member $member,Sanitazorx $sanitazor,Router $router){
     $this->_member = $member;
     $this->_sanitazor = $sanitazor;
+    $this->_router = $router;
     $this->url = explode('/',trim(str_replace(['-','_','#','<','(','{','!',','],' ',urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)))));
     // this is set all time
     $this->action = lcfirst($sanitazor->sanitaze($this->url[1])); 
@@ -35,6 +36,7 @@ public function __construct(Member $member,Sanitazor $sanitazor){
     $this->allowedPages = [range(1,300)];
     $this->queryAction = $sanitazor->sanitaze_GET('action');
     $this->resetPWD = $sanitazor->sanitaze_GET('x');
+    $this->oldData = (isset($this->message)) ? $this->_router->request : null ;
 }
 
 public function title(){

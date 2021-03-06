@@ -3,16 +3,16 @@
     <div id="section2">
         <div class="container">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="http://sadventure.com/index"><span>Domů</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/member/"><span>Profil</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/create"><span>Create</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/update"><span>Update</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/delete"><span>Delete</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/show/allwin/1"><span>Allwin</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/show/samuel/1"><span>Samuel</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/show/isama/1"><span>Isama</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/show/isamaNH/1"><span>Nový horizont</span></a></li>
-                <li class="breadcrumb-item"><a href="http://sadventure.com/show/isamaNW/1"><span>Nový svět</span></a></li>
+                <li class="breadcrumb-item"><a href="/index"><span>Domů</span></a></li>
+                <li class="breadcrumb-item"><a href="/member/"><span>Profil</span></a></li>
+                <li class="breadcrumb-item"><a href="/create"><span>Create</span></a></li>
+                <li class="breadcrumb-item"><a href="/update"><span>Update</span></a></li>
+                <li class="breadcrumb-item"><a href="/delete"><span>Delete</span></a></li>
+                <li class="breadcrumb-item"><a href="/show/allwin/1"><span>Allwin</span></a></li>
+                <li class="breadcrumb-item"><a href="/show/samuel/1"><span>Samuel</span></a></li>
+                <li class="breadcrumb-item"><a href="/show/isama/1"><span>Isama</span></a></li>
+                <li class="breadcrumb-item"><a href="/show/isamaNH/1"><span>Nový horizont</span></a></li>
+                <li class="breadcrumb-item"><a href="/show/isamaNW/1"><span>Nový svět</span></a></li>
             </ol>
             {!! $hform->create(['target'=>['app.ArticleHandler',['request'=>$request,'blade'=>$blade]],'method'=>'POST','class'=>'text-center'])->open($blade)!!}
             <textarea name="content" id="editor">

@@ -6,9 +6,7 @@ use \starproject\http\Router;
 use \starproject\tools\Selector;
 use \starproject\database\story\Articles; 
 use \starproject\database\Datab; 
-use \Envms\FluentPDO\Query; 
 use \starproject\database\costumers\Member;
-use \starproject\arraybasics\MDR;
 use \starproject\tools\Messages;
 
 class ArticlesController extends Articles{
@@ -26,18 +24,9 @@ class ArticlesController extends Articles{
         
         
     } 
-    public function _SetAllowed(){
-        if($this->_selector->article != 'empty' && $this->_selector->page != 'empty'){
-            // string , array && string, array
-            if(MDR::key_exists_r($this->_selector->article,$this->_selector->allowedAricles) && MDR::in_array_r($this->_selector->page,$this->_selector->allowedPages)){
-                return true;    
-            }
-                return false;
-        }
-        return null;
-    }
+    //! fix
     public function _GetArticle(){
-        if($this->_SetAllowed()){
+        if(in_array($this->_selector?->article,$this->_selector->allowedAricles)){
             $stmt = $this->_db->from($this->_selector->article)->where('page',$this->_selector->page);
             $result = $stmt->fetch();
             // [page=>int,chapter=> null/string,body=>longtext]
@@ -45,49 +34,7 @@ class ArticlesController extends Articles{
         }
         return null; // error
     }
-    public function updatePage($request){
-        // view secure permitions (inside Costumer) so we need only check request
-        if(isset($request['submit']) && $request['type'] == 'update'){
-            # RAW data Posted by trusted member [Admin or Editor];
-            $r_chapter = (isset($request['chapter'])) ? $request['chapter'] : '';
-            $r_nadpisH1 = (isset($request['nadpisH1'])) ? $request['nadpisH1'] : '';
-            $r_nadpisH2 = (isset($request['nadpisH2'])) ? $request['nadpisH2']: '';
-            $r_smallH2 = (isset($request['smallH2'])) ? $request['smallH2'] :'';
-            $r_body = (isset($request['body'])) ? $request['body'] :'';
-            // UPDATE
-            if($this->_SetAllowed()){
-                $this->_buffer = ['chapter'=>$r_chapter,'nadpisH1'=>$r_nadpisH1,'nadpisH2'=>$r_nadpisH2,'smallH2'=>$r_smallH2,'body'=>$r_body];
-                $this->all[ucfirst($this->_selector->article)][$this->_selector->page] = $this->_buffer;
-                    return $this;
-                if(strlen($this->all[ucfirst($this->_selector->article)][$this->_selector->page]['body']) > 0){
-                    return '<div role="alert" class="alert alert-success text-center text-success"><span>Úspěšne upraveno</span></div>';
-                }
-            }
-                return '<div role="alert" class="alert alert-danger text-center text-danger"><span>Příběh a stránka musí být v URL zadaná</span></div>';
-        }
-        return null;
-    }
-    public function createPage($blade){
-        if(!$this->_SetAllowed()){
-            // error msg you cannot use create function for invalid args exmp /create/ajdfgjahga/dada
-            return ['message'=>$this->_message->message(['error'=>'Nelze vytvořit stránku pro '.$this->_selector->article])];
-        }
-        // Cannot insert specific 'page'(key -> numeric ) sadly bcs that is not how array works
-        // There is maybe 'Solution' lets say we want create page 120 but last page in Articles is 20, we could 'fill' 21-119 doable but propably not necesary IDK
-        // expm. last in 'Allwin'[20][$insert] if we try /create/allwin/50 it will add to Allwin[21]
 
-        $insert = ["chapter" => "","nadpisH1" => "","smallH2" => "","body" => ""];
-        
-        if(array_key_exists($this->_selector->page,$this->all[ucfirst($this->_selector->article)])){
-            //you cannot create something that exist !   
-            return ['message'=>$this->_message->message(['error'=>'Nelze vytvořit stránku číslo '.$this->_selector->page.' protože již existuje v příběhu '.$this->_selector->article])]; 
-        }
-        //return $blade->setView('view')->share(['variable'=>$newarray,'message'=>$this->_message->message(['success'=>''])->run();
-        // return newarray = array_push($this->all[ucfirst($this->_selector->article),$insert]); 
-    }
-    public function deletePage(){
-        #code
-    }
     public function canReadPage(){
         if ($this->_selector->action == 'show' && $member->permission != 'visit'){
             return true;

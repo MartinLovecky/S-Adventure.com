@@ -34,14 +34,12 @@ public function submitRegister($request){
     if(isset($request)){
         $register = $this->_validation->validateRegister($request);
     if(\array_key_exists('message',$register)){
-        $this->_selector->message = $register['message'];
-        $this->_selector->oldData = $request;
-           return $this;
+        return $this->_selector->message = $register['message'];
     }
-        $hashedpassword = password_hash($register['password'], PASSWORD_DEFAULT);
+        $hashedpassword = password_hash($register['password'], PASSWORD_BCRYPT);
         $activate = md5(uniqid(rand(),true));
         // INSERT TO DB
-        $values = ['username'=>$register['username'],'password'=>$hashedpassword,'email'=>$register['email'],'active'=>$activate,'permission'=>'user','avatar'=>'empty_profile.png'];
+        $values = ['username'=>$register['username'],'password'=>$hashedpassword,'email'=>$register['email'],'active'=>$activate,'permission'=>'user','avatar'=>'empty_profile.png','bookmark'=>'0'];
         $stmt = $this->_db->insertInto('members')->values($values);
         $stmt->execute();
         $id = $this->_db->lastInsertId();
@@ -61,9 +59,7 @@ public function submitLogin($request){
     if(!empty($request)){
         $login = $this->_validation->validateLogin($request);
     if(\array_key_exists('message',$login)){
-        $this->_selector->message = $login['message'];
-        $this->_selector->oldData = $request;
-            return $this;
+        return $this->_selector->message = $login['message'];
     }
     if($login){
         $username = $_SESSION['username'];
@@ -78,8 +74,7 @@ public function submitsendReset($request){
     $reset = $this->_validation->validateResetMail($request);
     if(\array_key_exists('message',$reset)){
         $this->_selector->message = $reset['message'];
-        $this->_selector->oldData = $request;
-            return $this;
+            return;
     }
     else{
         // OK
@@ -108,7 +103,7 @@ public function submitReset($request){
     if(!empty($request)){
     $subReset = $this->_validation->validateReset($request);
     if(\array_key_exists('message',$subReset)){
-        return $this->_selector->message =$subReset['message'];
+        return $this->_selector->message = $subReset['message'];
     }
     else{
         // Token for DB
@@ -131,21 +126,6 @@ public function submitReset($request){
     return null;
 }
 
-public function submitBookmark($request){
-    if(!empty($request)){
-        $bookmark = $this->_validation->validtateBookmark($request);
-    if(\array_key_exists('message',$bookmark)){
-        $this->_selector->message = $bookmark['message'];
-            return $this->_selector->message;
-    }    
-        $set = ['bookmark'=>'show/'.$this->article.'/'.$this->page];
-        $stmt = $this->_db->update('members')->set($set)->where('memberID',$this->_member->memberID);
-        $stmt->execute();
-        $this->_db->close();
-            Router::redirect('member/'.$this->_member->username.'?action=savedBookmark');
-    }
-}
-
 public function submitKontakt($request){
     return null;
 }
@@ -154,18 +134,59 @@ public function updateMember($request){
     if(!empty($request)){
         $updateMember = $this->_validation->validateUpdateMember($request);
     if(\array_key_exists('message',$updateMember)){
-            $this->_selector->message = $updateMember['message'];
-            $this->_selector->oldData = $request;
-               return $this;
-    }
+        return $this->_selector->message = $updateMember['message'];   
         /*
         $avatarx = (isset($_FILES['avatar']['name'])) ? $_FILES['avatar']['name'] : 'empty';
         $temp = (isset($_FILES['avatar']['tmp_name'])) ? $_FILES['avatar']['tmp_name'] : 'empty';
         */
-        $set = null;
-        return null;
+        //$set = null;
+        //return null;
     }
+}
     return null;
+}
+
+public function activate(){
+    $checkActivate = $this->_validation->checkActivation();
+    if(\array_key_exists('message',$checkActivate)){
+        Router::redirect('login?action=failActive');
+    }
+        $set = ['active'=>'YES'];
+        $stmt = $this->_db->update('members',$set)->where('memberID',$checkActivate['memberID']);
+        $stmt->execute();
+    Router::redirect('login?action=active');
+ 
+}
+
+public function saveBookmark($article,$page){
+    $validateBookmark = $this->_validation->validateBookmark($article,$page);
+    if(\array_key_exists('message',$validateBookmark)){
+        Router::redirect('member/'.$this->_member->username.'?action=failActive');
+    }
+    // get number of bookmarks max 12
+    $stmt = $this->_db->from('members')->select('bookmark')->where('memberID',$this->_member->memberID);
+    // 1 2 3 4 5 6 7  8 9 10 11 12
+    $bookmark = (int)$stmt->fetch('bookmark');
+    // IF bookmark is 12 and user try add new Redirect and die script !immportant 
+    $bookmark++; 
+    if($bookmark >= 12){
+        Router::redirect('member/'.$this->_member->username.'?action=maxBookmarks');
+    }
+    // update number of bookmarks
+    $set = ['bookmark'=>$bookmark];
+    $stmt = $this->_db->update('members')->set($set)->where('memberID',$this->_member->memberID);
+    $stmt->execute();
+    $this->_db->close();
+    // bookmark is number bettwen 1 - 12 also $this->_member->bookmarks is array
+    if(isset($_SESSION['bookmark'])){
+        $next = ['bookmark'.$bookmark.''=> 'show/'.$article.'/'.$page.''];
+        $savedBookmark = array_merge($_SESSION['bookmark'],$next);
+            return $savedBookmark;
+            
+    }
+    $savedBookmark = ['bookmark'.$bookmark.''=> 'show/'.$article.'/'.$page.''];
+    return $savedBookmark;
+    
 }
 
 }

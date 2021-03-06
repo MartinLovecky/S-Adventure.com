@@ -2,7 +2,7 @@
 
 namespace starproject\tools;
 
-class Sanitazor{
+class Sanitazorx{
 
     const FILTER_DEFAULT = 522;
     const FILTER_DEFAULT_FLAGS = 32;

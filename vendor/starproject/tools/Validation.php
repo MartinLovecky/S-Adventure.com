@@ -4,11 +4,14 @@ namespace starproject\tools;
 
 use \starproject\database\Datab;
 use \starproject\tools\Messages;
-use \starproject\tools\Sanitazor;
+use \starproject\tools\Sanitazorx;
 use \starproject\database\costumers\Member;
+use \starproject\database\costumers\Password;
 
-class Validation extends Sanitazor{
 
+class Validation extends Sanitazorx{
+
+  
 private $_db,$_message,$_member;    
     
 public function __construct(Datab $db,Messages $message, Member $member){
@@ -26,8 +29,16 @@ private function _emptyFields(array $Fields){
     }
 }
 
-private function _validCSFR(){
-    #    
+private function _validCSFR($token){
+    $decoded = base64_decode($_SESSION['_token']);
+    $validS = explode('|',$decoded);
+   if(!in_array($_SERVER['SERVER_NAME'],$validS)){
+       return false;
+   }
+   if(password_verify($_SESSION['_token'],$token)){
+      return true;
+   }
+     return false;
 }
 
 public function validateRegister($request){
@@ -50,7 +61,7 @@ public function validateRegister($request){
 }
 
 public function setSession($password,$result){
-    if($this->_member->password_verify($password,$result['password']) == 1){
+    if(password_verify($password,$result['password'])){
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $result['username'];
         $_SESSION['memberID'] = $result['memberID'];
@@ -63,7 +74,6 @@ public function setSession($password,$result){
         $_SESSION['location'] = $result['location'];
         $_SESSION['resetToken'] = $result['resetToken'];
         $_SESSION['resetComplete'] = $result['resetComplete'];
-        $_SESSION['bookmark'] = $result['bookmark'];
         $_SESSION['remeber'] = $result['remeber'];
         // not setup inside db $_SESSION['role'] = $result['role']
         return $_SESSION;
@@ -73,6 +83,7 @@ public function setSession($password,$result){
 }
 
 public function validateLogin($request){
+    $token = $request['_token'];
     $username = $this->sanitaze($request['username']);
     $password = $this->sanitaze($request['password']);
     $stmt = $this->_db->from('members')->where('username',$username);
@@ -80,6 +91,7 @@ public function validateLogin($request){
     $active = $result['active'];
     $id = $result['memberID'];
     $this->_db->close();
+    if(!$this->_validCSFR($token))return ['message'=>$this->_message->message(['error'=>'Invalid CSRF'])];
     if($active != 'YES')return['message'=>$this->_message->message(['error'=>'Uživatel není aktivní <a href="/activate?x='.$id.'&y='.$active.'" style="color:#85202a;text-decoration:underline;">Aktivovat zde</a>'])];
     if($this->_emptyFields([$username,$password]))return ['message'=>$this->_message->message(['error'=>'Všechna pole musí být vyplněna'])];
     if(!$this->_member->isValidUsername($username)) return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno musí obsahovat minimálně 4 - 25 znaku'])];
@@ -110,12 +122,29 @@ public function validateResetMail($request){
     return ['email'=>$email];
 }
 
-public function validateBookmark($request){
-    /* CHECK LIST 
-        - LOGGED , PERMISSION, ARTICLE , PAGE , <- all should be okey
-    */
-    return ['message'=>$this->_message->message(['succes'=>'Záložka úspěšně uložena'])];
+public function checkActivation(){
+    $memberID = $this->sanitaze_GET('x');
+    $active = $this->sanitaze_GET('y');
+    $ID = int($memberID);
+    if(!isset($memberID) && !isset($active))return['message'=>'What are you trying to do'];
+    if(!is_numeric($ID))return['message'=>'Invalid ID type'];
+    $stmt = $this->_db->from('members')->select('active')->where('memberID',$ID);
+    $result = $stmt->fetch();
+    $this->_db->close();
+    if($result != $active)return['message'=>'No'];
+        return ['memberID'=>$ID];
 }
+
+public function validateBookmark(){
+    return [];
+/*
+if(!in_array($article,$selector->allowedAricles)){
+        \header('Location: http://sadventure.com/404/')
+}
+*/
+
+}
+
 public function validateUpdateMember($request){
     return null;
 }

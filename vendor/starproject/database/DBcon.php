@@ -18,10 +18,10 @@ public $config =[
         'DB_Host' => 'sql2.webzdarma.cz' 
     ],
     'public' => [
-        'DB_Name' => 'staradventur5548',
-        'DB_User'=> 'staradventur5548',
-        'DB_Password' => 'd0TIkMY',
-        'DB_Host' => 'sql2.webzdarma.cz' 
+        'DB_Name' => 'sadventurexf3912',
+        'DB_User'=> 'sadventurexf3912',
+        'DB_Password' => 'RwVhYnnJGrT^Ax,fH60V',
+        'DB_Host' => 'sql5.webzdarma.cz' 
     ],
     'other' => [
         'Mail' => 'sa.suport@seznam.cz',
