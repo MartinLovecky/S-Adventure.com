@@ -8,7 +8,7 @@
     <div class="form-group"><input type="password" name="password" class="form-control" placeholder="Heslo" required/></div>
     <div class="form-group"><button class="btn btn-success btn-block" name="submit" type="submit" value="submit">Přihlášení</button></div>
     <a href="/register" class="forgot">Nemáte účet ?</a><a href="/reset" class="forgot">Zapomenuté heslo ?</a>
-@csrf
+    @csrf
     <input type="hidden" name="type" value='login'>  
 </form>
 </div>

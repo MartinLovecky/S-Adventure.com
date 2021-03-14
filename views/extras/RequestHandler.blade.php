@@ -1,25 +1,26 @@
 @if(!empty($request))
-@switch($request['type'])
-    @case('register')
-       {{ $requestController->submitRegister($request) }}
-        @break
-    @case('login')
-       {{ $requestController->submitLogin($request) }}
-        @break
-    @case('reset_send_email')
-       {{ $requestController->submitsendReset($request) }}
-        @break    
-    @case('reset_pwd')
-       {{ $requestController->submitReset($request) }}
-        @break
-    @case('bookmark')
-       {{ $requestController->submitBookmark($request) }}
-        @break    
-    @case('kontakt'):
-        {{ $requestController->submitKontakt($request) }}
-        @break
-    @case('update_member')
-        {{ $requestController->updateMember($request) }}
-        @break   
-@endswitch 
+@php
+
+match($request['type']){
+    'register' => $requestController->submitRegister($request),
+    'login' => $requestController->submitLogin($request),
+    'reset_send_email' => $requestController->submitsendReset($request),
+    'reset_pwd' => $requestController->submitReset($request),
+    'bookmark' => $requestController->submitBookmark($request),
+    'kontakt' => $requestController->submitKontakt($request),
+    'update_member' => $requestController->updateMember($request),
+    default => null,
+};
+
+if($articlesController){
+
+    match($request['type']){
+        'update' => null,//$articlesController->update(),
+        'delete' => null,//$articlesController->delete(),
+        'create' => null,//$articlesController->create(),
+        default => null,
+    };
+}
+
+@endphp
 @endif 

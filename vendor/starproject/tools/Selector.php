@@ -69,9 +69,7 @@ public function viewName(){
         return 'roster';
     }
     if($this->action == 'create' || $this->action == 'update' || $this->action == 'delete'){
-        if(isset($this->article) && in_array($this->article,$this->allowedAricles)){
-            return 'editor';
-        }
+        return 'editor';
     }
     if($this->action == 'member'){
         return 'members';

@@ -29,16 +29,17 @@ private function _emptyFields(array $Fields){
     }
 }
 
-private function _validCSFR($token){
+private function _validCSFR($request){
     $decoded = base64_decode($_SESSION['_token']);
     $validS = explode('|',$decoded);
-   if(!in_array($_SERVER['SERVER_NAME'],$validS)){
+    if(!in_array($_SERVER['SERVER_NAME'],$validS)){
        return false;
-   }
-   if(password_verify($_SESSION['_token'],$token)){
-      return true;
-   }
-     return false;
+    }
+   if(password_verify($_SESSION['_token'],$request['_token'])){
+       return true;
+    }
+       return false;
+ 
 }
 
 public function validateRegister($request){
@@ -83,7 +84,6 @@ public function setSession($password,$result){
 }
 
 public function validateLogin($request){
-    $token = $request['_token'];
     $username = $this->sanitaze($request['username']);
     $password = $this->sanitaze($request['password']);
     $stmt = $this->_db->from('members')->where('username',$username);
@@ -91,7 +91,7 @@ public function validateLogin($request){
     $active = $result['active'];
     $id = $result['memberID'];
     $this->_db->close();
-    if(!$this->_validCSFR($token))return ['message'=>$this->_message->message(['error'=>'Invalid CSRF'])];
+    if(!$this->_validCSFR($request))return ['message'=>$this->_message->message(['error'=>'Invalid CSRF'])];
     if($active != 'YES')return['message'=>$this->_message->message(['error'=>'Uživatel není aktivní <a href="/activate?x='.$id.'&y='.$active.'" style="color:#85202a;text-decoration:underline;">Aktivovat zde</a>'])];
     if($this->_emptyFields([$username,$password]))return ['message'=>$this->_message->message(['error'=>'Všechna pole musí být vyplněna'])];
     if(!$this->_member->isValidUsername($username)) return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno musí obsahovat minimálně 4 - 25 znaku'])];

@@ -34,7 +34,6 @@ class ArticlesController extends Articles{
         }
         return null; // error
     }
-
     public function canReadPage(){
         if ($this->_selector->action == 'show' && $member->permission != 'visit'){
             return true;

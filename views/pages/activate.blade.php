@@ -1,1 +1,1 @@
-@php    $requestController->activate(); @endphp
+@php $requestController->activate(); @endphp

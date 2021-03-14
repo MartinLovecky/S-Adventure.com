@@ -9,7 +9,7 @@
 	<div class="form-group"><input type="password" name="passwordConfirm" placeholder="Nové heslo (znovu)" class="form-control" /></div>
     <div class="form-group"><button class="btn btn-success btn-block" name="submit" type="submit">Změnit</button></div>
     <a href="/index" class="forgot">Úvodní stránka</a>
-    <input type="hidden" name="_crf" value='{{$blade->getCsrfToken()}}'>  
+    @csrf  
     <input type="hidden" name="hash" value="{{$selector->queryAction}}">
     <input type="hidden" name="id" value="{{$selector->resetPWD}}">
     <input type="hidden" name="type" value='reset_pwd'>
