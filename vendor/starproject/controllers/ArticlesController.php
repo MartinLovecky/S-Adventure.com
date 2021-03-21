@@ -19,12 +19,9 @@ class ArticlesController extends Articles{
         $this->_member = $member;
         $this->_message = $message;
         $this->_db = $db->con();
-        // only for /show/article/PAGE
         $this->Article = $this->_GetArticle();
-        
-        
     } 
-    //! fix
+    
     public function _GetArticle(){
         if(in_array($this->_selector?->article,$this->_selector->allowedAricles)){
             $stmt = $this->_db->from($this->_selector->article)->where('page',$this->_selector->page);
@@ -34,34 +31,19 @@ class ArticlesController extends Articles{
         }
         return null; // error
     }
-    public function canReadPage(){
-        if ($this->_selector->action == 'show' && $member->permission != 'visit'){
-            return true;
-        }
+
+    //! Insecure update/create/delete avaible only for admin !!!!!!
+    public function update($request){
+        // Each story is own table
+        $set = ['chapter'=>$request['chapter'],'body'=>str_replace('&nbsp;','',$request['content'])];
+        $stmt = $this->_db->update($request['article'])->set($set)->where('page', $request['page']);
+        $stmt->execute();
+            return header('Location: /update/'.$request['article'].'/'.$request['page']);
     }
-    public function canUpdatePage(){
-        if($this->_selector->action == 'update'){
-        if($this->member->permission == 'edit' || $this->member->permission == 'all'){
-            return true;
-        }
-            return Router::redirect('show/allwin/1?action=permission');
-        }
-    }
-    public function canCreatePage(){
-        if($this->_selector->action == 'create'){
-            if($this->member->permission == 'all'){
-                return true;
-            }
-            return Router::redirect('show/allwin/1?action=permission');
-        }
+    public function create($request){
 
     }
-    public function canDeletePage(){
-        if($this->_selector->action == 'delete'){
-            if($this->member->permission == 'all'){
-                return true;
-            }
-            return Router::redirect('show/allwin/1?action=permission');
-        }
+    public function delete($request){
+
     }
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="cs">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
@@ -21,7 +20,7 @@
     <link rel="icon" type="image/png" href="@asset('images/apple-touch-icon.png')" sizes="16x16">
     <link rel="manifest" href="@asset('images/manifest.json')">
     <link rel="mask-icon" href="@asset('images/safari-pinned-tab.svg')" color="#5bbad5">
-    <script src="/ckeditor/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
     <script>
         function onSubmit(token) {
           alert('thanks ' + document.getElementById('field').value);

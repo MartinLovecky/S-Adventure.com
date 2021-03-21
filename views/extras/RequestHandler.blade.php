@@ -1,4 +1,5 @@
 @if(!empty($request))
+
 @php
 
 match($request['type']){
@@ -15,7 +16,7 @@ match($request['type']){
 if($articlesController){
 
     match($request['type']){
-        'update' => null,//$articlesController->update(),
+        'update' => $articlesController->update($request),
         'delete' => null,//$articlesController->delete(),
         'create' => null,//$articlesController->create(),
         default => null,

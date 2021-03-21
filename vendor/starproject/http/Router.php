@@ -2,25 +2,23 @@
 
 namespace starproject\http;
 
-use eftec\bladeone\BladeOne;
-
 class Router {
 
-public $request;
-public $data;
+private object $_selector;
+private object $_blade;
 
-public function __construct(){
-    $this->request = (isset($_POST['submit'])) ? $_POST : null ;
+public function __construct(public $data){
+    $this->data;
+    $this->_selector = $this?->data['selector'];
+    $this->_blade = $this?->data['blade'];
 }
 
-public function runApp(BladeOne $blade){
-    //Check allowed viewNames
-    $selector = $this->data['selector'];
-    if($selector->allowedView()){
-        return $blade->run('pages.'.$selector->viewName(),$this->data);
-        //return $blade->run('layouts.app',$this->data);
+public function runApp(){
+    if($this->_selector->allowedView()){
+        return $this->_blade->run('pages.'.$this->_selector->viewName(),$this->data);
     }
-        return $blade->run('pages.404',$this->data);
+        return $this->_blade->run('pages.404',$this->data);
+ 
 }
 
 public static function redirect($location = null){

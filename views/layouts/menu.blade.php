@@ -34,8 +34,8 @@
                         @endif
                         <a class="dropdown-item text-center nav-link" href="/member/{{$member->username}}#bookmarks">Uložené záložky</a>
                         @if ($member->permission == 'admin' || $member->permission == 'rewriter')
-                        <li class="dropdown-item text-center nav-link @if($selector->action == 'update'){{'active'}}@endif"><a><a href="/update">Editor</a></li>
-                        <li class="dropdown-item text-center nav-link"><a href="#">Uživatelé</a></li>    
+                        <a class="dropdown-item text-center nav-link" @if($selector->action == 'update'){{'active'}}@endif href="/update">Editor</a>
+                        <a class="dropdown-item text-center nav-link" href="#">Uživatelé</a>   
                         @endif
                         <a class="dropdown-item text-center nav-link" href="/logout">Odhlášení</a>
                     </div>

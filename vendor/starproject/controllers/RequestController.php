@@ -11,7 +11,7 @@ use \starproject\database\costumers\Member;
 
 class RequestController{
 
-private $_validation,$_member,$_db,$_mail,$_selector,$_blade;
+private $_validation,$_member,$_db,$_mail,$_selector;
 
 public function __construct(Validation $validation,Member $member, Datab $db, Mailer $mail,Selector $selector){
     $this->_validation = $validation;

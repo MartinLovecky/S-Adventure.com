@@ -76,6 +76,7 @@ public function setSession($password,$result){
         $_SESSION['resetToken'] = $result['resetToken'];
         $_SESSION['resetComplete'] = $result['resetComplete'];
         $_SESSION['remeber'] = $result['remeber'];
+        $_SESSION['permission'] = $result['permission'];
         // not setup inside db $_SESSION['role'] = $result['role']
         return $_SESSION;
         //return $result;
@@ -92,6 +93,8 @@ public function validateLogin($request){
     $id = $result['memberID'];
     $this->_db->close();
     if(!$this->_validCSFR($request))return ['message'=>$this->_message->message(['error'=>'Invalid CSRF'])];
+    if(!$id)return['message'=>$this->_message->message(['error'=>'Uživatel neexistuje'])];
+    //! TEMP SOLUTION ubtilm e-mail templates are solved
     if($active != 'YES')return['message'=>$this->_message->message(['error'=>'Uživatel není aktivní <a href="/activate?x='.$id.'&y='.$active.'" style="color:#85202a;text-decoration:underline;">Aktivovat zde</a>'])];
     if($this->_emptyFields([$username,$password]))return ['message'=>$this->_message->message(['error'=>'Všechna pole musí být vyplněna'])];
     if(!$this->_member->isValidUsername($username)) return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno musí obsahovat minimálně 4 - 25 znaku'])];
@@ -137,11 +140,12 @@ public function checkActivation(){
 
 public function validateBookmark(){
     return [];
-/*
-if(!in_array($article,$selector->allowedAricles)){
+
+    /*
+        if(!in_array($article,$selector->allowedAricles)){
         \header('Location: http://sadventure.com/404/')
-}
-*/
+        }
+    */
 
 }
 

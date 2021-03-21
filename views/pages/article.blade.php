@@ -14,11 +14,9 @@
         </div>
         <div class="row" style="padding-top: 16px;">
             <div class="col-md-6 col-xl-10 offset-xl-1">
-                @if($member->permission != 'visit')
-                    {{-- {!!  @if (!empty($articlesController->Article['chapter']))
-    <h1 class="text-center">{{$articlesController->Article['chapter']}}</h1>
-@endif---$articlesController->Article['body']   !!} --}}
-                @endif
+                @if (!empty($articlesController->Article['chapter']))
+            <h1 class="text-center">{{$articlesController->Article['chapter']}}</h1>@endif
+            {!! $articlesController->Article['body']   !!}
             </div>
         </div>
     </div>
