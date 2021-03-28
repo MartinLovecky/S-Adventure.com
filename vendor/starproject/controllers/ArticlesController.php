@@ -27,11 +27,11 @@ class ArticlesController extends Articles{
             $stmt = $this->_db->from($this->_selector->article)->where('pg_num',$this->_selector->page);
             $result = $stmt->fetch();
                 if(!$result){
-                    return null;
+                    return $this->_selector->message = $this->_message->message(['error'=>'Stránka neexistuje vytvořte ji pomocí /create']);
                 }
             return $result;
         }
-        return null; // error
+        return null; 
     }
 
     //! Insecure update/create/delete avaible only for admin !!!!!!
@@ -40,19 +40,25 @@ class ArticlesController extends Articles{
         $set = ['chapter'=>$request['chapter'],'body'=>str_replace('&nbsp;','',$request['content']),'pg_num'=>$request['page']];
         $stmt = $this->_db->update($request['article'])->set($set)->where('pg_num', $request['page'])->execute();
             if(!$stmt){
-                return ['message'=>$this->_message->message(['error'=>''])];
+                return $this->_selector->message = $this->_message->message(['error'=>'Stránka neexistuje vytvořte ji pomocí /create']);
         }
         return header('Location: /update/'.$request['article'].'/'.$request['page'].'?action=updated');
     }
     public function create($request){
-        // $vals = ['chapter'=>null,'body'=>null,'pg_num'=>$request['page']];		
-        // $stmt = $this->_db->insertInto($request['article'])->values($vals)->execute();
-            //return header('Location: /create/'.$request['article'].'/'.$request['page'].'?action=created');
+            $vals = ['chapter'=>null,'body'=>null,'pg_num'=>$request['page']];		
+            $stmt = $this->_db->insertInto($request['article'])->values($vals)->execute();
+                if(!$stmt){
+                    return $this->_selector->message = $this->_message->message(['error'=>'Stránka nemohla být vytvořena nejspíše již existuje']);
+            }
+            return header('Location: /create/'.$request['article'].'/'.$request['page'].'?action=created');
 
     }
     public function delete($request){
-        // $set = ['chapter'=>null,'body'=>null,'pg_num'=>$request['page']];
-        // $stmt = $this->_db->update($request['article'])->set($set)->where('pg_num',$request['page'])->execute();
-            //return header('Location: /delete/'.$request['article'].'/'.$request['page'].'?action=deleted');
+            $set = ['chapter'=>null,'body'=>null,'pg_num'=>$request['page']];
+            $stmt = $this->_db->update($request['article'])->set($set)->where('pg_num',$request['page'])->execute();
+                if(!$stmt){
+                    return $this->_selector->message = $this->_message->message(['error'=>'Obsah nemohl být smazán nejspíše nexistuje vytvořte ji pomocí /create']);
+            }
+            return header('Location: /delete/'.$request['article'].'/'.$request['page'].'?action=deleted');
     }
 }

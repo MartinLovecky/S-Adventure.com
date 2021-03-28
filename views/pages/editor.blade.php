@@ -19,6 +19,7 @@
                     &nbsp;&nbsp;<span style="color:#00cc80"> / Upravujete příběh {{$selector->article}}</span>
                     @endif
                 </ol>
+                <p style="color: #fff">*Akce /delete smaže pouze data stránka smaotná zůstane</p>
                 @if (!$selector->article)
                     {!! $message->message(['error'=>'Pro vykonání akce '.$selector->action.' je nutné zvolit příběh']) !!}
                 @endif
@@ -26,7 +27,6 @@
                 {!! $form->create(['target'=>['extras.RequestHandler',['articlesController'=>$articlesController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])->run($blade)!!}
                 <label style="color:#fff">Nadpis:</label><input type="text" name="chapter" @isset($articlesController->Article['chapter']) value="{{$articlesController->Article['chapter']}}" @endisset  placeholder="Může zůstat prázdný">
                 <textarea name="content" id="editor">
-                    @dump($articlesController->Article)
                     @isset($articlesController->Article['body'])
                         {!! $articlesController->Article['body'] !!}
                     @endisset
@@ -40,11 +40,18 @@
                 </script>
                     <hr/>
                     @isset($selector->article)
-                    <input type="hidden" name="type" value="{{$selector->action}}">
-                    <input type="hidden" name="article"  value="{{$selector->article}}">
-                    <input type="hidden" name="page" value="{{$selector->page}}">
-                    <button class="btn btn-success btn-block" name="submit" type="submit" value="submit" id="save">Odeslat na server</button>
-                    <p style="color:#fff;"> * Pro vykonání jakékoliv akce je nutné kliknout na Odeslat na server nestačí pouze změnit url a dát ENTRER !!!!!</p>
+                    <nav class="d-xl-flex justify-content-xl-center align-items-xl-center" id="wp_pagnation" style="background-color:#272626">
+                        <ul class="pagination">
+                            {!!  $wrapper->prev_page()   !!}
+                            {!!  $wrapper->main_pagnation()  !!}
+                            {!!  $wrapper->next_page()  !!}
+                        </ul>
+                    </nav>
+                        <input type="hidden" name="type" value="{{$selector->action}}">
+                        <input type="hidden" name="article"  value="{{$selector->article}}">
+                        <input type="hidden" name="page" value="{{$selector->page}}">
+                        <button class="btn btn-success btn-block" name="submit" type="submit" value="submit" id="save">Odeslat na server</button>
+                        <p style="color:#fff"> * Pro vykonání jakékoliv akce je nutné kliknout na Odeslat na server nestačí pouze změnit url a dát ENTRER !!!!!</p>
                     @endisset
                 </form>
         </div>

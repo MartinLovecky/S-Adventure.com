@@ -17,7 +17,7 @@ class Wrapper {
         if($this->_selector->page <= 1 || $this->_selector->page >= 300){
             return '<li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>';
         }
-            return '<li class="page-item"><a class="page-link" href="/show/'.$this->_selector->article.'/'.$prev.'#wp_pagnation" aria-label="Previous"><span aria-hidden="true">«</span></a></li>';
+            return '<li class="page-item"><a class="page-link" href="/'.$this->_selector->action.'/'.$this->_selector->article.'/'.$prev.'#wp_pagnation" aria-label="Previous"><span aria-hidden="true">«</span></a></li>';
     }
     public function main_pagnation(){
         $range = 5;
@@ -25,7 +25,7 @@ class Wrapper {
         for ($x = ($this->_selector->page - $range); $x < (($this->_selector->page + $range) + 1); $x++) {
             if (($x > 0) && ($x <= $totalpages)) {
                 $active = ($this->_selector->page == $x) ? 'active': null;
-                    echo '<li class="page-item '.$active.' "><a class="page-link" href="/show/'.$this->_selector->article.'/'.$x.'#wp_pagnation">'.$x.'</a></li>';
+                    echo '<li class="page-item '.$active.' "><a class="page-link" href="/'.$this->_selector->action.'/'.$this->_selector->article.'/'.$x.'#wp_pagnation">'.$x.'</a></li>';
             }
          } 
 
@@ -35,6 +35,6 @@ class Wrapper {
         if($this->_selector->page < 1 || $this->_selector->page >= 300){
             return '<li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">»</span></a></li>';
         }
-            return '<li class="page-item"><a class="page-link" href="/show/'.$this->_selector->article.'/'.$next.'#wp_pagnation" aria-label="Previous"><span aria-hidden="true">»</span></a></li>';
+            return '<li class="page-item"><a class="page-link" href="/'.$this->_selector->action.'/'.$this->_selector->article.'/'.$next.'#wp_pagnation" aria-label="Previous"><span aria-hidden="true">»</span></a></li>';
     }
 }

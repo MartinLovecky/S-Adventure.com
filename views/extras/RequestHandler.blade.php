@@ -17,8 +17,8 @@ if($articlesController){
 
     match($request['type']){
         'update' => $articlesController->update($request),
-        'delete' => null,//$articlesController->delete(),
-        'create' => null,//$articlesController->create(),
+        'delete' => $articlesController->delete($request),
+        'create' => $articlesController->create($request),
         default => null,
     };
 }
