@@ -26,6 +26,7 @@
                 {!! $form->create(['target'=>['extras.RequestHandler',['articlesController'=>$articlesController,'request'=>$request]],'method'=>'POST','class'=>'text-center'])->run($blade)!!}
                 <label style="color:#fff">Nadpis:</label><input type="text" name="chapter" @isset($articlesController->Article['chapter']) value="{{$articlesController->Article['chapter']}}" @endisset  placeholder="Může zůstat prázdný">
                 <textarea name="content" id="editor">
+                    @dump($articlesController->Article)
                     @isset($articlesController->Article['body'])
                         {!! $articlesController->Article['body'] !!}
                     @endisset

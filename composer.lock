@@ -134,7 +134,7 @@
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": "^7.3|^8.0"
             },
             "suggest": {
                 "ext-mbstring": "For best performance"
@@ -215,7 +215,7 @@
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1"
+                "php": "^7.3|^8.0"
             },
             "default-branch": true,
             "type": "library",

@@ -40,8 +40,7 @@ public function submitRegister($request){
         $activate = md5(uniqid(rand(),true));
         // INSERT TO DB
         $values = ['username'=>$register['username'],'password'=>$hashedpassword,'email'=>$register['email'],'active'=>$activate,'permission'=>'user','avatar'=>'empty_profile.png','bookmark'=>'0'];
-        $stmt = $this->_db->insertInto('members')->values($values);
-        $stmt->execute();
+        $stmt = $this->_db->insertInto('members')->values($values)->execute();
         $id = $this->_db->lastInsertId();
         $this->_db->close(); 
         // SEND EMAIL need user ID 
@@ -85,8 +84,7 @@ public function submitsendReset($request){
         $storedToken = hash('SHA256', ($token));
         // NOT OK
         $set = ['resetToken'=>$storedToken,'resetComplete'=>'No'];
-        $stmt = $this->_db->update('members')->set($set)->where('memberID',$reset['id']);
-        $stmt->execute();
+        $stmt = $this->_db->update('members')->set($set)->where('memberID',$reset['id'])->execute();
         $this->_db->close();
         // Send email
         $build = ['body'=>$this->_mail->template('pwd-reset-email',['token'=>$reset['token'],'id'=>$reset['id']]),'to'=>$reset['email'],'subject'=>'SA | Reset hesla'];
@@ -152,8 +150,7 @@ public function activate(){
         Router::redirect('login?action=failActive');
     }
         $set = ['active'=>'YES'];
-        $stmt = $this->_db->update('members',$set)->where('memberID',$checkActivate['memberID']);
-        $stmt->execute();
+        $stmt = $this->_db->update('members',$set)->where('memberID',$checkActivate['memberID'])->execute();
     Router::redirect('login?action=active');
  
 }
@@ -174,8 +171,7 @@ public function saveBookmark($article,$page){
     }
     // update number of bookmarks
     $set = ['bookmark'=>$bookmark];
-    $stmt = $this->_db->update('members')->set($set)->where('memberID',$this->_member->memberID);
-    $stmt->execute();
+    $stmt = $this->_db->update('members')->set($set)->where('memberID',$this->_member->memberID)->execute();
     $this->_db->close();
     // bookmark is number bettwen 1 - 12 also $this->_member->bookmarks is array
     if(isset($_SESSION['bookmark'])){
