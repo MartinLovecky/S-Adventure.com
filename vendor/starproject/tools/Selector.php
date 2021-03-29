@@ -9,7 +9,6 @@ class Selector {
 
 private $_member,$_sanitazor;
 public $message,
-    $oldData, 
     $action,
     $article,
     $page = null,
@@ -34,7 +33,6 @@ public function __construct(Member $member,Sanitazorx $sanitazor){
     $this->allowedPages = [range(1,300)];
     $this->queryAction = $sanitazor->sanitaze_GET('action');
     $this->resetPWD = $sanitazor->sanitaze_GET('x');
-    //$this->oldData = (isset($this->message)) ? $this->_router->request : null ;
 }
 
 public function title(){

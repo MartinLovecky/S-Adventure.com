@@ -18,9 +18,9 @@ public $config =[
         'DB_Host' => 'sql2.webzdarma.cz' 
     ],
     'public' => [
-        'DB_Name' => 'sadventurexf3912',
-        'DB_User'=> 'sadventurexf3912',
-        'DB_Password' => 'RwVhYnnJGrT^Ax,fH60V',
+        'DB_Name' => 'sadventurexf1329',
+        'DB_User'=> 'sadventurexf1329',
+        'DB_Password' => 'S#ie933z81g)Cs1#i-3d',
         'DB_Host' => 'sql5.webzdarma.cz' 
     ],
     'other' => [

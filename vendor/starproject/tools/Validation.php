@@ -128,14 +128,12 @@ public function validateResetMail($request){
 public function checkActivation(){
     $memberID = $this->sanitaze_GET('x');
     $active = $this->sanitaze_GET('y');
-    $ID = int($memberID);
     if(!isset($memberID) && !isset($active))return['message'=>'What are you trying to do'];
-    if(!is_numeric($ID))return['message'=>'Invalid ID type'];
-    $stmt = $this->_db->from('members')->select('active')->where('memberID',$ID);
+    $stmt = $this->_db->from('members')->select('active')->where('memberID',$memberID);
     $result = $stmt->fetch();
     $this->_db->close();
     if($result != $active)return['message'=>'No'];
-        return ['memberID'=>$ID];
+        return ['memberID'=>$memberID];
 }
 
 public function validateBookmark(){

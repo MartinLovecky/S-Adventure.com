@@ -1,3 +1,4 @@
+<div style="background:#f7f7f7;font-family:Arial,sans-serif;font-size:14px;padding:20px 0;color:#000">
 <table style="background:#fff;margin:0 auto;max-width:800px;padding:20px 40px;width:100%">
   <tbody><tr>
     <td valign="top">
@@ -5,57 +6,50 @@
   <tbody>
   <tr>
     <td class="m_-3655226564915594624header__logo" style="padding:10px 0;text-align:left">
-      <a href="" style="color:#ec028c" target="_blank" >
-        <img src="" width="200" height="44" border="0" class="CToWUd">
+      <a href="http://sadventure.com/index" style="color:#ec028c" target="_blank" >
+        <img src="http://sadventure.xf.cz/public/images/logo.png" width="200" height="44" border="0" class="CToWUd">
       </a>
     </td>
   </tr>
   </tbody>
 </table>
-              <p style="font-size:15px;line-height:22px;margin:15px 0;padding:0;font-weight:bold">Dobrý den,</p>
-
+    <p style="font-size:15px;line-height:22px;margin:15px 0;padding:0;font-weight:bold">Dobrý den,</p>
     <p style="font-size:15px;line-height:22px;margin:15px 0;padding:0">
-        Přihlášení na # provedete pomocí e-mailu <strong><a href="mailto:@gmail.com" target="_blank">@gmail.com</a></strong>.
+        Přihlášení na StarAdventure provedete pomocí uživatelského jména <strong><?php echo $username;?></strong>.
         Z bezpečnostních důvodů neposíláme Vaše heslo.
     </p>
-
     <h2 style="font-size:15px;margin:40px 0 0 0;padding:0">
-        Jaké výhody Vám přináší účet #
+        Jaké výhody Vám přináší účet 
     </h2>
-
     <table class="m_-3655226564915594624pill-car" style="border-collapse:collapse;border-spacing:0;margin:20px 0;vertical-align:top;width:100%">
         <tbody>
         <tr>
             <td>
                <span style="display:block;font-size:15px;padding:7px 0">
                    <span style="background:#ec028c;border-radius:50%;display:inline-block;height:8px;margin:0 5px 2px 0;width:8px"></span>
-                   Získáváte přístup k našim <strong>výhodným nabídkám a akcím</strong>
+                   Získáváte přístup k našim <strong>všem příběhům ZDARMA</strong>
                </span>
-
                 <span style="display:block;font-size:15px;padding:7px 0">
                    <span style="background:#ec028c;border-radius:50%;display:inline-block;height:8px;margin:0 5px 2px 0;width:8px"></span>
-                    Za doporučení kamaráda Vám <strong>dáme 50 Kč</strong>
+                    text
                </span>
-
                 <span style="display:block;font-size:15px;padding:7px 0">
                    <span style="background:#ec028c;border-radius:50%;display:inline-block;height:8px;margin:0 5px 2px 0;width:8px"></span>
-                    Za nákupy na <a href="#" style="color:#ec028c" target="_blank" >#</a> text
+                    text
                </span>
                 <span style="display:block;padding:5px 0"></span>
             </td>
         </tr>
         </tbody>
     </table>
-
     <span style="text-align:center;display:block">
-       <a href="#" style="background:#ec028c;border-radius:4px;color:#fff;display:inline-block;font-weight:700;margin:16px auto 32px;padding:15px 25px;text-decoration:none" target="_blank" >
-           Více informací o nakupování s # &nbsp;»
+       <a href="http://sadventure.com/activate?x=<?php echo $id;?>&y=<?php echo $activasion;?>" style="background:#28a745;border-radius:4px;color:#fff;display:inline-block;font-weight:700;margin:16px auto 32px;padding:15px 25px;text-decoration:none" target="_blank" >
+           Aktivovat účet &nbsp;»
        </a>
    </span>
-
     <p style="font-size:15px;line-height:22px;margin:15px 0;padding:0">
-        Hezký den Vám přeje #
+        Hezký den Vám přeje Admin StarAdventure
     </p>
     </td>
   </tr>
-</tbody></table>
+</tbody></table></div>

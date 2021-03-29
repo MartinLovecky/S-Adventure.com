@@ -19,7 +19,7 @@
                     &nbsp;&nbsp;<span style="color:#00cc80"> / Upravujete příběh {{$selector->article}}</span>
                     @endif
                 </ol>
-                <p style="color: #fff">*Akce /delete smaže pouze data stránka smaotná zůstane</p>
+                <p style="color: #fff">*Akce /delete smaže pouze data stránka samotná zůstane</p>
                 @if (!$selector->article)
                     {!! $message->message(['error'=>'Pro vykonání akce '.$selector->action.' je nutné zvolit příběh']) !!}
                 @endif

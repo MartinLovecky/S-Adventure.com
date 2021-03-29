@@ -34,30 +34,34 @@ public function submitRegister($request){
     if(isset($request)){
         $register = $this->_validation->validateRegister($request);
     if(\array_key_exists('message',$register)){
+        @$_SESSION = ['f_username'=>$request['username'],'f_email'=>$request['email']];
         return $this->_selector->message = $register['message'];
     }
         $hashedpassword = password_hash($register['password'], PASSWORD_BCRYPT);
         $activate = md5(uniqid(rand(),true));
-        // INSERT TO DB
+        // INSERT validtated data to DB
+      
         $values = ['username'=>$register['username'],'password'=>$hashedpassword,'email'=>$register['email'],'active'=>$activate,'permission'=>'user','avatar'=>'empty_profile.png','bookmark'=>'0'];
         $stmt = $this->_db->insertInto('members')->values($values)->execute();
         $id = $this->_db->lastInsertId();
         $this->_db->close(); 
-        // SEND EMAIL need user ID 
-        //! FIX Body
-        $build = ['body'=>$this->_mail->template('register-email',['id'=>$id,'activasion'=>$activate,'username'=>$register['username']]),'subject'=>'Potvrzení registrace','to'=>$register['email']];
+        
+        // SEND EMAIL 
+        $build = ['body'=>$this->_mail->includeWithVariables(DIR.'/views/email/e-register.php',['id'=>$id,'activasion'=>$activate,'username'=>$register['username']]),'subject'=>'Potvrzení registrace','to'=>$register['email']];
         $this->_mail->builder($build);
         if($this->_mail->send()){
             Router::redirect('login?action=joined');
         }
     }
     return null; 
+   
 }
 
 public function submitLogin($request){
     if(!empty($request)){
         $login = $this->_validation->validateLogin($request);
     if(\array_key_exists('message',$login)){
+        @$_SESSION = ['f_username'=>$request['username']];
         return $this->_selector->message = $login['message'];
     }
     if($login){
@@ -143,14 +147,17 @@ public function updateMember($request){
 }
     return null;
 }
-
+// check hash latter update
 public function activate(){
-    $checkActivate = $this->_validation->checkActivation();
+    $checkActivate = null;
+    $memberID = $this->_validation->sanitaze_GET('x');
+    /*
     if(\array_key_exists('message',$checkActivate)){
         Router::redirect('login?action=failActive');
-    }
+    }*/
         $set = ['active'=>'YES'];
-        $stmt = $this->_db->update('members',$set)->where('memberID',$checkActivate['memberID'])->execute();
+        $stmt = $this->_db->update('members',$set)->where('memberID',$memberID)->execute();
+        $this->_db->close();
     Router::redirect('login?action=active');
  
 }
