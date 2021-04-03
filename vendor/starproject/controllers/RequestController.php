@@ -21,14 +21,6 @@ public function __construct(Validation $validation,Member $member, Datab $db, Ma
     $this->_db = $db->con();
 }
 
-private function _resetUpdate($result){
-     //reset update reset DB
-     $set = ['password'=>$result['hashedpassword'],'resetComplete'=>$result['resetComplete']];
-     $stmt = $this->_db->update('members')->set($set)->where('memberID',$result['id']);
-     $stmt->execute();
-     $result = $stmt->fetch();
-        return $result;
-}
 
 public function submitRegister($request){
     if(isset($request)){
@@ -76,22 +68,18 @@ public function submitsendReset($request){
     if(!empty($request)){
     $reset = $this->_validation->validateResetMail($request);
     if(\array_key_exists('message',$reset)){
-        $this->_selector->message = $reset['message'];
-            return;
+        return $this->_selector->message = $reset['message'];
     }
     else{
-        // OK
-        $stmt = $this->_db->from('members')->where('email',$request['email']);
-        $result = $stmt->fetchAll('memberID','password');
-        $this->_db->close();
-        $token = hash_hmac('SHA256', $this->_member->generate_entropy(8), $result[2]['password']);
+        $result = $this->_member->getMemberID($request);
+        $token = hash_hmac('SHA256', $this->_member->generate_entropy(8), $result['password']);
         $storedToken = hash('SHA256', ($token));
-        // NOT OK
+        // store token
         $set = ['resetToken'=>$storedToken,'resetComplete'=>'No'];
-        $stmt = $this->_db->update('members')->set($set)->where('memberID',$reset['id'])->execute();
+        $stmt = $this->_db->update('members')->set($set)->where('memberID',$result['memberID'])->execute();
         $this->_db->close();
         // Send email
-        $build = ['body'=>$this->_mail->template('pwd-reset-email',['token'=>$reset['token'],'id'=>$reset['id']]),'to'=>$reset['email'],'subject'=>'SA | Reset hesla'];
+        $build = ['body'=>$this->_mail->includeWithVariables(DIR.'/views/email/pwd-reset.php',['username'=>$result['username'],'token'=>$token,'id'=>$result['memberID']]),'to'=>$reset['email'],'subject'=>'SA | Reset hesla'];
         $this->_mail->builder($build);	
         if($this->_mail->send()){
             Router::redirect('login?action=reset');
@@ -102,26 +90,24 @@ public function submitsendReset($request){
 }
 
 public function submitReset($request){
+    //! Token check will be latter inside _validation
     if(!empty($request)){
-    $subReset = $this->_validation->validateReset($request);
+        $subReset = $this->_validation->validateReset($request);
     if(\array_key_exists('message',$subReset)){
         return $this->_selector->message = $subReset['message'];
     }
     else{
-        // Token for DB
         $hashedpassword = password_hash($subReset['password'], PASSWORD_DEFAULT);
-        $stmt = $this->_db->from('members')->select(['resetToken','resetComplete'])->where('resetToken',$subReset['token']);
-        $result = $stmt->fetch();
-        $this->_db->close();
-        //['resetToken'=>$result['resetToken'],'resetComplete'=>$result['resetComplete'],'hashedpassword'=>$hashedpassword];
-        $resetUpdate = $this->_resetUpdate($result);
-        // reset null for next reset
-        if($resetUpdate['resetComplete'] === 'YES'){
+        $resetDBHash = $this->_member->resetDBHash($request,$hashedpassword);
+        if($resetDBHash){
             $set = ['resetToken'=>null,'resetComplete'=>null];
-            $stmt = $this->_db->update('members')->set($set)->where('memberID',$subReset['id']);
-            $stmt->execute();
-            $this->_db->close();
+            $stmt = $this->_db->update('members')->set($set)->where('memberID',$request['id'])->execute();
+            if($stmt){
+                $this->_db->close();
                 Router::redirect('login?action=resetAccount');
+            }
+            return $this->_selector->message = '<div role="alert" class="alert alert-danger text-center text-danger"><span></span></div>';
+            
         }
     }
     }
@@ -144,7 +130,7 @@ public function updateMember($request){
         //$set = null;
         //return null;
     }
-}
+    }
     return null;
 }
 // check hash latter update

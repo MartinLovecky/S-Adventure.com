@@ -25,7 +25,6 @@ public function __construct(Datab $db){
  
 }
 
-
 public function isValidUsername($username){
     if (strlen($username) < 4) return false;
     if (strlen($username) > 25) return false;
@@ -68,6 +67,27 @@ public function allMembers(){
     $stmt = $this->_db->from('members');
     $all = $stmt->fetchAll('username','name','surname','avatar','age','location','permission','visible');
     return $all;
+}
+
+public function getMemberID($request){
+     // get old pwd from db create token
+     $stmt = $this->_db->from('members')->where('email',$request['email']);
+     $result = $stmt->fetchAll('memberID','password','username');
+     $this->_db->close();
+     if(!$result){
+        return null;
+     }
+     foreach ($result as $key => $value){
+        return $value;
+     }
+}
+
+public function resetDBHash($request,$hash){
+    //reset update reset DB
+    $set = ['password'=>$hash,'resetComplete'=>'YES'];
+    $stmt = $this->_db->update('members')->set($set)->where('memberID',$request['id'])->execute();
+    $this->_db->close();
+       return dd($stmt);
 }
 
 }
