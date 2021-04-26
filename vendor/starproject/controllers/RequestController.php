@@ -57,9 +57,15 @@ public function submitLogin($request){
         return $this->_selector->message = $login['message'];
     }
     if($login){
-        $username = $_SESSION['username'];
-        Router::redirect('member/'.$username.'?action=logged');
-    }
+        Router::redirect('member/'.$request['username'].'?action=logged');
+    }/*elseif($login && $request['rember'] == 'yes'){
+       
+            Create key inser into db and login (cockie requierd ?)
+            $key = 
+            $values = ['remeber'=>$key];
+            stmt = $this->_db->insertInto('members')->values($values)->where('username',$request['username'])->execute();
+        
+    }*/
     }
     return null;
 }
@@ -106,7 +112,7 @@ public function submitReset($request){
                 $this->_db->close();
                 Router::redirect('login?action=resetAccount');
             }
-            return $this->_selector->message = '<div role="alert" class="alert alert-danger text-center text-danger"><span></span></div>';
+            return $this->_selector->message = '<div role="alert" class="alert alert-danger text-center text-danger"><span>Reset password failed </span></div>';
             
         }
     }

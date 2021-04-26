@@ -10,7 +10,7 @@ use \starproject\database\costumers\Password;
 class Member extends Password{
 
     private $_db;
-    public $username,$permission,$email,$memberID,$loggedin,$avatar;
+    public $username,$permission,$email,$memberID,$loggedin,$avatar,$remember;
     public $bookmarks;
 
 public function __construct(Datab $db){
@@ -21,8 +21,8 @@ public function __construct(Datab $db){
     $this->loggedin = (isset($_SESSION['loggedin'])) ? $_SESSION['loggedin'] : false ;
     $this->avatar = (isset($_SESSION['avatar'])) ? $_SESSION['avatar'] : 'empty_profile.png';
     $this->email = (isset($_SESSION['email'])) ? $_SESSION['email']  : null;
+    $this->remember = (isset($_COOKIE['user.remember'])) ? true : false;
     $this->_db = $db->con();
- 
 }
 
 public function isValidUsername($username){

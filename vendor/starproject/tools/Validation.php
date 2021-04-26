@@ -94,8 +94,7 @@ public function validateLogin($request){
     $this->_db->close();
     if(!$this->_validCSFR($request))return ['message'=>$this->_message->message(['error'=>'Invalid CSRF'])];
     if(!$id)return['message'=>$this->_message->message(['error'=>'Uživatel neexistuje'])];
-    //! TEMP SOLUTION ubtilm e-mail templates are solved
-    if($active != 'YES')return['message'=>$this->_message->message(['error'=>'Uživatel není aktivní <a href="/activate?x='.$id.'&y='.$active.'" style="color:#85202a;text-decoration:underline;">Aktivovat zde</a>'])];
+    if($active != 'YES')return['message'=>$this->_message->message(['error'=>'Uživatel není aktivní zkotrolujte e-mail'])];
     if($this->_emptyFields([$username,$password]))return ['message'=>$this->_message->message(['error'=>'Všechna pole musí být vyplněna'])];
     if(!$this->_member->isValidUsername($username)) return ['message'=>$this->_message->message(['error'=>'Uživatelské jméno musí obsahovat minimálně 4 - 25 znaku'])];
     if(strlen($password) < 5) return ['message'=>$this->_message->message(['error'=>'Heslo musí být delší jak 5 znaků'])];
