@@ -23,12 +23,10 @@ public function __construct(Member $member,Sanitazorx $sanitazor){
     $this->_member = $member;
     $this->_sanitazor = $sanitazor;
     $this->url = explode('/',trim(str_replace(['-','_','#','<','(','{','!',','],' ',urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)))));
-    // this is set all time
-    $this->action = lcfirst($sanitazor->sanitaze($this->url[1])); 
+    $this->action = lcfirst($sanitazor->sanitaze($this->url[1])); // this is set all time
     $this->article = (isset($this->url[2])) ? lcfirst($sanitazor->sanitaze($this->url[2])) : null;
-    //! should be allways INT for articles 
     $this->page = (isset($this->url[3])) ? $this->url[3]: null;
-    $this->allowedAction = include(DIR . '/core/app/allowedAction.php');
+    $this->allowedAction = include(DIR . '/core/app/allowedAction.php'); // array of pages
     $this->allowedAricles = ['allwin','samuel','isama','isamanh','isamanw','angel','mry','star','terror','demoni','hyperion'];
     $this->allowedPages = [range(1,300)];
     $this->queryAction = $sanitazor->sanitaze_GET('action');

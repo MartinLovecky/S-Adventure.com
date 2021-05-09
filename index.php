@@ -21,8 +21,7 @@
     require(DIR . '/vendor/autoload.php'); 
     $blade = new BladeOne(DIR.'/views',DIR.'/tmp',BladeOne::MODE_AUTO);
     $blade->pipeEnable=true;
-
-//@asset('folder.fileName.css/jpg/etc..')
+    //@asset('folder.fileName.css/jpg/etc..')
     $blade->setBaseUrl('/public/'); 
 
     $db = new Datab;
@@ -33,20 +32,33 @@
 
     //! Be sure to use correct connect info for your DB  inside DBcon 
     $db->stateMode = 'localhost';
-    
-    $member = new Member($db);
-    $selector = new Selector($member,$sanitazor);
-    $wrapper = new Wrapper($selector); //maybe rename to pagnation
-    $validation = new Validation($db,$message,$member);
-    $requestController = new RequestController($validation,$member,$db,$mail,$selector);
-    $articlesController = new ArticlesController($selector,$member,$message,$db);
+    $con = $db->con();
+ 
+    if(isset($_COOKIE['user_remember'])){
+        $userHash = $db->getUserHash($_COOKIE['user_remember']);
+        if(hash_equals($userHash,$_COOKIE['user_remember'])){
+            $stmt = $con->from('members')->where('remeber',$_COOKIE['user_remember']);
+            $dbRemData = $stmt->fetch();
+            $member->loggedin = true;
+            
+        } 
+    }
+    $userRemData = require(DIR . '/core/data.php');
 
-// Insert all variables for views 
+    $member = new Member($con,$userRemData);
+    $selector = new Selector($member,$sanitazor);
+    $wrapper = new Wrapper($selector); //maybe rename to pagnation 
+    $validation = new Validation($con,$message,$member);
+    $requestController = new RequestController($validation,$member,$mail,$selector,$con);
+    $articlesController = new ArticlesController($selector,$member,$message,$con);
+
 //! We need call this function to use @csrf 
     $blade->getCsrfToken($selector);
 
 //$blade->setAuth($member->getUserName(),)
+
 // run APP
     $router = new Router($data = require(DIR . '/core/app/routerData.php'));
     echo $router->runApp();
+    $con->close();
 ?>

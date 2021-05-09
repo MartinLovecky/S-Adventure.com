@@ -2,7 +2,6 @@
 
 namespace starproject\tools;
 
-use \starproject\database\Datab;
 use \starproject\tools\Messages;
 use \starproject\tools\Sanitazorx;
 use \starproject\database\costumers\Member;
@@ -14,8 +13,8 @@ class Validation extends Sanitazorx{
   
 private $_db,$_message,$_member;    
     
-public function __construct(Datab $db,Messages $message, Member $member){
-    $this->_db = $db->con();
+public function __construct($con,Messages $message, Member $member){
+    $this->_db = $con;
     $this->_message = $message;
     $this->_member = $member;
 }
@@ -62,6 +61,7 @@ public function validateRegister($request){
 }
 
 public function setSession($password,$result){
+    //? change it
     if(password_verify($password,$result['password'])){
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $result['username'];

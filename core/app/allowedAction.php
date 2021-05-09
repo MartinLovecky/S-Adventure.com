@@ -23,5 +23,6 @@ return [
     'verify',
     'updateMember',
     'postavy',
-    'saveBookmark'
+    'saveBookmark',
+    'faq'
 ];

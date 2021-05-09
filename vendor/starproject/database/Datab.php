@@ -33,4 +33,10 @@ class Datab extends DBcon{
                 throw new PDOException($err); 
             }
     }
+    
+    public function getUserHash($hash){
+        $stmt = $this->con()->from('members')->where('remember',$hash);        
+        $userData = $stmt->fetchAll();
+            return $userData;
+    }
 }

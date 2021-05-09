@@ -29,29 +29,28 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'cf262d6ef1dc1b5720522d8e885d4e7604cd316f',
+    'reference' => 'a756662c446b3f3af2d708e954b3264e847d4727',
     'name' => 'marthas-lovecky/star-advanture',
   ),
   'versions' => 
   array (
     'eftec/bladeone' => 
     array (
-      'pretty_version' => '3.49.1',
-      'version' => '3.49.1.0',
+      'pretty_version' => '3.52',
+      'version' => '3.52.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b30021e41d0182e8bcce495484024643f18b9d2e',
+      'reference' => 'a19bf66917de0b29836983db87a455a4f6e32148',
     ),
     'envms/fluentpdo' => 
     array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
+      'pretty_version' => 'v2.2.0',
+      'version' => '2.2.0.0',
       'aliases' => 
       array (
-        0 => '9999999-dev',
       ),
-      'reference' => 'b7b80dfb338b895860dfe23160a625ec385c6d15',
+      'reference' => '8684e2d22ebbcdf4cdcdf7bbe7558459ceb31260',
     ),
     'marthas-lovecky/star-advanture' => 
     array (
@@ -60,7 +59,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'cf262d6ef1dc1b5720522d8e885d4e7604cd316f',
+      'reference' => 'a756662c446b3f3af2d708e954b3264e847d4727',
     ),
     'phpmailer/phpmailer' => 
     array (
@@ -70,7 +69,7 @@ private static $installed = array (
       array (
         0 => '9999999-dev',
       ),
-      'reference' => 'c2c5a3b9af8887f2d4d71e62cd83f4c735c30436',
+      'reference' => '9256f12d8fb0cd0500f93b19e18c356906cbed3d',
     ),
     'symfony/polyfill-mbstring' => 
     array (
@@ -78,9 +77,9 @@ private static $installed = array (
       'version' => 'dev-main',
       'aliases' => 
       array (
-        0 => '1.22.x-dev',
+        0 => '1.23.x-dev',
       ),
-      'reference' => 'f377a3dd1fde44d37b9831d68dc8dea3ffd28e13',
+      'reference' => '9ad2f3c9de0273812c616fdf96070a129c3defcb',
     ),
     'symfony/polyfill-php80' => 
     array (
@@ -88,9 +87,9 @@ private static $installed = array (
       'version' => 'dev-main',
       'aliases' => 
       array (
-        0 => '1.22.x-dev',
+        0 => '1.23.x-dev',
       ),
-      'reference' => 'dc3063ba22c2a1fd2f45ed856374d79114998f91',
+      'reference' => 'eca0bf41ed421bed1b57c4958bab16aa86b757d0',
     ),
     'symfony/var-dumper' => 
     array (
@@ -100,7 +99,7 @@ private static $installed = array (
       array (
         0 => '9999999-dev',
       ),
-      'reference' => '93c1914af9c0619294d867a0fa346d5ea6b7d707',
+      'reference' => '29988c9bcac7bb66a03f00a2adaae131778db61c',
     ),
   ),
 );

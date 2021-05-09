@@ -2,7 +2,7 @@
     <div class="row" id="index_footer">
         <div class="col-sm-6 col-md-4 footer-navigation">
             <h3><a href="/index">Star<span>Adventure</span></a></h3>
-            <p class="links"><a href="#">Empty</a><strong>&nbsp;· </strong><a href="/terms">Terms</a><strong> · </strong><a href="/faq">Faq</a><strong> · </strong><a href="/vop">Vop</a></p>
+            <p class="links"><a href="#">Empty</a><strong> · </strong><a href="/terms">Terms</a><strong> · </strong><a href="/faq">Faq</a><strong> · </strong><a href="/vop">Vop</a></p>
             <p class="company-name">StarAdventure © 2021 ~ Vytvořil&nbsp;<a href="/member/Sensei">Sensei</a></p>
         </div>
         <div class="col-sm-6 col-md-4 footer-contacts">

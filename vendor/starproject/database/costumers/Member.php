@@ -4,25 +4,23 @@ namespace starproject\database\costumers;
 
 use PDOStatement;
 use \starproject\http\Router;
-use \starproject\database\Datab;
 use \starproject\database\costumers\Password;
 
 class Member extends Password{
 
     private $_db;
-    public $username,$permission,$email,$memberID,$loggedin,$avatar,$remember;
-    public $bookmarks;
+    public $username,$permission,$email,$memberID,$loggedin,$avatar,$remember,$bookmarks;
 
-public function __construct(Datab $db){
-    // Data dont need be sanitazed they are from Register
-    $this->username = (isset($_SESSION['username'])) ? $_SESSION['username'] : null;
+public function __construct($con,$userRemData = null){
+    //! change this
+    $this->username = (isset($_SESSION['username'])) ? $_SESSION['username'] : $userRemData['username'];
     $this->permission = (isset($_SESSION['permission'])) ? $_SESSION['permission'] : 'visit' ;
     $this->memberID = (isset($_SESSION['memberID'])) ? $_SESSION['memberID'] : rand(1,9999) ;
     $this->loggedin = (isset($_SESSION['loggedin'])) ? $_SESSION['loggedin'] : false ;
     $this->avatar = (isset($_SESSION['avatar'])) ? $_SESSION['avatar'] : 'empty_profile.png';
     $this->email = (isset($_SESSION['email'])) ? $_SESSION['email']  : null;
     $this->remember = (isset($_COOKIE['user.remember'])) ? true : false;
-    $this->_db = $db->con();
+    $this->_db = $con;
 }
 
 public function isValidUsername($username){

@@ -1,5 +1,3 @@
-{{-- @if ($member->remeber) $member->remeberlog() @endif --}}
-
 @extends('layouts.app')
 @section('login')
 @if (!$member->loggedin)

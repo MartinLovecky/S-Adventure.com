@@ -10,7 +10,7 @@
             // create cookie
             $cookie_name = 'user.remember';
             $cookie_time = \time() + (10 * 365 * 24 * 60 * 60);
-            \set_coockie($cookie_name,$key,$cookie_time,'/');
+            \setcookie($cookie_name,$key,$cookie_time,'/');
                 Router::redirect('member/'.$request['username'].'?action=logged');
         }
         
