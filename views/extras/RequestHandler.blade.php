@@ -13,7 +13,7 @@ match($request['type']){
     default => null,
 };
 
-if($articlesController){
+if(isset($articlesController)){
 
     match($request['type']){
         'update' => $articlesController->update($request),

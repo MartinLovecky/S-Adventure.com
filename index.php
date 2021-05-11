@@ -3,7 +3,7 @@
     ob_start();
     session_start();
     define('DIR',$_SERVER['DOCUMENT_ROOT']); 
-// INIT classes
+
     use \eftec\bladeone\BladeOne;
     use \starproject\http\Router;
     use \starproject\tools\Mailer;
@@ -17,13 +17,11 @@
     use \starproject\controllers\ArticlesController; 
     use \starproject\tools\Sanitazorx;
     use \starproject\tools\html\Wrapper;
-
+// INIT classes
     require(DIR . '/vendor/autoload.php'); 
     $blade = new BladeOne(DIR.'/views',DIR.'/tmp',BladeOne::MODE_AUTO);
-    $blade->pipeEnable=true;
-    //@asset('folder.fileName.css/jpg/etc..')
-    $blade->setBaseUrl('/public/'); 
-
+    $blade->pipeEnable=true; // maybe not necesary
+    $blade->setBaseUrl('/public/'); //@asset('folder.fileName.css/jpg/etc..')
     $db = new Datab;
     $message = new Messages; 
     $mail = new Mailer;
@@ -33,32 +31,31 @@
     //! Be sure to use correct connect info for your DB  inside DBcon 
     $db->stateMode = 'localhost';
     $con = $db->con();
- 
+    // Check user remeber
     if(isset($_COOKIE['user_remember'])){
         $userHash = $db->getUserHash($_COOKIE['user_remember']);
         if(hash_equals($userHash,$_COOKIE['user_remember'])){
             $stmt = $con->from('members')->where('remeber',$_COOKIE['user_remember']);
             $dbRemData = $stmt->fetch();
             $member->loggedin = true;
-            
         } 
     }
-    $userRemData = require(DIR . '/core/data.php');
 
-    $member = new Member($con,$userRemData);
+    $member = new Member($con,$userRemData = require(DIR . '/core/data.php'));
     $selector = new Selector($member,$sanitazor);
     $wrapper = new Wrapper($selector); //maybe rename to pagnation 
     $validation = new Validation($con,$message,$member);
     $requestController = new RequestController($validation,$member,$mail,$selector,$con);
     $articlesController = new ArticlesController($selector,$member,$message,$con);
-
-//! We need call this function to use @csrf 
-    $blade->getCsrfToken($selector);
-
-//$blade->setAuth($member->getUserName(),)
-
-// run APP
     $router = new Router($data = require(DIR . '/core/app/routerData.php'));
+    //! We need call this function to use @csrf 
+    $blade->getCsrfToken($selector);
+    // Run APP
     echo $router->runApp();
+
+    if($member->loggedin){
+        $blade->setAuth($member->username,$member->permission);
+    }
+    // Exit App
     $con->close();
 ?>

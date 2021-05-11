@@ -25,14 +25,3 @@
         $username = $_SESSION['username'];
         Router::redirect('member/'.$username.'?action=logged'); 
     }
-    /*
-
-    1) check if !remember if checked (yes) -> else
-
-    a) frist use of remember (generate key store it and set coockie)
-        ? $login = $validate($request) true / false (false->default)
-    
-    $member->remember = true / false  (false->default)
-
-    
-    */
