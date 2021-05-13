@@ -3,21 +3,22 @@
 namespace starproject\controllers;
 
 use \starproject\http\Router;
+use starproject\database\Datab;
+use \starproject\tools\Messages;
 use \starproject\tools\Selector;
 use \starproject\database\story\Articles; 
 use \starproject\database\costumers\Member;
-use \starproject\tools\Messages;
 
 class ArticlesController extends Articles{
 
     public $Article;
     private $_selector,$_member,$_message,$_db;
     
-    public function __construct(Selector $selector, Member $member, Messages $message,$con){
+    public function __construct(Selector $selector, Member $member, Messages $message,Datab $con){
         $this->_selector = $selector;
         $this->_member = $member;
         $this->_message = $message;
-        $this->_db = $con;
+        $this->_db = $con->con();
         $this->Article = $this->_GetArticle();
     } 
     

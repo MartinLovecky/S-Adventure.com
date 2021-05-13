@@ -30,9 +30,10 @@
 
     //! Be sure to use correct connect info for your DB  inside DBcon 
     $db->stateMode = 'localhost';
-    $con = $db->con();
+    
     // Check user remeber
     if(isset($_COOKIE['user_remember'])){
+        $con = $db->con();
         $userHash = $db->getUserHash($_COOKIE['user_remember']);
         if(hash_equals($userHash,$_COOKIE['user_remember'])){
             $stmt = $con->from('members')->where('remeber',$_COOKIE['user_remember']);
@@ -41,21 +42,19 @@
         } 
     }
 
-    $member = new Member($con,$userRemData = require(DIR . '/core/data.php'));
+    $member = new Member($db,$userRemData = require(DIR . '/core/data.php'));
     $selector = new Selector($member,$sanitazor);
     $wrapper = new Wrapper($selector); //maybe rename to pagnation 
-    $validation = new Validation($con,$message,$member);
-    $requestController = new RequestController($validation,$member,$mail,$selector,$con);
-    $articlesController = new ArticlesController($selector,$member,$message,$con);
+    $validation = new Validation($db,$message,$member);
+    $requestController = new RequestController($validation,$member,$mail,$selector,$db);
+    $articlesController = new ArticlesController($selector,$member,$message,$db);
     $router = new Router($data = require(DIR . '/core/app/routerData.php'));
     //! We need call this function to use @csrf 
     $blade->getCsrfToken($selector);
-    // Run APP
+// Run APP
     echo $router->runApp();
-
     if($member->loggedin){
         $blade->setAuth($member->username,$member->permission);
     }
-    // Exit App
-    $con->close();
+
 ?>

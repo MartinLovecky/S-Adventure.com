@@ -4,6 +4,7 @@ namespace starproject\database\costumers;
 
 use PDOStatement;
 use \starproject\http\Router;
+use starproject\database\Datab;
 use \starproject\database\costumers\Password;
 
 class Member extends Password{
@@ -11,7 +12,7 @@ class Member extends Password{
     private $_db;
     public $username,$permission,$email,$memberID,$loggedin,$avatar,$remember,$bookmarks;
 
-public function __construct($con,$userRemData = null){
+public function __construct(Datab $con,$userRemData = null){
     //! change this
     $this->username = (isset($_SESSION['username'])) ? $_SESSION['username'] : $userRemData['username'];
     $this->permission = (isset($_SESSION['permission'])) ? $_SESSION['permission'] : 'visit' ;
@@ -20,7 +21,7 @@ public function __construct($con,$userRemData = null){
     $this->avatar = (isset($_SESSION['avatar'])) ? $_SESSION['avatar'] : 'empty_profile.png';
     $this->email = (isset($_SESSION['email'])) ? $_SESSION['email']  : null;
     $this->remember = (isset($_COOKIE['user.remember'])) ? true : false;
-    $this->_db = $con;
+    $this->_db = $con->con();
 }
 
 public function isValidUsername($username){
@@ -85,7 +86,7 @@ public function resetDBHash($request,$hash){
     $set = ['password'=>$hash,'resetComplete'=>'YES'];
     $stmt = $this->_db->update('members')->set($set)->where('memberID',$request['id'])->execute();
     $this->_db->close();
-       return dd($stmt);
+       return $stmt;
 }
 
 }
