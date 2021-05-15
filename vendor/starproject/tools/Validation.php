@@ -87,7 +87,7 @@ public function setSession($password,$result){
 
 public function validateLogin($request){
     $username = $this->sanitaze($request['username']);
-    $password = $this->sanitaze($request['password']);
+    $password = $request['password'];
     $stmt = $this->_db->from('members')->where('username',$username);
     $result = $stmt->fetch();
     $active = $result['active'];

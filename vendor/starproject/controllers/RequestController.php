@@ -38,8 +38,7 @@ public function submitRegister($request){
         $bodyFile = file_get_contents(DIR.'/views/email/e-register.php');
         $body = str_replace(['YourUsername','MemberID','ActivasionHash'],[$register['username'],$id,$activate],$bodyFile);
         $info = ['subject'=>'Potvrzení registrace','to'=>$register['email']];
-        $this->_mail->builder($body,$info);
-            if($this->_mail->send()){
+            if($this->_mail->sender($body,$info)){
                 Router::redirect('login?action=joined');
             }
     }
@@ -86,9 +85,7 @@ public function submitsendReset($request){
         $bodyFile =  file_get_contents(DIR.'/views/email/pwd-reset.php');
         $body = str_replace(['YourUsername','Suplytoken','MemberID'],[$result['username'],$storedToken,$result['memberID']],$bodyFile);
         $info = ['to'=>$reset['email'],'subject'=>'SA | Reset hesla'];
-        $this->_mail->builder($body,$info);	
-        return dd($this->_mail->builder($body,$info));
-            if($this->_mail->send()){
+            if($this->_mail->sender($body,$info)){
                 Router::redirect('login?action=reset');
             }
         }
@@ -97,7 +94,6 @@ public function submitsendReset($request){
 }
 
 public function submitReset($request){
-    //! Token check will be latter inside _validation
     if(!empty($request)){
         $subReset = $this->_validation->validateReset($request);
     if(\array_key_exists('message',$subReset)){

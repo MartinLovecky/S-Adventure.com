@@ -17,14 +17,8 @@ class Mailer extends PHPMailer{
     public function body($body){
       $this->Body = $body;
     }
-    
-    public function send(){
-      $this->AltBody = strip_tags(stripslashes($this->Body))."\n\n";
-      $this->AltBody = str_replace("&nbsp;", "\n\n", $this->AltBody);
-      return parent::send();
-    }
-   
-    public function builder($body,$sendInfo){
+
+    public function sender($body,$sendInfo){
       $this->IsSMTP();
       $this->body($body);
       $this->Host = 'smtp.seznam.cz';

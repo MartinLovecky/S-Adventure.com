@@ -3,5 +3,5 @@ tmp/cache/
 public/images/
 vendor/envms/fluentpdo
 test/
-
-
+.*
+!.gitignore

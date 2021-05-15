@@ -84,7 +84,6 @@ public function resetDBHash($request,$hash){
     //reset update reset DB
     $set = ['password'=>$hash,'resetComplete'=>'YES'];
     $stmt = $this->_db->update('members')->set($set)->where('memberID',$request['id'])->execute();
-    $this->_db->close();
        return $stmt;
 }
 
