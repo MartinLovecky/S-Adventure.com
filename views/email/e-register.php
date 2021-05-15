@@ -13,9 +13,9 @@
   </tr>
   </tbody>
 </table>
-    <p style="font-size:15px;line-height:22px;margin:15px 0;padding:0;font-weight:bold">Dobrý den,</p>
-    <p style="font-size:15px;line-height:22px;margin:15px 0;padding:0">
-        Přihlášení na StarAdventure provedete pomocí uživatelského jména <strong><?php echo $username;?></strong>.
+    <p style="font-size:15px;line-height:22px;margin:15px 0;padding:0;font-weight:bold;color:#000">Dobrý den,</p>
+    <p style="font-size:15px;line-height:22px;margin:15px 0;padding:0;color:#000">
+        Přihlášení na StarAdventure provedete pomocí uživatelského jména <strong>YourUsername</strong>.
         Z bezpečnostních důvodů neposíláme Vaše heslo.
     </p>
     <h2 style="font-size:15px;margin:40px 0 0 0;padding:0">
@@ -43,7 +43,7 @@
         </tbody>
     </table>
     <span style="text-align:center;display:block">
-       <a href="http://sadventure.com/activate?x=<?php echo $id;?>&y=<?php echo $activasion;?>" style="background:#28a745;border-radius:4px;color:#fff;display:inline-block;font-weight:700;margin:16px auto 32px;padding:15px 25px;text-decoration:none" target="_blank" >
+       <a href="http://sadventure.com/activate?x=MemberID&y=ActivasionHash" style="background:#28a745;border-radius:4px;color:#fff;display:inline-block;font-weight:700;margin:16px auto 32px;padding:15px 25px;text-decoration:none" target="_blank" >
            Aktivovat účet &nbsp;»
        </a>
    </span>

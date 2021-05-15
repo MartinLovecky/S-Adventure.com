@@ -92,7 +92,6 @@ public function validateLogin($request){
     $result = $stmt->fetch();
     $active = $result['active'];
     $id = $result['memberID'];
-    $this->_db->close();
     if(!$this->_validCSFR($request))return ['message'=>$this->_message->message(['error'=>'Invalid CSRF'])];
     if(!$id)return['message'=>$this->_message->message(['error'=>'Uživatel neexistuje'])];
     if($active != 'YES')return['message'=>$this->_message->message(['error'=>'Uživatel není aktivní zkotrolujte e-mail'])];
@@ -131,7 +130,7 @@ public function checkActivation(){
     if(!isset($memberID) && !isset($active))return['message'=>'What are you trying to do'];
     $stmt = $this->_db->from('members')->select('active')->where('memberID',$memberID);
     $result = $stmt->fetch();
-    $this->_db->close();
+    
     if($result != $active)return['message'=>'No'];
         return ['memberID'=>$memberID];
 }

@@ -71,8 +71,7 @@ public function allMembers(){
 public function getMemberID($request){
      // get old pwd from db create token
      $stmt = $this->_db->from('members')->where('email',$request['email']);
-     $result = $stmt->fetchAll('memberID','password','username');
-     $this->_db->close();
+     $result = $stmt->fetchAll();
      if(!$result){
         return null;
      }

@@ -31,19 +31,17 @@ public function submitRegister($request){
     }
         $hashedpassword = password_hash($register['password'], PASSWORD_BCRYPT);
         $activate = md5(uniqid(rand(),true));
-        // INSERT validtated data to DB
-      
         $values = ['username'=>$register['username'],'password'=>$hashedpassword,'email'=>$register['email'],'active'=>$activate,'permission'=>'user','avatar'=>'empty_profile.png','bookmark'=>'0'];
         $stmt = $this->_db->insertInto('members')->values($values)->execute();
         $id = $this->_db->lastInsertId();
-        $this->_db->close(); 
-        
-        // SEND EMAIL 
-        $build = ['body'=>$this->_mail->includeWithVariables(DIR.'/views/email/e-register.php',['id'=>$id,'activasion'=>$activate,'username'=>$register['username']]),'subject'=>'Potvrzení registrace','to'=>$register['email']];
-        $this->_mail->builder($build);
-        if($this->_mail->send()){
-            Router::redirect('login?action=joined');
-        }
+
+        $bodyFile = file_get_contents(DIR.'/views/email/e-register.php');
+        $body = str_replace(['YourUsername','MemberID','ActivasionHash'],[$register['username'],$id,$activate],$bodyFile);
+        $info = ['subject'=>'Potvrzení registrace','to'=>$register['email']];
+        $this->_mail->builder($body,$info);
+            if($this->_mail->send()){
+                Router::redirect('login?action=joined');
+            }
     }
     return null; 
    
@@ -77,20 +75,23 @@ public function submitsendReset($request){
         return $this->_selector->message = $reset['message'];
     }
     else{
-        $result = $this->_member->getMemberID($request);
+        $result = $this->_member->getMemberID($request); # Array
         $token = hash_hmac('SHA256', $this->_member->generate_entropy(8), $result['password']);
         $storedToken = hash('SHA256', ($token));
         // store token
         $set = ['resetToken'=>$storedToken,'resetComplete'=>'No'];
         $stmt = $this->_db->update('members')->set($set)->where('memberID',$result['memberID'])->execute();
         $this->_db->close();
-        // Send email
-        $build = ['body'=>$this->_mail->includeWithVariables(DIR.'/views/email/pwd-reset.php',['username'=>$result['username'],'token'=>$token,'id'=>$result['memberID']]),'to'=>$reset['email'],'subject'=>'SA | Reset hesla'];
-        $this->_mail->builder($build);	
-        if($this->_mail->send()){
-            Router::redirect('login?action=reset');
+        // Not best solution but it works
+        $bodyFile =  file_get_contents(DIR.'/views/email/pwd-reset.php');
+        $body = str_replace(['YourUsername','Suplytoken','MemberID'],[$result['username'],$storedToken,$result['memberID']],$bodyFile);
+        $info = ['to'=>$reset['email'],'subject'=>'SA | Reset hesla'];
+        $this->_mail->builder($body,$info);	
+        return dd($this->_mail->builder($body,$info));
+            if($this->_mail->send()){
+                Router::redirect('login?action=reset');
+            }
         }
-    }
     }
     return null;
 }
