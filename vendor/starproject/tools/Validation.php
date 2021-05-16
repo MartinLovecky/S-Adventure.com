@@ -147,6 +147,36 @@ public function validateBookmark(){
 }
 
 public function validateUpdateMember($request){
-    return null;
+  
+    $name =  (trim($request['name']) === '') ? null : $this->sanitaze($request['name']);
+    $surname =  (trim($request['surname']) === '') ? null : $this->sanitaze($request['surname']);
+    $age = $request['age'] ?? null;
+    $location = (trim($request['location']) === '') ? null : $this->sanitaze($request['location']);
+    $username = $this->sanitaze($request['username']);
+    //"_token" => "$2y$10$4LM57c3SU0fMiwbQ88s15esbJrF6QeNyoBJf0W6S0wncUIaf0V8Fy";
+    
+    return ['name'=>$name,'surname'=>$suranme,'location'=>$location,'username'=>$username];
 }
+
+public function validateFile($file){
+    $fileName =  $file['name'];
+    $fileTmpName = $file['tmp_name'];
+    $fileType = $file['type'];
+    $fileSize = $file['size'];
+    $fileExt = explode('.',$fileName);
+    $realExt = strtolower(end($fileExt));
+    $allowedExt = ['jpg','jpeg','png'];
+
+    if(in_array($realExt,$allowedExt)){
+        if ($fileSize < 1000000) {
+            $fileNameNew = uniqid('',true).'.'.$realExt;
+            $upload_dir = 'public/images/avatars/'.$fileNameNew;
+            move_uploaded_file($fileTmpName,$upload_dir);
+                return $fileNameNew;  
+        }
+            return 'fileToBig';
+    }
+        return 'InvalidExt';
+}
+
 }

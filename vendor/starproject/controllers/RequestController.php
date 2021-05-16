@@ -34,7 +34,6 @@ public function submitRegister($request){
         $values = ['username'=>$register['username'],'password'=>$hashedpassword,'email'=>$register['email'],'active'=>$activate,'permission'=>'user','avatar'=>'empty_profile.png','bookmark'=>'0'];
         $stmt = $this->_db->insertInto('members')->values($values)->execute();
         $id = $this->_db->lastInsertId();
-
         $bodyFile = file_get_contents(DIR.'/views/email/e-register.php');
         $body = str_replace(['YourUsername','MemberID','ActivasionHash'],[$register['username'],$id,$activate],$bodyFile);
         $info = ['subject'=>'Potvrzení registrace','to'=>$register['email']];
@@ -123,16 +122,31 @@ public function submitKontakt($request){
 
 public function updateMember($request){
     if(!empty($request)){
-        $updateMember = $this->_validation->validateUpdateMember($request);
+        if(isset($_FILES['avatar'])){
+            $file = $_FILES['avatar'];
+            $fileValidation = $this->_validation->validateFile($file);
+            switch($fileValidation){
+                case 'fileToBig':
+                    return $this->_selector->message = '<div role="alert" class="alert alert-danger text-center text-danger"><span>Příliž velký obrázek</span></div>';
+                    break;
+                case 'InvalidExt':
+                    return $this->_selector->message = '<div role="alert" class="alert alert-danger text-center text-danger"><span>Soubor musí být pouze obrázek</span></div>';
+                    break;
+                default:
+                $filename = $fileValidation;
+            }
+        }
+    $updateMember = $this->_validation->validateUpdateMember($request);
     if(\array_key_exists('message',$updateMember)){
         return $this->_selector->message = $updateMember['message'];   
-        /*
-        $avatarx = (isset($_FILES['avatar']['name'])) ? $_FILES['avatar']['name'] : 'empty';
-        $temp = (isset($_FILES['avatar']['tmp_name'])) ? $_FILES['avatar']['tmp_name'] : 'empty';
-        */
-        //$set = null;
-        //return null;
     }
+        $visible =  (isset($request['visible'])) ? 1 : 0 ;
+        $set = ['name'=>$updateMember['name'],'surname'=>$updateMember['surname'],'avatar'=>$filename,'age'=>$updateMember['age'],'location'=>$updateMember['location'],'visible'=>$visible];
+        $stmt = $this->_db->update('members')->set($set)->where('username',$updateMember['username'])->execute();
+    if($stmt){
+        Router::redirect('member/'.$updateMember['username'].'?action=profilUpdate');  
+    }
+        return dd($updateMember);
     }
     return null;
 }
