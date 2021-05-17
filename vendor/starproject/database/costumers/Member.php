@@ -13,12 +13,11 @@ class Member extends Password{
     public $username,$permission,$email,$memberID,$loggedin,$avatar,$remember,$bookmarks;
 
 public function __construct(Datab $con,$userRemData = null){
-    //TODO: Now if Avatar is changed user need logout -> not good 
     $this->username = (isset($_SESSION['username'])) ? $_SESSION['username'] : $userRemData['username'];
     $this->permission = (isset($_SESSION['permission'])) ? $_SESSION['permission'] : 'visit' ;
     $this->memberID = (isset($_SESSION['memberID'])) ? $_SESSION['memberID'] : rand(1,9999) ;
     $this->loggedin = (isset($_SESSION['loggedin'])) ? $_SESSION['loggedin'] : false ;
-    $this->avatar = (isset($_SESSION['avatar'])) ? $_SESSION['avatar'] : 'empty_profile.png'; //! here is issue
+    $this->avatar = (isset($_SESSION['avatar'])) ? $_SESSION['avatar'] : 'empty_profile.png'; 
     $this->email = (isset($_SESSION['email'])) ? $_SESSION['email']  : null;
     $this->remember = (isset($_COOKIE['user.remember'])) ? true : false;
     $this->_db = $con->con();

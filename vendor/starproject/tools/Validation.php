@@ -166,7 +166,11 @@ public function validateFile($file){
     $fileExt = explode('.',$fileName);
     $realExt = strtolower(end($fileExt));
     $allowedExt = ['jpg','jpeg','png'];
-
+    # Delete old avatar from folder
+    if($this->_member->avatar !== 'empty_profile.png'){
+        \unlink('public/images/avatars/'.$this->_member->avatar);
+    }
+    # New Avatar
     if(in_array($realExt,$allowedExt)){
         if ($fileSize < 1000000) {
             $fileNameNew = uniqid('',true).'.'.$realExt;

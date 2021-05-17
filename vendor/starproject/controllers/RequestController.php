@@ -144,6 +144,7 @@ public function updateMember($request){
         $set = ['name'=>$updateMember['name'],'surname'=>$updateMember['surname'],'avatar'=>$filename,'age'=>$updateMember['age'],'location'=>$updateMember['location'],'visible'=>$visible];
         $stmt = $this->_db->update('members')->set($set)->where('username',$updateMember['username'])->execute();
     if($stmt){
+        @$_SESSION['avatar'] = $filename;
         Router::redirect('member/'.$updateMember['username'].'?action=profilUpdate');  
     }
         return dd($updateMember);
