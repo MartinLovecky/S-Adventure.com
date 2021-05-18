@@ -1,6 +1,6 @@
 # S-ADVENTURE
 
-![image_not_found](http://sadventure.xf.cz/views/includes/assets/img/apple-touch-icon.png)
+![image_not_found](http://sadventure.xf.cz/public/images/apple-touch-icon.png)
 
 Localhost test website using Blade engine
 
