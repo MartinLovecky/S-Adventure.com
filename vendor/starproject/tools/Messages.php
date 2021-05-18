@@ -2,20 +2,22 @@
 
 namespace starproject\tools;
 
-class Messages{
-    
-public function message($message){
-    if(isset($message['success'])){
-        return '<div role="alert" class="alert alert-success text-center text-success"><span>'.$message['success'].'</span></div>';
+class Messages
+{
+    public function message($message)
+    {
+        if (isset($message['success'])) {
+            return '<div role="alert" class="alert alert-success text-center text-success"><span>'.$message['success'].'</span></div>';
+        }
+        if (isset($message['error'])) {
+            return '<div role="alert" class="alert alert-danger text-center text-danger"><span>'.$message['error'].'</span></div>';
+        }
+        return null;
     }
-    if(isset($message['error'])){
-        return '<div role="alert" class="alert alert-danger text-center text-danger"><span>'.$message['error'].'</span></div>';
-    }
-    return null;
-}
 
-public function _getAction($action){
-    switch ($action) {
+    public function _getAction($action)
+    {
+        switch ($action) {
         case 'failExist':
             return $this->message(['error'=>'Stránka již existuije použijte /update']);
                 break;
@@ -68,12 +70,10 @@ public function _getAction($action){
             return $this->message(['success'=>'Přihlášení úspěšné']);
                 break;
         case 'permission':
-            return $this->message(['error'=>'Pro zobrazení se musíte <a href="/login"></br>Přihlásit</a> / <a href="/register">Registovat</a>']); 
+            return $this->message(['error'=>'Pro zobrazení se musíte <a href="/login"></br>Přihlásit</a> / <a href="/register">Registovat</a>']);
         case 'hash':
-            return $this->message(['error'=>'Pro změnu hesla je nutné ověřit e-mail']);     
+            return $this->message(['error'=>'Pro změnu hesla je nutné ověřit e-mail']);
                 default: null;
             }
     }
-    
 }
-
