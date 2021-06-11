@@ -2,7 +2,7 @@
 
 namespace starproject\tools;
 
-use starproject\database\Datab;
+use \starproject\database\Datab;
 use \starproject\tools\Messages;
 use \starproject\tools\Sanitazorx;
 use \starproject\database\costumers\Member;
@@ -187,7 +187,7 @@ class Validation extends Sanitazorx
     public function validateBookmark()
     {
         return [];
-
+        //TODO: Complete this
         /*
             if(!in_array($article,$selector->allowedAricles)){
             \header('Location: http://sadventure.com/404/')
@@ -197,6 +197,7 @@ class Validation extends Sanitazorx
 
     public function validateUpdateMember($request)
     {
+        //REVIEW: Test code change before public     
         $name =  (trim($request['name']) === '') ? null : $this->sanitaze($request['name']);
         $surname =  (trim($request['surname']) === '') ? null : $this->sanitaze($request['surname']);
         $age = $request['age'] ?? null;

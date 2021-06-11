@@ -6,14 +6,14 @@ Localhost test website using Blade engine
 
 ###Visual code extensions
 
-[BetterComments](https://github.com/aaron-bond/better-comments)
-[LaravelBladeSnippets](https://github.com/onecentlin/laravel-blade-snippets-vscode)
-[PHPNamespaceResolver](https://github.com/MehediDracula/PHP-Namespace-Resolver)
+[BetterComments](https://github.com/aaron-bond/better-comments)\
+[LaravelBladeSnippets](https://github.com/onecentlin/laravel-blade-snippets-vscode)\
+[PHPNamespaceResolver](https://github.com/MehediDracula/PHP-Namespace-Resolver)\
 [KiteAutoCompletion](https://marketplace.visualstudio.com/items?itemName=kiteco.kite)
 
 ###Used dependency
 
-[BladeOne](https://github.com/EFTEC/BladeOne)
-[VarDumper](https://github.com/symfony/var-dumper)
-[PHPMailer](https://github.com/PHPMailer/PHPMailer)
+[BladeOne](https://github.com/EFTEC/BladeOne)\
+[VarDumper](https://github.com/symfony/var-dumper)\
+[PHPMailer](https://github.com/PHPMailer/PHPMailer)\
 [PHPServer](https://github.com/felixfbecker/php-language-serverhttps)
