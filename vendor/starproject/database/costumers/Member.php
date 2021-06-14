@@ -16,7 +16,9 @@ class Member
     public $loggedin;
     public $avatar;
     public $remember;
+    public $bookmarkCount;
     public $bookmarks;
+
 
     public function __construct(Datab $con, $userRemData = null)
     {
@@ -28,6 +30,15 @@ class Member
         $this->email = (isset($_SESSION['email'])) ? $_SESSION['email']  : null;
         $this->remember = (isset($_COOKIE['user.remember'])) ? true : false;
         $this->_db = $con->con();
+    }
+
+    public function getUsrBookmark(){
+        if($this->loggedin){
+            $stmt = $this->_db->from('members')->where('memberID',$this->memberID)->execute();
+            $result = $stmt->fetch(); 
+                return ['bookmarkCount'=>$result['bookmark'],'bookmarks'=>json_decode($result['contentBook'],true)];
+        }
+        return ['bookmarkCount'=>0,'bookmarks'=>null];
     }
 
     public function isValidUsername($username)

@@ -29,19 +29,19 @@
             </div>
             <div class="col-xl-9 offset-xl-1">
                 <h2 style="color:#ffffff;margin-top:10vh;">Uložené záložky </h2>
-                <p style="color:#ff9292">* Maximální počet záložek je 12. Uložit záložku lze pouze při čtení příběhu v menu uživatele. 
+                <p style="color:#73b6ff">* Maximální počet záložek je 12. Uložit záložku lze pouze při čtení příběhu v menu uživatele. 
                 <div class="row justify-content-center features" id="bookmarks">
-                    @if(empty($member->bookmarks))
+                    @if($member->bookmarkCount == 0)
                     <div class="col-sm-6 col-md-5 col-lg-4 item">
                         <div class="box">
                             <a class="learn-more" style="pointer-events: none; cursor: default;"> Nemáte žádnou uloženou záložku </a>
                         </div>
                     </div>
                     @else
-                    @foreach ($member->bookmarks as $bookmarkName => $bookmarkLink)
+                    @foreach ($member->bookmarks as $key => $value)
                     <div class="col-sm-6 col-md-5 col-lg-4 item">
                         <div class="box">
-                            <a class="learn-more" href="#">Záložka »</a>
+                            <a class="learn-more" href="/{{$value}}">Záložka-{{$member->bookmarkCount--}} »</a>
                         </br>
                         <a class="learn-more" href="#">Smazat</a>
                         </div>

@@ -11,7 +11,7 @@
                             <a class="dropdown-item text-center nav-link @if($selector->article == 'isamanw'){{'active'}}@endif" role="presentation" href="/show/isamanw/1">Nový svět</a>
                         </div>
                     </li>
-                    <li class="nav-item" role="presentation"><a class="nav-link text-capitalize text-center" href="/chars">Postavy</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link text-capitalize text-center" href="/postavy">Postavy</a></li>
                     <li class="dropdown nav-item"><a class="dropdown-toggle nav-link text-capitalize text-center" data-toggle="dropdown" aria-expanded="false" href="#">Ostatní</a>
                         <div class="dropdown-menu text-center" role="menu">
                             <a class="dropdown-item text-center nav-link @if($selector->article == 'mry'){{'active'}}@endif" role="presentation" href="/show/mry/1">Mr. Y</a>

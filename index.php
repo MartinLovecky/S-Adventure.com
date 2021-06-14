@@ -31,7 +31,6 @@
 
     //! Be sure to use correct connect info for your DB  inside DBcon
     $db->stateMode = 'localhost';
-    
 // Check user remeber
     if (isset($_COOKIE['user_remember'])) {
         $con = $db->con();
@@ -50,8 +49,13 @@
     $requestController = new RequestController($validation, $member, $mail, $selector, $db);
     $articlesController = new ArticlesController($selector, $member, $message, $db);
     $router = new Router($data = require(DIR . '/core/app/routerData.php'));
-    //! We need call this function to use @csrf
+//! call this function to use @csrf
     $blade->getCsrfToken($selector);
+//! call this function for bookmarks work
+    $book = $member->getUsrBookmark();
+    $member->bookmarkCount = $book['bookmarkCount'];
+    //If bookmarks are empty this is null
+    $member->bookmarks = $book['bookmarks'];    
 // Run APP
     echo $router->runApp();
     if ($member->loggedin) {

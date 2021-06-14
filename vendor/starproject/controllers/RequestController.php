@@ -67,7 +67,7 @@ class RequestController
             $values = ['remeber'=>$key];
             stmt = $this->_db->insertInto('members')->values($values)->where('username',$request['username'])->execute();
 
-    }*/
+        }*/
         }
         return null;
     }
@@ -172,33 +172,40 @@ class RequestController
         $this->_db->close();
         Router::redirect('login?action=active');
     }
-
+    //TODO: better message for this function use  selector->message
     public function saveBookmark($article, $page)
     {
         $validateBookmark = $this->_validation->validateBookmark($article, $page);
         if (\array_key_exists('message', $validateBookmark)) {
             Router::redirect('member/'.$this->_member->username.'?action=failActive');
         }
-        // get number of bookmarks max 12
-        $stmt = $this->_db->from('members')->select('bookmark')->where('memberID', $this->_member->memberID);
-        // 1 2 3 4 5 6 7  8 9 10 11 12
-        $bookmark = (int)$stmt->fetch('bookmark');
-        // IF bookmark is 12 and user try add new Redirect and die script !immportant
-        $bookmark++;
-        if ($bookmark >= 12) {
-            Router::redirect('member/'.$this->_member->username.'?action=maxBookmarks');
+        // 0 is default value from  $member->getUsrBookmark() - DB
+        $bookmark = (int)$this->_member->bookmarkCount;
+        // frist bookmark
+        if($bookmark === 0){
+            $bookmark++;
+            $bookmarkContent = ['num'.$bookmark =>'show/'.$article.'/'.$page.''];
+            $set = ['bookmark'=>$bookmark,'contentBook'=>json_encode($bookmarkContent)];
+            $stmt = $this->_db->update('members')->set($set)->where('memberID',$this->_member->memberID)->execute();
+            if($stmt){
+                return header('Location: http://sadventure.com/member/'.$member->username.'?action=savedBookmark');;
+            }
+                //return error msg
+              
+        }// next bookmarks  
+        else{
+            $bookmark++;
+            $next = ['num'.$bookmark =>'show/'.$article.'/'.$page.''];
+            $oldbookmarknum = $bookmark - 1;
+            $old = ['num'.$oldbookmarknum => 'show/'.$article.'/'.$page.''];
+            $savedBookmark = array_merge($old,$next);
+            $set = ['bookmark'=>$bookmark,'contentBook'=>json_encode($savedBookmark)];
+            $stmt = $this->_db->update('members')->set($set)->where('memberID', $this->_member->memberID)->execute();
+            if($stmt){
+                return  header('Location: http://sadventure.com/member/'.$member->username.'?action=savedBookmark');;
+            }
+                //return error msg
         }
-        // update number of bookmarks
-        $set = ['bookmark'=>$bookmark];
-        $stmt = $this->_db->update('members')->set($set)->where('memberID', $this->_member->memberID)->execute();
-        $this->_db->close();
-        // bookmark is number bettwen 1 - 12 also $this->_member->bookmarks is array
-        if (isset($_SESSION['bookmark'])) {
-            $next = ['bookmark'.$bookmark.''=> 'show/'.$article.'/'.$page.''];
-            $savedBookmark = array_merge($_SESSION['bookmark'], $next);
-            return $savedBookmark;
-        }
-        $savedBookmark = ['bookmark'.$bookmark.''=> 'show/'.$article.'/'.$page.''];
-        return $savedBookmark;
+        // return error message
     }
 }

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('roster')
+@dump($selector->title())
 <div class="projects-horizontal">
     <div class="container">
         <div class="intro"><h2 class="text-center">Seznam všech příběhů</h2></div>
@@ -7,13 +8,12 @@
             @foreach ($articlesController->getArticles() as $articles)          
             <div class="col-sm-6 item">
                 <div class="row">
-                    <div class="col-md-12 col-lg-5"><img src="{{$articles['img']}}" class="img-fluid" alt="Article img" /></div>
+                    <div class="col-md-12 col-lg-5"><img src="{{$articles['img']}}" class="img-fluid" alt="img" /></div>
                     <div class="col">
-                        <h3 class="name">{{$articles[0]}}</h3>
+                        <h3 class="name"><a href="{{$articles['url']}}">{{$articles[0]}}</a></h3>
                         <p class="text-left description">{{$articles['description']}}</p>
-                        <a class="btn btn-outline-link" role="button" href="{{$articles['url']}}" style>Čti zde<i class="fa fa-play"></i></a></div>
+                    </div>
                 </div>
-                
             </div>
             @endforeach
             </div>

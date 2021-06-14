@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@include('layouts.menu')
+
 @section('postavy')
 
 <div class="table-responsive">
@@ -587,7 +589,6 @@
         <caption class="lead" id="table">Postavy </caption>
     </table>
 </div>
-
+@include('layouts.footer')
 @endsection
 
-@include('layouts.footer')

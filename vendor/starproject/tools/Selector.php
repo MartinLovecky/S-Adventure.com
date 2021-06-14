@@ -36,7 +36,7 @@ class Selector
     {
         if ($this->action === '' || $this->action === 'index') {
             return 'SA | Home';
-        } elseif ($this->action === 'show') {
+        } elseif ($this->action === 'show' && isset($this->article)) {
             return $this->article.'-'.$this->page;
         }
         return 'SA | '.ucfirst($this->action);
